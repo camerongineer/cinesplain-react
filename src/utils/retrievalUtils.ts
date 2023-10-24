@@ -115,3 +115,6 @@ export const getYouTubeTrailerPath = (videoKey: string) => `https://www.youtube.
 export const getMoviesPath = (query: string, page: number, includeAdult: boolean = false) => (
     `https://api.themoviedb.org/3/search/movie?query=${query}?&api_key=${process.env.REACT_APP_TMDB_API_KEY}&include_adult=${includeAdult}&language=en-US&page=${page}`
 );
+
+export const getMovieCastPath = (movieId: string) =>
+    `https://api.themoviedb.org/3/movie/${movieId}/credits?language=en-US&api_key=${process.env.REACT_APP_TMDB_API_KEY}`
