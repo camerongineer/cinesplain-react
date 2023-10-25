@@ -16,15 +16,17 @@ interface HeaderProps {
 const StyledAppBar = styled(AppBar)(({ theme }) => ({
     background: theme.palette.background.paper,
     color: theme.palette.text.primary,
+    display: "flex",
     position: "sticky",
     alignItems: "center",
+    justifyContent: "center",
     zIndex: 9999
 }));
 
 const CenteredToolbar = styled(Toolbar)(({ theme }) => ({
     maxWidth: (theme.breakpoints.values.xl - 100),
-    width: "95%",
-    marginTop: 6
+    width: "90%",
+    marginTop: 6,
 }));
 
 const Header: React.FC<HeaderProps> = (props) => {

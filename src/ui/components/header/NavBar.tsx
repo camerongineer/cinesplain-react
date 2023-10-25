@@ -54,7 +54,7 @@ const NavBar: React.FC<NavBarProps> = ({
                 
                 </Box>
             </Grid>
-            <Grid item xs={4} sm={4} lg={3} sx={{ display: "flex" }}>
+            <Grid item xs={4} sm={4} sx={{ display: "flex" }}>
                 <Tabs indicatorColor={"secondary"} textColor={"inherit"}
                       value={selectedTab}
                       onChange={handleTabClick}>
@@ -64,7 +64,7 @@ const NavBar: React.FC<NavBarProps> = ({
                 </Tabs>
             </Grid>
             <Grid item xs={3} sm={3} lg={5}/>
-            <Grid item xs={1} display={"flex"} justifyContent={"end"}>
+            <Grid item xs={1}  display={"flex"} justifyContent={"end"}>
                 <IconButton sx={{ marginLeft: "auto" }} onClick={onSearchButtonClicked}>
                     <SearchIcon/>
                 </IconButton>
