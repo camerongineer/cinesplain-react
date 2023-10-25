@@ -1,11 +1,11 @@
 import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { Box, Modal, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
-import MovieCard from "./MovieCard";
-import { StandardTypography } from "../../styles/Typography";
-import Movie from "../../../models/movie";
-import SearchField from "../header/SearchField";
-import { getMoviesPath, retrieveMovies } from "../../../utils/retrievalUtils";
+import MovieCard from "../moviePage/MovieCard";
+import { StandardTypography } from "../../../styles/Typography";
+import Movie from "../../../../models/movie";
+import SearchField from "./SearchField";
+import { getMoviesPath, retrieveMovies } from "../../../../utils/retrievalUtils";
 
 interface SearchModalProps {
     isModalOpen: boolean;
@@ -36,12 +36,10 @@ const SearchModal: React.FC<SearchModalProps> = ({ isModalOpen, onModalEvent }) 
             if (!searchQuery) {
                 setMovies([]);
             } else {
-                retrieveMovies(getMoviesPath(searchQuery, 1))
-                .then(newMovies => {
+                retrieveMovies(getMoviesPath(searchQuery, 1)).then(newMovies => {
                     setMovies(newMovies ? newMovies : []);
                     if (newMovies?.length === 0) setInvalidQueryPrompt(true);
-                })
-                .catch(error => {
+                }).catch(error => {
                     console.error(error);
                     setMovies([]);
                 });
@@ -59,7 +57,7 @@ const SearchModal: React.FC<SearchModalProps> = ({ isModalOpen, onModalEvent }) 
         <>
             <Modal open={isModalOpen}
                    onClose={onModalEvent}
-                   style={{color: "white"}}
+                   style={{ color: "white" }}
             >
                 <Box width={"100%"}
                      height={"100%"}
@@ -71,7 +69,7 @@ const SearchModal: React.FC<SearchModalProps> = ({ isModalOpen, onModalEvent }) 
                     <Box minWidth={"250px"}
                          width={"25%"}
                          marginTop={11}
-                         
+                    
                     >
                         <SearchField searchQuery={searchQuery}
                                      onQueryChange={handleQueryChange}

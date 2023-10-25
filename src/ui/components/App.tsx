@@ -1,9 +1,9 @@
 import "../images/c_marr_icon.png";
 import React, { useState } from "react";
-import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Header from "./header/Header";
-import MoviePage from "./content/MoviePage";
-import { Box, styled, ThemeProvider, useTheme } from "@mui/material";
+import MoviePage from "./content/moviePage/MoviePage";
+import { Box, styled, ThemeProvider } from "@mui/material";
 import defaultTheme from "../themes/defaultTheme";
 
 const StyledApp = styled(Box)(({ theme }) => ({

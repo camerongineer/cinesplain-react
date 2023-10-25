@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import NavBar from "./NavBar";
 import { AppBar,styled, Toolbar, useMediaQuery, useTheme } from "@mui/material";
-import SearchModal from "../content/SearchModal";
+import SearchModal from "../content/search/SearchModal";
 
 export enum HeaderLink {
     MOVIE = "Movies",

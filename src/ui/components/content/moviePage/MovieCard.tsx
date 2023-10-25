@@ -7,9 +7,9 @@ import {
     CardMedia, Rating,
     styled, useTheme
 } from "@mui/material";
-import Movie from "../../../models/movie";
-import { StandardTypography } from "../../styles/Typography";
-import { getFormattedDate } from "../../../utils/formatUtils";
+import Movie from "../../../../models/movie";
+import { StandardTypography } from "../../../styles/Typography";
+import { getFormattedDate } from "../../../../utils/formatUtils";
 
 const StyledCard = styled(Card)(({ theme }) => ({
     background: theme.palette.background.paper,

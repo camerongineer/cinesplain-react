@@ -2,7 +2,6 @@ import { Drawer, IconButton, List, ListItemButton, ListItemText, Tab, Tabs } fro
 import React, { ChangeEvent, useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import { HeaderLink } from "./Header";
-import SearchField from "./SearchField";
 import { StandardTypography } from "../../styles/Typography";
 
 interface NavDrawerProps {
