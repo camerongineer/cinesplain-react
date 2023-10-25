@@ -1,4 +1,9 @@
-
+import React from "react";
+import { Box } from "@mui/material";
+import { SxProps } from "@mui/system";
+import { Theme } from "@mui/material/styles";
+import Movie from "../../../../models/movie";
+import { getYouTubeTrailerPath } from "../../../../utils/retrievalUtils";
 
 interface TrailerCardProps {
     movie: Movie;
