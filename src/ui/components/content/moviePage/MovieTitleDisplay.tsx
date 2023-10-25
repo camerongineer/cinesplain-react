@@ -3,8 +3,8 @@ import { Grid, Rating, styled } from "@mui/material";
 import MovieCard from "./MovieCard";
 import Movie from "../../../../models/movie";
 import { getBackdropPath } from "../../../../utils/retrievalUtils";
-import TitleTypography from "../../common/TitleTypography";
-import ReleaseDateTypography from "../../common/ReleaseDateTypography";
+import TitleDisplay from "../../common/TitleDisplay";
+import ReleaseDateDisplay from "../../common/ReleaseDateDisplay";
 import GenreDisplay from "../../common/GenreDisplay";
 
 interface MovieTitleDisplayProps {
@@ -66,8 +66,8 @@ const MovieTitleDisplay: React.FC<MovieTitleDisplayProps> = ({ movie }) => {
             <Grid item xs={1}/>
             <Grid item xs={4} display={"flex"} flexDirection={"column"} alignItems={"center"} justifyContent={"center"}>
                 <Grid item xs={2}/>
-                <TitleTypography title={movie.movieTitle}/>
-                <ReleaseDateTypography releaseDate={movie.releaseDate} sx={{ mb: 4 }}/>
+                <TitleDisplay title={movie.movieTitle}/>
+                <ReleaseDateDisplay releaseDate={movie.releaseDate} sx={{ mb: 4 }}/>
                 <GenreDisplay genres={movie.genres}/>
                 {movie.voteCount > 3 &&
                     <Rating name="read-only"

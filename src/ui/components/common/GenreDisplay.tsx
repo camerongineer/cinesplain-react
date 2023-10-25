@@ -12,7 +12,7 @@ interface GenreDisplayProps {
 
 const GenreDisplay: React.FC<GenreDisplayProps> = ({ genres, sx }) => (
     <>
-        <StandardTypography sx={sx}>
+        {genres.length > 0 && <StandardTypography sx={sx}>
             {genres.map((genre) => {
                 return <Button variant={"contained"}
                                size={"small"}
@@ -20,7 +20,7 @@ const GenreDisplay: React.FC<GenreDisplayProps> = ({ genres, sx }) => (
                                key={genre.name}>{genre.name}
                 </Button>;
             })}
-        </StandardTypography>
+        </StandardTypography>}
     </>
 );
 

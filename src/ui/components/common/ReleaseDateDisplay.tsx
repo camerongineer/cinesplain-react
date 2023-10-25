@@ -4,21 +4,20 @@ import { SxProps } from "@mui/system";
 import { Theme } from "@mui/material/styles";
 import { getFormattedDate } from "../../../utils/formatUtils";
 
-interface ReleaseDateTypographyProps {
+interface ReleaseDateDisplayProps {
     releaseDate: string;
     sx?: SxProps<Theme>;
 }
 
-const ReleaseDateTypography: React.FC<ReleaseDateTypographyProps> = ({ releaseDate, sx }) => {
-    const date = Date.parse(releaseDate);
+const ReleaseDateDisplay: React.FC<ReleaseDateDisplayProps> = ({ releaseDate, sx }) => {
     return (
         <>
             <StandardTypography
-                variant={"h5"}
-                sx={sx}>{`Release${date > Date.now() ? "s" : "d"}: ${getFormattedDate(releaseDate)}`}
+                variant={"h6"}
+                sx={sx}>{getFormattedDate(releaseDate)}
             </StandardTypography>
         </>
     );
 };
 
-export default ReleaseDateTypography;
+export default ReleaseDateDisplay;
