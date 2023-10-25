@@ -61,8 +61,8 @@ const SearchModal: React.FC<SearchModalProps> = ({ isModalOpen, onModalEvent }) 
                    onClose={onModalEvent}
                    style={{color: "white"}}
             >
-                <Box width={"100vw"}
-                     height={"100vh"}
+                <Box width={"100%"}
+                     height={"100%"}
                      display={"flex"}
                      flexDirection={"column"}
                      alignItems={"center"}

@@ -1,12 +1,9 @@
 import "../../images/c_marr_icon.png";
-import {
-    Box,
-    Grid, IconButton, styled, Tab, Tabs
-} from "@mui/material";
+import { Box, Grid, IconButton, styled, Tab, Tabs } from "@mui/material";
 import React from "react";
 import { HeaderLink } from "./Header";
 import { StandardTypography } from "../../styles/Typography";
-import SearchIcon from '@mui/icons-material/Search';
+import SearchIcon from "@mui/icons-material/Search";
 
 const SlidingLogo = styled("img")`
   width: 150px;
@@ -44,7 +41,7 @@ const NavBar: React.FC<NavBarProps> = ({
     
     return (
         <Grid container spacing={1}>
-            <Grid item xs={3}>
+            <Grid item xs={5} sm={3}>
                 <Box>
                     <a href={"/"}>
                         <SlidingLogo
@@ -57,7 +54,7 @@ const NavBar: React.FC<NavBarProps> = ({
                 
                 </Box>
             </Grid>
-            <Grid item xs={4} sx={{ display: "flex", justifyContent: "center" }}>
+            <Grid item xs={4} sx={{ display: "flex" }}>
                 <Tabs indicatorColor={"secondary"} textColor={"inherit"}
                       value={selectedTab}
                       onChange={handleTabClick}>
@@ -66,10 +63,10 @@ const NavBar: React.FC<NavBarProps> = ({
                                                   label={<StandardTypography>{link}</StandardTypography>}/>)}
                 </Tabs>
             </Grid>
-            <Grid item xs={2}/>
-            <Grid item xs={3}>
-                <IconButton sx={{ marginRight: "auto" }} onClick={onSearchButtonClicked}>
-                <SearchIcon/>
+            <Grid item xs={2} sm={4}/>
+            <Grid item xs={1} display={"flex"} justifyContent={"end"}>
+                <IconButton sx={{ marginLeft: "auto" }} onClick={onSearchButtonClicked}>
+                    <SearchIcon/>
                 </IconButton>
             </Grid>
         </Grid>

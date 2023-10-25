@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import NavBar from "./NavBar";
-import { AppBar, Box, Container, styled, Toolbar, useMediaQuery, useTheme } from "@mui/material";
-import NavDrawer from "./NavDrawer";
+import { AppBar,styled, Toolbar, useMediaQuery, useTheme } from "@mui/material";
 import SearchModal from "../content/SearchModal";
 
 export enum HeaderLink {
@@ -23,9 +22,9 @@ const StyledAppBar = styled(AppBar)(({ theme }) => ({
 }));
 
 const CenteredToolbar = styled(Toolbar)(({ theme }) => ({
-  maxWidth: (theme.breakpoints.values.xl - 20),
-  width: "100%",
-  marginTop: 6
+    maxWidth: (theme.breakpoints.values.xl - 100),
+    width: "95%",
+    marginTop: 6
 }));
 
 const Header: React.FC<HeaderProps> = (props) => {
@@ -33,7 +32,6 @@ const Header: React.FC<HeaderProps> = (props) => {
     const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
     const [animateLogo, setAnimateLogo] = useState(true);
     const [searchModalOpen, setSearchModalOpen] = useState<boolean>(false);
-    
     
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -47,11 +45,11 @@ const Header: React.FC<HeaderProps> = (props) => {
     
     const handleSearchButtonClick = () => {
         setSearchModalOpen(!searchModalOpen);
-    }
+    };
     
     return (
         <>
-        {searchModalOpen && <SearchModal isModalOpen={searchModalOpen} onModalEvent={handleSearchButtonClick}/>}
+            {searchModalOpen && <SearchModal isModalOpen={searchModalOpen} onModalEvent={handleSearchButtonClick}/>}
             <StyledAppBar>
                 <CenteredToolbar>
                     {/*{isSmallScreen &&*/}
