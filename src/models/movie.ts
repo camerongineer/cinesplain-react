@@ -4,12 +4,14 @@ import ProductionCompany from "./productionCompany";
 import ProductionCountry from "./productionCountry";
 import Language from "./language";
 import Video from "./video";
+import CastMember from "./castMember";
 
 class Movie {
     private readonly _adult: boolean;
     private readonly _backdropPath: string;
     private readonly _belongsToCollection: Collection[];
     private readonly _budget: number;
+    private _credits: CastMember[] | undefined;
     private readonly _genres: Genre[];
     private readonly _imdbId: string;
     private readonly _movieId: number;
@@ -100,6 +102,14 @@ class Movie {
     
     get budget (): number {
         return this._budget;
+    }
+    
+    get credits (): CastMember[] {
+        return this._credits ? this._credits : [];
+    }
+    
+    set credits (value: CastMember[] | undefined) {
+        this._credits = value;
     }
     
     get genres (): Genre[] {
