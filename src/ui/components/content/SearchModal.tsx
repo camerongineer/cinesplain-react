@@ -70,7 +70,6 @@ const SearchModal: React.FC<SearchModalProps> = ({ isModalOpen, onModalEvent }) 
                 >
                     <Box minWidth={"250px"}
                          width={"25%"}
-                         style={{backgroundColor: "rgb(255, 255, 255, 0.4)"}}
                          marginTop={11}
                          
                     >

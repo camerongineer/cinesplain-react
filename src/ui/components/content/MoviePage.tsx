@@ -13,7 +13,7 @@ const StyledMoviePage = styled(Box)(({ theme }) => ({
     height: "100%",
     fontSize: "calc(10px + 2vmin)",
     alignSelf: "self-start",
-    color: "white"
+    color: "white",
 }));
 
 interface MoviePageProps {
@@ -44,7 +44,7 @@ const MoviePage: React.FC<MoviePageProps> = ({ loadedMovie }) => {
             <MovieTitleDisplay key={movie?.movieId} movie={movie}/>
             <Box flexDirection={"column"} sx={{ backgroundColor: theme.palette.background.paper }} padding={4}
                  height={"100vh"}>
-                {movie && <TrailerCard movie={movie} sx={{ width: "800px", height: "450px" }}/>}
+                {movie && <TrailerCard movie={movie} sx={{ width: "80%", aspectRatio: "16/9"}}/>}
                 <StandardTypography variant={"h4"} paddingTop={2} paddingBottom={1}
                                     color={"black"}>Overview</StandardTypography>
                 <StandardTypography variant={"h6"} paddingBottom={5}

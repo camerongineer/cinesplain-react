@@ -1,12 +1,16 @@
-import { styled, TextField } from "@mui/material";
+import { Grid, styled, TextField } from "@mui/material";
 import React, { ChangeEvent, FormEvent } from "react";
 import { SxProps } from "@mui/system";
 import { Theme } from "@mui/material/styles";
 
-const StyledTextField = styled(TextField)`
-  display: flex;
-  width: 100%;
-`;
+const StyledTextField = styled(TextField)(({ theme }) => ({
+    fieldset: {
+        background: "rgb(255, 255, 255, 0.5)",
+    },
+    input: {
+        color: theme.palette.getContrastText(theme.palette.background.default),
+    }
+}));
 
 interface SearchFieldProps {
     searchQuery: string,
@@ -21,10 +25,12 @@ const SearchField: React.FC<SearchFieldProps> = ({ searchQuery, onQueryChange, o
                      component={"form"}
                      onChange={onQueryChange}
                      onSubmit={onQuerySubmit}
-                     label={labelText}
+                     placeholder={labelText}
                      sx={sx}
                      variant={"outlined"}
-                     color={"primary"}
+                     color={"secondary"}
+                     fullWidth
+                     autoFocus
     />
 );
 
