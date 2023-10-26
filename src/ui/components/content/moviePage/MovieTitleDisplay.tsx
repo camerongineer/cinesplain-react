@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Grid, Rating, styled } from "@mui/material";
+import { Box, Grid, Rating, styled } from "@mui/material";
 import MovieCard from "./MovieCard";
 import Movie from "../../../../models/movie";
 import { getBackdropPath } from "../../../../utils/retrievalUtils";
@@ -11,15 +11,12 @@ interface MovieTitleDisplayProps {
     movie: Movie | null;
 }
 
-const StyledGrid = styled(Grid)(({ theme }) => ({
-    backgroundSize: "cover",
-    backgroundPosition: "center right",
-    backgroundRepeat: "no-repeat",
-    height: "50vh",
-    minHeight: "500px",
-    transition: `opacity ${theme.transitions.duration.short}ms ease-in-out`,
-    color: theme.palette.getContrastText("rgba(0, 0, 0, 0.4)")
-}));
+const StyledGrid = styled(Grid)`
+  width: 100%;
+  padding: 5% 0;
+  transition: ${props => `opacity ${props.theme.transitions.duration.short}ms ease-in-out`};
+  color: ${props => props.theme.palette.getContrastText("rgba(0, 0, 0, 0.4)")};
+`;
 
 const MovieTitleDisplay: React.FC<MovieTitleDisplayProps> = ({ movie }) => {
     const [backgroundImage, setBackgroundImage] = useState<string | null>(null);
@@ -33,6 +30,7 @@ const MovieTitleDisplay: React.FC<MovieTitleDisplayProps> = ({ movie }) => {
         const backgroundImageUrl = backgroundImage;
         const backgroundImg = new Image();
         backgroundImg.src = backgroundImageUrl;
+        backgroundImg.alt = "Movie Backdrop";
         backgroundImg.onload = () => {
             setBackgroundImageLoaded(true);
         };
@@ -47,28 +45,56 @@ const MovieTitleDisplay: React.FC<MovieTitleDisplayProps> = ({ movie }) => {
     
     const backgroundStyle = {
         background: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.7)), url(${backgroundImage})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center left",
         opacity: !backgroundImageLoaded || !movie?.posterPath ? 0 : 1
     };
     
     return (
-        movie && <StyledGrid container padding={1} sx={backgroundStyle}>
-            <Grid item xs={12}></Grid>
-            <Grid item xs={2}> </Grid>
-            <Grid item xs={3} display={"flex"} justifyItems={"center"} alignItems={"center"}>
-                <MovieCard style={{
-                    height: "auto",
-                    width: "auto",
-                    maxHeight: "100%",
-                    maxWidth: "300px",
-                    minWidth: 120
-                }} movie={movie} onHover={() => {}}
-                           isExpandable={false}/>
+        movie &&
+        <StyledGrid container
+                    padding={2}
+                    sx={backgroundStyle}>
+            <Grid item
+                  xs={0}
+                  sm={1}/>
+            <Grid item
+                  xs={12}
+                  sm={4}>
+                <Box style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                }}>
+                    <MovieCard
+                        style={{
+                            height: "auto",
+                            width: "auto",
+                            maxHeight: "100%",
+                            maxWidth: "250px",
+                            minWidth: 120,
+                        }}
+                        movie={movie}
+                        onHover={() => {}}
+                        isExpandable={false}
+                    />
+                </Box>
             </Grid>
-            <Grid item xs={1}/>
-            <Grid item xs={4} display={"flex"} flexDirection={"column"} alignItems={"center"} justifyContent={"center"}>
-                <Grid item xs={2}/>
+            <Grid item
+                  xs={0}
+                  sm={1}/>
+            <Grid item
+                  xs={12}
+                  sm={5}
+                  p={{ xs: 3, sm: 0 }}
+                  display={"flex"}
+                  flexDirection={"column"}
+                  alignItems={"center"}
+                  justifyContent={"center"}>
                 <TitleDisplay title={movie.movieTitle}/>
-                <ReleaseDateDisplay releaseDate={movie.releaseDate} sx={{ mb: 4 }}/>
+                <ReleaseDateDisplay releaseDate={movie.releaseDate}
+                                    sx={{ mb: 4 }}/>
                 <GenreDisplay genres={movie.genres}/>
                 {movie.voteCount > 3 &&
                     <Rating name="read-only"
@@ -76,10 +102,10 @@ const MovieTitleDisplay: React.FC<MovieTitleDisplayProps> = ({ movie }) => {
                             size="medium"
                             value={Math.max(movie.voteAverage / 2, 0.5)}
                             readOnly/>}
-            
             </Grid>
-            <Grid item xs={2}/>
-            <Grid item xs={12}></Grid>
+            <Grid item
+                  xs={0}
+                  sm={1}/>
         </StyledGrid>
     );
 };

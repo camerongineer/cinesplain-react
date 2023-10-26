@@ -17,18 +17,17 @@ const StyledCard = styled(Card)(({ theme }) => ({
     
     "@keyframes Card-Wobble": {
         from: {
-            transform: "rotate(-1deg)",
+            transform: "rotate(-1deg)"
         },
         to: {
-            transform: "rotate(1deg)",
-        },
+            transform: "rotate(1deg)"
+        }
     },
     
     "&:hover": {
-        transform: "scale(1.5)",
-    },
+        transform: "scale(1.5)"
+    }
 }));
-
 
 export interface MovieCardProps {
     movie: Movie;
@@ -62,7 +61,9 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, onHover, isExpandable, sty
             sx={{
                 flex: 1,
                 zIndex: 2,
-                animation: `Card-Wobble infinite ${movie.voteAverage ? (4 * (movie.voteAverage / 10)) : 3}s alternate`,
+                animation: `Card-Wobble infinite ${movie.voteAverage
+                    ? (4 * (movie.voteAverage / 10))
+                    : 3}s alternate`,
                 visibility: imageLoaded || !movie.posterPath ? "visible" : "hidden",
                 opacity: imageLoaded || !movie.posterPath ? 1 : 0,
                 transition: `opacity ${theme.transitions.duration.complex}ms ease-in-out`
