@@ -17,7 +17,8 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
     backgroundRepeat: "no-repeat",
     height: "50vh",
     minHeight: "500px",
-    transition: `opacity ${theme.transitions.duration.short}ms ease-in-out`
+    transition: `opacity ${theme.transitions.duration.short}ms ease-in-out`,
+    color: theme.palette.getContrastText("rgba(0, 0, 0, 0.4)")
 }));
 
 const MovieTitleDisplay: React.FC<MovieTitleDisplayProps> = ({ movie }) => {

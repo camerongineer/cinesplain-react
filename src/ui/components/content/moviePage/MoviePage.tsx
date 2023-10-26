@@ -6,6 +6,7 @@ import { Box, styled, useTheme } from "@mui/material";
 import { StandardTypography } from "../../../styles/Typography";
 import MovieTitleDisplay from "./MovieTitleDisplay";
 import TrailerDisplay from "./TrailerDisplay";
+import TaglineDisplay from "../../common/TaglineDisplay";
 
 const StyledMoviePage = styled(Box)(({ theme }) => ({
     width: theme.breakpoints.values.xl,
@@ -13,7 +14,7 @@ const StyledMoviePage = styled(Box)(({ theme }) => ({
     height: "100%",
     fontSize: "calc(10px + 2vmin)",
     alignSelf: "self-start",
-    color: "white"
+    color: theme.palette.text.primary
 }));
 
 interface MoviePageProps {
@@ -40,15 +41,17 @@ const MoviePage: React.FC<MoviePageProps> = ({ loadedMovie }) => {
     }, [movieId]);
     
     return (
-        <StyledMoviePage key={location.pathname}>
+        movie && <StyledMoviePage key={location.pathname}>
             <MovieTitleDisplay key={movie?.movieId} movie={movie}/>
-            <Box flexDirection={"column"} sx={{ backgroundColor: theme.palette.background.paper }} padding={4}
+            <Box flexDirection={"column"}
+                 sx={{ backgroundColor: theme.palette.background.paper }}
+                 padding={4}
                  height={"100vh"}>
-                {movie && <TrailerDisplay movie={movie} sx={{ width: "80%", aspectRatio: "16/9" }}/>}
+                <TaglineDisplay tagline={movie.tagline}/>
+                <TrailerDisplay movie={movie} sx={{ width: "80%", aspectRatio: "16/9" }}/>
                 <StandardTypography variant={"h4"} paddingTop={2} paddingBottom={1}
                                     color={"black"}>Overview</StandardTypography>
-                <StandardTypography variant={"h6"} paddingBottom={5}
-                                    color={"black"}>{movie?.overview}</StandardTypography>
+                <StandardTypography variant={"h6"} paddingBottom={5}>{movie?.overview}</StandardTypography>
             </Box>
         </StyledMoviePage>
     );

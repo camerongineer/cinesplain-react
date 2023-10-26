@@ -13,7 +13,7 @@ const ReleaseDateDisplay: React.FC<ReleaseDateDisplayProps> = ({ releaseDate, sx
     return (
         <>
             <StandardTypography
-                variant={"h6"}
+                variant={"body1"}
                 sx={sx}>{getFormattedDate(releaseDate)}
             </StandardTypography>
         </>
