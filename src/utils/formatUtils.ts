@@ -10,5 +10,5 @@ export const getFormattedDate = (dateString: string | undefined) => {
 };
 
 export const getFormattedCurrencyAmount = (dollarAmount: number) => {
-    return dollarAmount.toLocaleString("en-us", { style: "currency", currency: "USD" });
+    return dollarAmount.toLocaleString("en-us", { style: "currency", currency: "USD", minimumFractionDigits: 0 });
 };
