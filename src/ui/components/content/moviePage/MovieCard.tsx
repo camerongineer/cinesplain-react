@@ -4,8 +4,9 @@ import {
     Card,
     CardContent,
     CardHeader,
-    CardMedia, Rating,
-    styled, useTheme
+    CardMedia,
+    Rating,
+    styled
 } from "@mui/material";
 import Movie from "../../../../models/movie";
 import { StandardTypography } from "../../../styles/Typography";
@@ -13,8 +14,7 @@ import { getFormattedDate } from "../../../../utils/formatUtils";
 
 const StyledCard = styled(Card)(({ theme }) => ({
     background: theme.palette.background.paper,
-    transition: "width 2s ease-in-out",
-    
+    transition: `height 2s ease-in-out, opacity ${theme.transitions.duration.complex}ms ease-in-out`,
     "@keyframes Card-Wobble": {
         from: {
             transform: "rotate(-1deg)"
@@ -22,10 +22,6 @@ const StyledCard = styled(Card)(({ theme }) => ({
         to: {
             transform: "rotate(1deg)"
         }
-    },
-    
-    "&:hover": {
-        transform: "scale(1.5)"
     }
 }));
 
@@ -37,7 +33,6 @@ export interface MovieCardProps {
 }
 
 const MovieCard: React.FC<MovieCardProps> = ({ movie, onHover, isExpandable, style }) => {
-    const theme = useTheme();
     const [isHovered, setIsHovered] = useState(false);
     const [imageLoaded, setImageLoaded] = useState(false);
     
@@ -66,7 +61,6 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, onHover, isExpandable, sty
                     : 3}s alternate`,
                 visibility: imageLoaded || !movie.posterPath ? "visible" : "hidden",
                 opacity: imageLoaded || !movie.posterPath ? 1 : 0,
-                transition: `opacity ${theme.transitions.duration.complex}ms ease-in-out`
             }}
             style={style}
             onMouseEnter={handleMouseHovered}
@@ -88,7 +82,6 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, onHover, isExpandable, sty
                             ? "auto"
                             : "0",
                         overflow: "hidden",
-                        transition: "height 4s ease-in-out"
                     }}
                 >
                     <CardHeader

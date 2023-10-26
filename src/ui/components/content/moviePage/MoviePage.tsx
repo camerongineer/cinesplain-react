@@ -7,14 +7,14 @@ import MovieTitleDisplay from "./MovieTitleDisplay";
 import TrailerDisplay from "./TrailerDisplay";
 import MovieSideBar from "./MovieSideBar";
 
-const StyledMoviePage = styled(Box)(({ theme }) => ({
-    width: theme.breakpoints.values.xl,
-    justifyContent: "center",
-    height: "100%",
-    fontSize: "calc(10px + 2vmin)",
-    alignSelf: "self-start",
-    color: theme.palette.text.primary
-}));
+const StyledMoviePage = styled(Box)`
+  width: ${props => props.theme.breakpoints.values.xl}px;
+  justify-content: center;
+  align-self: self-start;
+  height: 100%;
+  font-size: calc(10px + 2vmin);
+  color: ${props => props.theme.palette.text.primary};
+`;
 
 interface MoviePageProps {
     loadedMovie: Movie | null;
