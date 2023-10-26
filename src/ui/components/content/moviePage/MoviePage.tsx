@@ -62,7 +62,6 @@ const MoviePage: React.FC<MoviePageProps> = ({ loadedMovie }) => {
             </Stack>
         </StyledMoviePage>
     );
-    
 };
 
 export default MoviePage;

@@ -1,7 +1,7 @@
 import React from "react";
-import { StandardTypography } from "../../styles/Typography";
 import { SxProps } from "@mui/system";
 import { Theme } from "@mui/material/styles";
+import { Typography } from "@mui/material";
 
 interface TitleDisplayProps {
     title: string;
@@ -10,7 +10,7 @@ interface TitleDisplayProps {
 
 const TitleDisplay: React.FC<TitleDisplayProps> = ({ title, sx }) => (
     <>
-        <StandardTypography variant={"h3"} sx={sx}>{title}</StandardTypography>
+        <Typography variant={"h3"} sx={sx}>{title}</Typography>
     </>
 );
 

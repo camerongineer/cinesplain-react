@@ -1,7 +1,7 @@
 import React from "react";
-import { StandardTypography } from "../../styles/Typography";
 import { SxProps } from "@mui/system";
 import { Theme } from "@mui/material/styles";
+import { Typography } from "@mui/material";
 
 interface TaglineDisplayProps {
     tagline: string;
@@ -10,7 +10,7 @@ interface TaglineDisplayProps {
 
 const TaglineDisplay: React.FC<TaglineDisplayProps> = ({ tagline, sx }) => (
     <>
-        <StandardTypography variant={"subtitle1"} sx={sx}>{tagline}</StandardTypography>
+        <Typography variant={"subtitle1"} sx={sx}>{tagline}</Typography>
     </>
 );
 

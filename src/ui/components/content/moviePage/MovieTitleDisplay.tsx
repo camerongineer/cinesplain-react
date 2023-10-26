@@ -8,16 +8,16 @@ import ReleaseDateDisplay from "../../common/ReleaseDateDisplay";
 import GenreDisplay from "../../common/GenreDisplay";
 import RuntimeDisplay from "../../common/RuntimeDisplay";
 
-interface MovieTitleDisplayProps {
-    movie: Movie | null;
-}
-
 const StyledGrid = styled(Grid)`
   width: 100%;
   padding: 5% 0;
   transition: ${props => `opacity ${props.theme.transitions.duration.short}ms ease-in-out`};
   color: ${props => props.theme.palette.getContrastText("rgba(0, 0, 0, 0.4)")};
 `;
+
+interface MovieTitleDisplayProps {
+    movie: Movie | null;
+}
 
 const MovieTitleDisplay: React.FC<MovieTitleDisplayProps> = ({ movie }) => {
     const [backgroundImage, setBackgroundImage] = useState<string | null>(null);
