@@ -2,11 +2,10 @@ import { useLocation, useParams } from "react-router-dom";
 import { retrieveMovie } from "../../../../utils/retrievalUtils";
 import Movie from "../../../../models/movie";
 import React, { useEffect, useState } from "react";
-import { Box, styled, useTheme } from "@mui/material";
-import { StandardTypography } from "../../../styles/Typography";
+import { Box, Stack, styled, useTheme } from "@mui/material";
 import MovieTitleDisplay from "./MovieTitleDisplay";
 import TrailerDisplay from "./TrailerDisplay";
-import TaglineDisplay from "../../common/TaglineDisplay";
+import MovieSideBar from "./MovieSideBar";
 
 const StyledMoviePage = styled(Box)(({ theme }) => ({
     width: theme.breakpoints.values.xl,
@@ -42,17 +41,25 @@ const MoviePage: React.FC<MoviePageProps> = ({ loadedMovie }) => {
     
     return (
         movie && <StyledMoviePage key={location.pathname}>
-            <MovieTitleDisplay key={movie?.movieId} movie={movie}/>
-            <Box flexDirection={"column"}
-                 sx={{ backgroundColor: theme.palette.background.paper }}
-                 padding={4}
-                 height={"100vh"}>
-                <TaglineDisplay tagline={movie.tagline}/>
-                <TrailerDisplay movie={movie} sx={{ width: "80%", aspectRatio: "16/9" }}/>
-                <StandardTypography variant={"h4"} paddingTop={2} paddingBottom={1}
-                                    color={"black"}>Overview</StandardTypography>
-                <StandardTypography variant={"h6"} paddingBottom={5}>{movie?.overview}</StandardTypography>
-            </Box>
+            <MovieTitleDisplay key={movie.movieId} movie={movie}/>
+            <Stack flexDirection={{ xs: "column", md: "row" }}
+                   sx={{ backgroundColor: theme.palette.background.paper }}
+                   padding={2}>
+                {movie.videos.length > 0 && <Box flexDirection={"column"}
+                                                 justifyContent={"start"}
+                                                 flex={{ md: 2, lg: 3 }}>
+                    <TrailerDisplay movie={movie}
+                                    sx={{ width: "100%", aspectRatio: "16/9" }}/>
+                </Box>}
+                <Box flexDirection={"column"}
+                     flex={{ md: 1, lg: 1 }}
+                     padding={1}
+                     ml={1}
+                     mr={1}
+                     pl={{ md: 3 }}>
+                    <MovieSideBar movie={movie}/>
+                </Box>
+            </Stack>
         </StyledMoviePage>
     );
     
