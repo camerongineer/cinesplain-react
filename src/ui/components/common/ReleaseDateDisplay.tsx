@@ -1,8 +1,8 @@
 import React from "react";
-import { StandardTypography } from "../../styles/Typography";
 import { SxProps } from "@mui/system";
 import { Theme } from "@mui/material/styles";
 import { getFormattedDate } from "../../../utils/formatUtils";
+import { Typography } from "@mui/material";
 
 interface ReleaseDateDisplayProps {
     releaseDate: string;
@@ -14,10 +14,9 @@ const ReleaseDateDisplay: React.FC<ReleaseDateDisplayProps> = ({ releaseDate, in
     const releaseLabelText = new Date() > new Date(releaseDate) ? "Released on" : "Releases on"
     return (
         <>
-            <StandardTypography
-                variant={"body1"}
-                sx={sx}>{(includeLabel ? <b>{releaseLabelText}:&nbsp;</b> : "")}{getFormattedDate(releaseDate)}
-            </StandardTypography>
+            <Typography variant={"body1"}
+                        sx={sx}>{(includeLabel ? <b>{releaseLabelText}:&nbsp;</b> : "")}{getFormattedDate(releaseDate)}
+            </Typography>
         </>
     );
 };

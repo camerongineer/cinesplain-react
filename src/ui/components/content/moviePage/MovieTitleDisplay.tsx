@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Box, Grid, Rating, styled } from "@mui/material";
+import { Box, Grid, Rating, styled, Typography } from "@mui/material";
 import MovieCard from "./MovieCard";
 import Movie from "../../../../models/movie";
 import { getBackdropPath } from "../../../../utils/retrievalUtils";
 import TitleDisplay from "../../common/TitleDisplay";
 import ReleaseDateDisplay from "../../common/ReleaseDateDisplay";
 import GenreDisplay from "../../common/GenreDisplay";
+import RuntimeDisplay from "../../common/RuntimeDisplay";
 
 interface MovieTitleDisplayProps {
     movie: Movie | null;
@@ -65,7 +66,7 @@ const MovieTitleDisplay: React.FC<MovieTitleDisplayProps> = ({ movie }) => {
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
-                    justifyContent: "center",
+                    justifyContent: "center"
                 }}>
                     <MovieCard
                         style={{
@@ -73,7 +74,7 @@ const MovieTitleDisplay: React.FC<MovieTitleDisplayProps> = ({ movie }) => {
                             width: "auto",
                             maxHeight: "100%",
                             maxWidth: "250px",
-                            minWidth: 120,
+                            minWidth: 120
                         }}
                         movie={movie}
                         onHover={() => {}}
@@ -93,8 +94,13 @@ const MovieTitleDisplay: React.FC<MovieTitleDisplayProps> = ({ movie }) => {
                   alignItems={"center"}
                   justifyContent={"center"}>
                 <TitleDisplay title={movie.movieTitle}/>
-                <ReleaseDateDisplay releaseDate={movie.releaseDate}
-                                    sx={{ mb: 4 }}/>
+                <Box sx={{ mb: 4 }}
+                     display={"flex"}
+                     flexDirection={"row"}>
+                    <ReleaseDateDisplay releaseDate={movie.releaseDate}/>
+                    <Typography>&nbsp;&nbsp;•&nbsp;&nbsp;</Typography>
+                    <RuntimeDisplay runtime={movie.runtime}/>
+                </Box>
                 <GenreDisplay genres={movie.genres}/>
                 {movie.voteCount > 3 &&
                     <Rating name="read-only"
