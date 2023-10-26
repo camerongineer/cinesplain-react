@@ -10,7 +10,7 @@ interface TaglineDisplayProps {
 
 const TaglineDisplay: React.FC<TaglineDisplayProps> = ({ tagline, sx }) => (
     <>
-        <Typography variant={"subtitle1"} sx={sx}>{tagline}</Typography>
+        <Typography variant={"subtitle1"} sx={sx}><strong>{tagline}</strong></Typography>
     </>
 );
 
