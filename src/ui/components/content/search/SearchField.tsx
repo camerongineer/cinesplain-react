@@ -13,6 +13,7 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
 }));
 
 interface SearchFieldProps {
+    formId: string,
     searchQuery: string,
     onQueryChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void,
     onQuerySubmit: (event: FormEvent<HTMLDivElement>) => void,
@@ -20,8 +21,9 @@ interface SearchFieldProps {
     sx?: SxProps<Theme>
 }
 
-const SearchField: React.FC<SearchFieldProps> = ({ searchQuery, onQueryChange, onQuerySubmit, labelText, sx }) => (
+const SearchField: React.FC<SearchFieldProps> = ({ formId, searchQuery, onQueryChange, onQuerySubmit, labelText, sx }) => (
     <StyledTextField value={searchQuery}
+                     id={formId}
                      component={"form"}
                      onChange={onQueryChange}
                      onSubmit={onQuerySubmit}

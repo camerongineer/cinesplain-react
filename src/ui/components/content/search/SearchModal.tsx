@@ -71,7 +71,8 @@ const SearchModal: React.FC<SearchModalProps> = ({ isModalOpen, onModalEvent }) 
                          marginTop={11}
                     
                     >
-                        <SearchField searchQuery={searchQuery}
+                        <SearchField formId={"modalSearch"}
+                                     searchQuery={searchQuery}
                                      onQueryChange={handleQueryChange}
                                      onQuerySubmit={handleMovieSubmit}
                                      labelText={"Enter a Movie title"}
