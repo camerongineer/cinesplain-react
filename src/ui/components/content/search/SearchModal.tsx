@@ -1,25 +1,30 @@
-import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { Box, Modal, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
 import MovieCard from "../moviePage/MovieCard";
 import { StandardTypography } from "../../../styles/Typography";
 import Movie from "../../../../models/movie";
 import SearchField from "./SearchField";
-import { getMoviesPath, retrieveMovies } from "../../../../utils/retrievalUtils";
+import { getMoviesSearchPath, retrieveMovies } from "../../../../utils/retrievalUtils";
 
 interface SearchModalProps {
     isModalOpen: boolean;
     onModalEvent: () => void;
+    autoCompleteList: string[];
 }
 
-const SearchModal: React.FC<SearchModalProps> = ({ isModalOpen, onModalEvent }) => {
+const SearchModal: React.FC<SearchModalProps> = ({ isModalOpen, onModalEvent, autoCompleteList }) => {
     const theme = useTheme();
     const [searchQuery, setSearchQuery] = useState<string>("");
     const [movies, setMovies] = useState<Movie[]>([]);
     const [invalidQueryPrompt, setInvalidQueryPrompt] = useState<boolean>(false);
     const [searchTimer, setSearchTimer] = useState<NodeJS.Timeout | null>(null);
     
-    const handleMovieSubmit = (event: FormEvent<HTMLDivElement>) => event.preventDefault();
+    const handleMovieSubmit = (query: string) => {
+        console.log(searchQuery);
+        setSearchQuery(query);
+        setInvalidQueryPrompt(false);
+    };
     
     const handleQueryChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         event.preventDefault();
@@ -36,7 +41,7 @@ const SearchModal: React.FC<SearchModalProps> = ({ isModalOpen, onModalEvent }) 
             if (!searchQuery) {
                 setMovies([]);
             } else {
-                retrieveMovies(getMoviesPath(searchQuery, 1)).then(newMovies => {
+                retrieveMovies(getMoviesSearchPath(searchQuery, 1)).then(newMovies => {
                     setMovies(newMovies ? newMovies : []);
                     if (newMovies?.length === 0) setInvalidQueryPrompt(true);
                 }).catch(error => {
@@ -73,6 +78,7 @@ const SearchModal: React.FC<SearchModalProps> = ({ isModalOpen, onModalEvent }) 
                     >
                         <SearchField formId={"modalSearch"}
                                      searchQuery={searchQuery}
+                                     autoCompleteList={autoCompleteList}
                                      onQueryChange={handleQueryChange}
                                      onQuerySubmit={handleMovieSubmit}
                                      labelText={"Enter a Movie title"}

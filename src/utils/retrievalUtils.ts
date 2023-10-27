@@ -74,6 +74,24 @@ export const retrieveMovies = async (url: string) => {
         return null;
     }
 };
+
+export const retrievePopularMovieTitles = async (pages: number = 10) => {
+    try {
+        const popularMovieTitles: string[] = [];
+        for (let page = 1; page <= pages; page++) {
+            let res: string | null = await retrieveData(getPopularMoviesPath(page));
+            if (res !== null) {
+                const popularMoviesArray = JSON.parse(res).results;
+                popularMoviesArray.forEach((resObj: any) => popularMovieTitles.push(resObj["title"]));
+            }
+        }
+        return popularMovieTitles;
+    } catch (error) {
+        console.error(error);
+        return [];
+    }
+};
+
 const retrieveVideos = (res: Object): Video[] => {
     if (res && Array.isArray(res)) {
         const videos: Video[] = [];
@@ -147,11 +165,16 @@ export const getMoviePath = (movieId: string) =>
 
 export const getYouTubeTrailerPath = (videoKey: string) => `https://www.youtube.com/embed/${videoKey}`;
 
-export const getMoviesPath = (query: string, page: number, includeAdult: boolean = false) => (
-    withApiKey(`https://api.themoviedb.org/3/search/movie?query=${query}?&include_adult=${includeAdult}&language=en-US&page=${page}`)
+export const getMoviesSearchPath = (query: string, page: number, includeAdult: boolean = false) => (
+    withApiKey(
+        `https://api.themoviedb.org/3/search/movie?query=${query}&sort_by=popularity.desc&page=${page}&include_adult=${includeAdult}`)
+);
+export const getPopularMoviesPath = (page: number, includeAdult: boolean = false) => (
+    withApiKey(
+        `https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&page=${page}&include_adult=${includeAdult}`)
 );
 
 export const getMovieCastPath = (movieId: number) =>
     withApiKey(`https://api.themoviedb.org/3/movie/${movieId}/credits?language=en-US`);
 
-const withApiKey = (url: string) => url + `&api_key=${process.env.REACT_APP_TMDB_API_KEY}`
+const withApiKey = (url: string) => url + `&api_key=${process.env.REACT_APP_TMDB_API_KEY}`;

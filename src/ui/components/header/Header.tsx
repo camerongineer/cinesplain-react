@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import NavBar from "./NavBar";
-import { AppBar,styled, Toolbar, useMediaQuery, useTheme } from "@mui/material";
+import { AppBar, styled, Toolbar, useMediaQuery, useTheme } from "@mui/material";
 import SearchModal from "../content/search/SearchModal";
+import { retrievePopularMovieTitles } from "../../../utils/retrievalUtils";
 
 export enum HeaderLink {
     MOVIE = "Movies",
@@ -26,7 +27,7 @@ const StyledAppBar = styled(AppBar)(({ theme }) => ({
 const CenteredToolbar = styled(Toolbar)(({ theme }) => ({
     maxWidth: (theme.breakpoints.values.xl - 100),
     width: "90%",
-    marginTop: 6,
+    marginTop: 6
 }));
 
 const Header: React.FC<HeaderProps> = (props) => {
@@ -34,6 +35,7 @@ const Header: React.FC<HeaderProps> = (props) => {
     const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
     const [animateLogo, setAnimateLogo] = useState(true);
     const [searchModalOpen, setSearchModalOpen] = useState<boolean>(false);
+    const [popularMovieTitles, setPopularMovieTitles] = useState<string[]>([]);
     
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -45,13 +47,21 @@ const Header: React.FC<HeaderProps> = (props) => {
         };
     }, []);
     
+    useEffect(() => {
+        retrievePopularMovieTitles().then(popularMoviesTitles => {
+            console.log(popularMoviesTitles);
+            setPopularMovieTitles(popularMoviesTitles);
+        }).catch((error) => console.log(error));
+    }, []);
+    
     const handleSearchButtonClick = () => {
         setSearchModalOpen(!searchModalOpen);
     };
     
     return (
         <>
-            {searchModalOpen && <SearchModal isModalOpen={searchModalOpen} onModalEvent={handleSearchButtonClick}/>}
+            {searchModalOpen && <SearchModal isModalOpen={searchModalOpen} onModalEvent={handleSearchButtonClick}
+                                             autoCompleteList={popularMovieTitles}/>}
             <StyledAppBar>
                 <CenteredToolbar>
                     {/*{isSmallScreen &&*/}
