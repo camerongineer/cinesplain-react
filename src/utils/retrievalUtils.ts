@@ -139,6 +139,8 @@ export const retrieveCredits = async (movieId: number) => {
 
 export const getBackdropPath = (relativePath: string) =>
     `https://image.tmdb.org/t/p/original${relativePath}`;
+export const getSmallHeadShotPath = (relativePath: string) =>
+    `https://www.themoviedb.org/t/p/w276_and_h350_face${relativePath}`;
 
 export const getMoviePath = (movieId: string) =>
     withApiKey(`https://api.themoviedb.org/3/movie/${movieId}?append_to_response=videos&language=en-US`);
