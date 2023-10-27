@@ -19,7 +19,7 @@ interface TrailerCardProps {
 const TrailerDisplay: React.FC<TrailerCardProps> = ({ movie, sx }) => {
     const trailers = movie.videos.filter(video => video.videoType === "Trailer");
     return (
-        <StyledPaper sx={sx} elevation={5}>
+        <StyledPaper key={movie.movieId} sx={sx} elevation={5}>
             {movie && trailers.length > 0 && <Box sx={sx}
                                                   component={"iframe"}
                                                   src={getYouTubeTrailerPath(trailers[0].videoKey)}

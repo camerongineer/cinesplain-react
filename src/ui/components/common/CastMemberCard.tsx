@@ -23,6 +23,7 @@ const CastMemberCard: React.FC<CastMemberCardProps> = ({ castMember }) => {
 
     return (
         <StyledCard elevation={5}
+                    key={castMember.castMemberId}
                     onMouseEnter={() => setIsHovered(true)}
                     onMouseLeave={() => setIsHovered(false)}>
             {<CardContent sx={{position: "relative"}}>
