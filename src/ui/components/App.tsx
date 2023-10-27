@@ -5,6 +5,8 @@ import Header from "./header/Header";
 import MoviePage from "./content/moviePage/MoviePage";
 import { Box, styled, ThemeProvider } from "@mui/material";
 import defaultTheme from "../themes/defaultTheme";
+import { HTML5Backend } from "react-dnd-html5-backend";
+import { DndProvider } from "react-dnd";
 
 const StyledApp = styled(Box)(({ theme }) => ({
     background: theme.palette.background.default,
@@ -30,19 +32,20 @@ const App: React.FC = () => {
     return (
         <ThemeProvider theme={defaultTheme}>
             <BrowserRouter>
-                <StyledApp flexDirection={"column"}>
-                    <Header selectedTab={selectedTab}
-                            onSelectedTabChanged={setSelectedTab}
-                    />
-                    <StyledMain style={{}} height={"100%"} width={"100%"}>
-                        <Routes>
-                            <Route path="/movies/:movieId"
-                                   element={<MoviePage loadedMovie={null}/>}
-                            
-                            />
-                        </Routes>
-                    </StyledMain>
-                </StyledApp>
+                <DndProvider backend={HTML5Backend}>
+                    <StyledApp flexDirection={"column"}>
+                        <Header selectedTab={selectedTab}
+                                onSelectedTabChanged={setSelectedTab}
+                        />
+                        <StyledMain style={{}} height={"100%"} width={"100%"}>
+                            <Routes>
+                                <Route path="/movies/:movieId"
+                                       element={<MoviePage loadedMovie={null}/>}
+                                />
+                            </Routes>
+                        </StyledMain>
+                    </StyledApp>
+                </DndProvider>
             </BrowserRouter>
         </ThemeProvider>
     );
