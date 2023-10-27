@@ -38,9 +38,8 @@ const MovieTitleDisplay: React.FC<MovieTitleDisplayProps> = ({ movie }) => {
     }, [backgroundImage]);
     
     useEffect(() => {
-        if (movie) {
+        if (movie && movie.backdropPath) {
             setBackgroundImage(getBackdropPath(movie.backdropPath));
-            console.log(movie);
         }
     }, [movie]);
     

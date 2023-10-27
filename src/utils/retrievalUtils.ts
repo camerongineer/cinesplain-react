@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import Movie from "../models/movie";
 import Video from "../models/video";
+import CastMember from "../models/castMember";
 
 const retrieveData = async (url: string) => {
     try {
@@ -73,14 +74,6 @@ export const retrieveMovies = async (url: string) => {
         return null;
     }
 };
-export const getBackdropPath = (relativePath: string) => {
-    if (!relativePath) {
-        return null;
-    } else {
-        return `https://image.tmdb.org/t/p/original${relativePath}`;
-    }
-};
-
 const retrieveVideos = (res: Object): Video[] => {
     if (res && Array.isArray(res)) {
         const videos: Video[] = [];
@@ -107,14 +100,56 @@ const retrieveVideos = (res: Object): Video[] => {
     }
 };
 
+export const retrieveCredits = async (movieId: number) => {
+    try {
+        let res: string | null = await retrieveData(getMovieCastPath(movieId));
+        if (res) {
+            const credits: CastMember[] = [];
+            const resObj = JSON.parse(res)["cast"];
+            if (resObj && Array.isArray(resObj)) {
+                resObj.map((creditObj) => {
+                    if (creditObj) {
+                        const castMember = new CastMember(
+                            creditObj[CastMember.objMap.castMemberId],
+                            creditObj[CastMember.objMap.castMemberName],
+                            creditObj[CastMember.objMap.adult],
+                            creditObj[CastMember.objMap.gender],
+                            creditObj[CastMember.objMap.knownForDepartment],
+                            creditObj[CastMember.objMap.originalName],
+                            creditObj[CastMember.objMap.popularity],
+                            creditObj[CastMember.objMap.profilePath],
+                            creditObj[CastMember.objMap.castId],
+                            creditObj[CastMember.objMap.character],
+                            creditObj[CastMember.objMap.creditId],
+                            creditObj[CastMember.objMap.order]
+                        );
+                        if (castMember) credits.push(castMember);
+                    }
+                });
+            }
+            return credits;
+        } else {
+            return [];
+        }
+    } catch (error) {
+        console.error(error);
+        return null;
+    }
+};
+
+export const getBackdropPath = (relativePath: string) =>
+    `https://image.tmdb.org/t/p/original${relativePath}`;
+
 export const getMoviePath = (movieId: string) =>
-    `https://api.themoviedb.org/3/movie/${movieId}?append_to_response=videos&api_key=${process.env.REACT_APP_TMDB_API_KEY}&language=en-US`;
+    withApiKey(`https://api.themoviedb.org/3/movie/${movieId}?append_to_response=videos&language=en-US`);
 
 export const getYouTubeTrailerPath = (videoKey: string) => `https://www.youtube.com/embed/${videoKey}`;
 
 export const getMoviesPath = (query: string, page: number, includeAdult: boolean = false) => (
-    `https://api.themoviedb.org/3/search/movie?query=${query}?&api_key=${process.env.REACT_APP_TMDB_API_KEY}&include_adult=${includeAdult}&language=en-US&page=${page}`
+    withApiKey(`https://api.themoviedb.org/3/search/movie?query=${query}?&include_adult=${includeAdult}&language=en-US&page=${page}`)
 );
 
-export const getMovieCastPath = (movieId: string) =>
-    `https://api.themoviedb.org/3/movie/${movieId}/credits?language=en-US&api_key=${process.env.REACT_APP_TMDB_API_KEY}`
+export const getMovieCastPath = (movieId: number) =>
+    withApiKey(`https://api.themoviedb.org/3/movie/${movieId}/credits?language=en-US`);
+
+const withApiKey = (url: string) => url + `&api_key=${process.env.REACT_APP_TMDB_API_KEY}`

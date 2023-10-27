@@ -1,5 +1,5 @@
 import { useLocation, useParams } from "react-router-dom";
-import { retrieveMovie } from "../../../../utils/retrievalUtils";
+import { retrieveCredits, retrieveMovie } from "../../../../utils/retrievalUtils";
 import Movie from "../../../../models/movie";
 import React, { useEffect, useState } from "react";
 import { Box, Stack, styled, useTheme } from "@mui/material";
@@ -38,6 +38,20 @@ const MoviePage: React.FC<MoviePageProps> = ({ loadedMovie }) => {
             })();
         }
     }, [movieId]);
+    
+    useEffect(() => {
+        if (movie) {
+            (async () => {
+                try {
+                    const credits = await retrieveCredits(movie.movieId);
+                    movie.credits = credits ? credits : [];
+                    console.log(movie.credits);
+                } catch (error) {
+                    console.error(error);
+                }
+            })();
+        }
+    }, [movie]);
     
     return (
         movie && <StyledMoviePage key={location.pathname}>
