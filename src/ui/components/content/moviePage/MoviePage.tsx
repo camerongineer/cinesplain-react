@@ -6,6 +6,7 @@ import { Box, Stack, styled, useTheme } from "@mui/material";
 import MovieTitleDisplay from "./MovieTitleDisplay";
 import TrailerDisplay from "./TrailerDisplay";
 import MovieSideBar from "./MovieSideBar";
+import CastMemberRow from "../../common/CastMemberRow";
 
 const StyledMoviePage = styled(Box)`
   width: ${props => props.theme.breakpoints.values.xl}px;
@@ -30,7 +31,11 @@ const MoviePage: React.FC<MoviePageProps> = ({ loadedMovie }) => {
         if (!loadedMovie) {
             (async () => {
                 try {
-                    setMovie(await retrieveMovie(movieId));
+                    const movieData = await retrieveMovie(movieId);
+                    if (movieData === null) return null;
+                    const credits = await retrieveCredits(movieData.movieId);
+                    movieData.credits = credits ? credits : [];
+                    setMovie(movieData);
                 } catch (error) {
                     console.error(error);
                     setMovie(null);
@@ -56,12 +61,14 @@ const MoviePage: React.FC<MoviePageProps> = ({ loadedMovie }) => {
     return (
         movie && <StyledMoviePage key={location.pathname}>
             <MovieTitleDisplay key={movie.movieId} movie={movie}/>
+            {movie.credits.length > 0 && <CastMemberRow castMembers={movie.credits} movieId={movieId}/> }
             <Stack flexDirection={{ xs: "column", md: "row" }}
                    sx={{ backgroundColor: theme.palette.background.paper }}
                    padding={2}>
                 {movie.videos.length > 0 && <Box flexDirection={"column"}
                                                  justifyContent={"start"}
                                                  flex={{ md: 2, lg: 3 }}>
+                    
                     <TrailerDisplay movie={movie}
                                     sx={{ width: "100%", aspectRatio: "16/9" }}/>
                 </Box>}
