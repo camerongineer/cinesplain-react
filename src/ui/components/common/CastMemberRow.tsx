@@ -4,15 +4,12 @@ import { Stack, styled } from "@mui/material";
 import CastMemberCard from "./CastMemberCard";
 
 const StyledStack = styled(Stack)`
-  background-color: ${props => props.theme.palette.background.paper};
+  width: 100%;
   justify-content: center;
   align-items: center;
   flex-direction: row;
   flex-wrap: nowrap;
-  padding: 5px;
-  overflow: clip;
-  height: fit-content;
-  font-size: calc(10px + 2vmin);
+  
 `;
 
 interface CastMemberRowProps {
@@ -23,9 +20,11 @@ interface CastMemberRowProps {
 const CastMemberRow: React.FC<CastMemberRowProps> = ({ castMembers, movieId }) => {
     return (
         <>
-            {castMembers.length > 0 && <StyledStack flex={1} key={movieId} gap={2}>
-                {castMembers.slice(0, 7).map(
-                    castMember => <CastMemberCard key={castMember.castMemberId} castMember={castMember}/>)}
+            {castMembers.length > 0 && <StyledStack draggable={true} overflow={"scroll"} width={"500px"} sx={{scrollbarWidth: "none", '&::-webkit-scrollbar': {display: "none"}}}>
+                <Stack flex={1} flexDirection={"row"} key={movieId} gap={2} maxWidth={"100%"}>
+                    {castMembers.slice(0, 10).map(
+                        castMember => <CastMemberCard sx={{minWidth: 150}} key={castMember.castMemberId} castMember={castMember}/>)}
+                </Stack>
             </StyledStack>}
         </>
     );

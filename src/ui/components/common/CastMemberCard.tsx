@@ -4,6 +4,7 @@ import CastMember from "../../../models/castMember";
 import { getSmallHeadShotPath } from "../../../utils/retrievalUtils";
 import femaleSilhouette from "../../images/female_silhouette.png";
 import maleSilhouette from "../../images/male_silhouette.png";
+import { SxProps } from "@mui/system";
 
 const StyledCard = styled(Card)`
   overflow: hidden;
@@ -15,14 +16,16 @@ const StyledCard = styled(Card)`
 
 interface CastMemberCardProps {
     castMember: CastMember;
+    sx?: SxProps;
 }
 
-const CastMemberCard: React.FC<CastMemberCardProps> = ({ castMember }) => {
+const CastMemberCard: React.FC<CastMemberCardProps> = ({ castMember, sx }) => {
     const [isHovered, setIsHovered] = useState(false);
     const headshotPath = castMember.gender === 1 ? femaleSilhouette : maleSilhouette;
 
     return (
         <StyledCard elevation={5}
+                    sx={sx}
                     key={castMember.castMemberId}
                     onMouseEnter={() => setIsHovered(true)}
                     onMouseLeave={() => setIsHovered(false)}>
@@ -34,7 +37,7 @@ const CastMemberCard: React.FC<CastMemberCardProps> = ({ castMember }) => {
                 image={castMember.profilePath ? getSmallHeadShotPath(castMember.profilePath) : headshotPath}
                 alt={castMember.castMemberName}
             />
-            <CardHeader title={<Typography variant={"body2"}>"<strong>{castMember.character}</strong>"</Typography>}/>
+            {castMember.character && <CardHeader title={<Typography variant={"body2"}>"<strong>{castMember.character}</strong>"</Typography>}/>}
         </StyledCard>
     );
 };
