@@ -50,7 +50,7 @@ const MoviePage: React.FC<MoviePageProps> = ({ loadedMovie }) => {
                 try {
                     const credits = await retrieveCredits(movie.movieId);
                     movie.credits = credits ? credits : [];
-                    console.log(movie.credits);
+                    console.log(movie);
                 } catch (error) {
                     console.error(error);
                 }

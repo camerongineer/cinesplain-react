@@ -7,6 +7,7 @@ import TitleDisplay from "../../common/TitleDisplay";
 import ReleaseDateDisplay from "../../common/ReleaseDateDisplay";
 import GenreDisplay from "../../common/GenreDisplay";
 import RuntimeDisplay from "../../common/RuntimeDisplay";
+import LogoDisplay from "../../common/LogoDisplay";
 
 const StyledGrid = styled(Grid)`
   width: 100%;
@@ -46,7 +47,7 @@ const MovieTitleDisplay: React.FC<MovieTitleDisplayProps> = ({ movie }) => {
     const backgroundStyle = {
         background: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.7)), url(${backgroundImage})`,
         backgroundSize: "cover",
-        backgroundPosition: "center left",
+        backgroundPosition: "top left",
         opacity: !backgroundImageLoaded || !movie?.posterPath ? 0 : 1
     };
     
@@ -92,7 +93,8 @@ const MovieTitleDisplay: React.FC<MovieTitleDisplayProps> = ({ movie }) => {
                   flexDirection={"column"}
                   alignItems={"center"}
                   justifyContent={"center"}>
-                <TitleDisplay title={movie.movieTitle}/>
+                {movie.images.logos.length > 0 && <LogoDisplay images={movie.images}/>}
+                {movie.images.logos.length === 0 && <TitleDisplay title={movie.movieTitle}/>}
                 <Box sx={{ mb: 4 }}
                      display={"flex"}
                      flexDirection={"row"}>
