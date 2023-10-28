@@ -2,6 +2,7 @@ import axios, { AxiosResponse } from "axios";
 import Movie from "../models/movie";
 import Video from "../models/video";
 import CastMember from "../models/castMember";
+import Image, { Images } from "../models/Image";
 
 const retrieveData = async (url: string) => {
     try {
@@ -27,6 +28,7 @@ export const retrieveMovie = async (movieId: string | undefined) => {
                 resObj[Movie.objMap.belongsToCollection],
                 resObj[Movie.objMap.budget],
                 resObj[Movie.objMap.genres],
+                retrieveAllImages(resObj[Movie.objMap.images]),
                 resObj[Movie.objMap.imdbId],
                 resObj[Movie.objMap.movieId],
                 resObj[Movie.objMap.movieTitle],
@@ -118,6 +120,45 @@ const retrieveVideos = (res: Object): Video[] => {
     }
 };
 
+const retrieveImages = (res: Object): Image[] => {
+    if (res && Array.isArray(res)) {
+        const images: Image[] = [];
+        res.map((imageObj) => {
+            if (imageObj) {
+                const image = new Image(
+                    imageObj[Image.objMap.aspectRatio],
+                    imageObj[Image.objMap.height],
+                    imageObj[Image.objMap.iso6391],
+                    imageObj[Image.objMap.filePath],
+                    imageObj[Image.objMap.voteAverage],
+                    imageObj[Image.objMap.voteCount],
+                    imageObj[Image.objMap.width]
+                );
+                if (image) images.push(image);
+            }
+        });
+        return images;
+    } else {
+        return [];
+    }
+};
+
+const retrieveAllImages = (res: Object) => {
+    const images: Images = {
+        backdrops: [],
+        logos: [],
+        posters: []
+    };
+    // @ts-ignore
+    images.backdrops = retrieveImages(res["backdrops"]);
+    // @ts-ignore
+    images.logos = retrieveImages(res["logos"]);
+    // @ts-ignore
+    images.posters = retrieveImages(res["posters"]);
+    return images;
+};
+
+
 export const retrieveCredits = async (movieId: number) => {
     try {
         let res: string | null = await retrieveData(getMovieCastPath(movieId));
@@ -161,20 +202,20 @@ export const getSmallHeadShotPath = (relativePath: string) =>
     `https://www.themoviedb.org/t/p/w276_and_h350_face${relativePath}`;
 
 export const getMoviePath = (movieId: string) =>
-    withApiKey(`https://api.themoviedb.org/3/movie/${movieId}?append_to_response=videos&language=en-US`);
+    withApiKey(`https://api.themoviedb.org/3/movie/${movieId}?append_to_response=videos,images&language=en`);
 
 export const getYouTubeTrailerPath = (videoKey: string) => `https://www.youtube.com/embed/${videoKey}`;
 
 export const getMoviesSearchPath = (query: string, page: number, includeAdult: boolean = false) => (
     withApiKey(
-        `https://api.themoviedb.org/3/search/movie?query=${query}&sort_by=popularity.desc&page=${page}&include_adult=${includeAdult}`)
+        `https://api.themoviedb.org/3/search/movie?query=${query}&sort_by=popularity.desc&page=${page}&include_adult=${includeAdult}&language=en`)
 );
 export const getPopularMoviesPath = (page: number, includeAdult: boolean = false) => (
     withApiKey(
-        `https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&page=${page}&include_adult=${includeAdult}`)
+        `https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&page=${page}&include_adult=${includeAdult}&language=en`)
 );
 
 export const getMovieCastPath = (movieId: number) =>
-    withApiKey(`https://api.themoviedb.org/3/movie/${movieId}/credits?language=en-US`);
+    withApiKey(`https://api.themoviedb.org/3/movie/${movieId}/credits?language=en`);
 
 const withApiKey = (url: string) => url + `&api_key=${process.env.REACT_APP_TMDB_API_KEY}`;
