@@ -3,13 +3,7 @@ import { Images } from "../../../models/Image";
 import { SxProps } from "@mui/system";
 import { Theme } from "@mui/material/styles";
 import { getBackdropPath } from "../../../utils/retrievalUtils";
-import { Box, styled } from "@mui/material";
-
-const StyledBox = styled(Box)`
-  justify-content: center;
-  align-items: center;
-  max-width: 500px;
-`;
+import { Box } from "@mui/material";
 
 interface LogoDisplayProps {
     images: Images;
@@ -17,9 +11,14 @@ interface LogoDisplayProps {
 }
 
 const LogoDisplay: React.FC<LogoDisplayProps> = ({ images, sx }) => (
-    <StyledBox sx={sx}>
-        <img width={"100%"} height={"auto"} src={getBackdropPath(images.logos[0].filePath)} alt={"logo"}/>
-    </StyledBox>
+    <Box component={"img"}
+         width={"80%"}
+         maxWidth={"350px"}
+         mb={{xs: 3, sm: 2}}
+         mt={{xs: 3, sm: 0}}
+         sx={sx}
+         src={getBackdropPath(images.logos[0].filePath)}
+         alt={"logo"}/>
 );
 
 export default LogoDisplay;
