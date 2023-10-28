@@ -65,8 +65,8 @@ const Header: React.FC<HeaderProps> = (props) => {
                 <CenteredToolbar>
                     {/*{isSmallScreen &&*/}
                     {/*    <NavDrawer {...props}/>}*/}
-                    {!isSmallScreen &&
-                        <NavBar {...props} onSearchButtonClicked={handleSearchButtonClick} animateLogo={animateLogo}/>}
+
+                        <NavBar {...props} onSearchButtonClicked={handleSearchButtonClick} animateLogo={animateLogo}/>
                 </CenteredToolbar>
             </StyledAppBar>
         </>
