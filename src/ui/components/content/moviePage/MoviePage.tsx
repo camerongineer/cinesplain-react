@@ -2,7 +2,7 @@ import { useLocation, useParams } from "react-router-dom";
 import { retrieveCredits, retrieveMovie } from "../../../../utils/retrievalUtils";
 import Movie from "../../../../models/movie";
 import React, { useEffect, useState } from "react";
-import { Box, Stack, styled, useTheme } from "@mui/material";
+import { Box, Stack, styled } from "@mui/material";
 import MovieTitleDisplay from "./MovieTitleDisplay";
 import TrailerDisplay from "./TrailerDisplay";
 import MovieSideBar from "./MovieSideBar";
@@ -22,7 +22,6 @@ interface MoviePageProps {
 }
 
 const MoviePage: React.FC<MoviePageProps> = ({ loadedMovie }) => {
-    const theme = useTheme();
     const location = useLocation();
     const { movieId } = useParams();
     const [movie, setMovie] = useState<Movie | null>(loadedMovie);
@@ -67,7 +66,7 @@ const MoviePage: React.FC<MoviePageProps> = ({ loadedMovie }) => {
                 <Stack flexDirection={{ xs: "column", md: "row" }}
                        alignItems={"center"}
                        justifyContent={"space-evenly"}
-                       padding={2}>
+                       padding={1}>
                     {movie.videos.length > 0 && <Box flexDirection={"column"}
                                                      justifyContent={"center"}
                                                      alignItems={"center"}

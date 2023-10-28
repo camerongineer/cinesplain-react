@@ -9,7 +9,7 @@ const StyledStack = styled(Stack)`
   align-items: center;
   flex-direction: row;
   flex-wrap: nowrap;
-  
+
 `;
 
 interface CastMemberRowProps {
@@ -20,10 +20,20 @@ interface CastMemberRowProps {
 const CastMemberRow: React.FC<CastMemberRowProps> = ({ castMembers, movieId }) => {
     return (
         <>
-            {castMembers.length > 0 && <StyledStack draggable={true} overflow={"scroll"} width={"500px"} sx={{scrollbarWidth: "none", '&::-webkit-scrollbar': {display: "none"}}}>
-                <Stack flex={1} flexDirection={"row"} key={movieId} gap={2} maxWidth={"100%"}>
-                    {castMembers.slice(0, 10).map(
-                        castMember => <CastMemberCard sx={{minWidth: 150}} key={castMember.castMemberId} castMember={castMember}/>)}
+            {castMembers.length > 0 && <StyledStack overflow={"scroll"}
+                                                    sx={{
+                                                        scrollbarWidth: "none",
+                                                        "&::-webkit-scrollbar": { display: "none" } }}>
+                <Stack flex={1}
+                       flexDirection={"row"}
+                       alignItems={"center"}
+                       key={movieId}
+                       padding={"5px 5px 0 5px"}
+                       gap={2}
+                       maxWidth={"100%"}>
+                    {castMembers.slice(0, 8).map(
+                        castMember => <CastMemberCard sx={{ minWidth: 150 }} key={castMember.castMemberId}
+                                                      castMember={castMember}/>)}
                 </Stack>
             </StyledStack>}
         </>
