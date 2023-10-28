@@ -69,7 +69,7 @@ const MovieTitleDisplay: React.FC<MovieTitleDisplayProps> = ({ movie }) => {
                     justifyContent: "center"
                 }}>
                     <MovieCard
-                        style={{
+                        sx={{
                             height: "auto",
                             width: "auto",
                             maxHeight: "100%",

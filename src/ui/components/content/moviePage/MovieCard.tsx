@@ -11,6 +11,7 @@ import {
 import Movie from "../../../../models/movie";
 import { StandardTypography } from "../../../styles/Typography";
 import { getFormattedDate } from "../../../../utils/formatUtils";
+import { SxProps } from "@mui/system";
 
 const StyledCard = styled(Card)(({ theme }) => ({
     background: theme.palette.background.paper,
@@ -29,10 +30,10 @@ export interface MovieCardProps {
     movie: Movie;
     onHover: (backdropPath: string) => void;
     isExpandable: boolean;
-    style?: React.CSSProperties;
+    sx?: SxProps;
 }
 
-const MovieCard: React.FC<MovieCardProps> = ({ movie, onHover, isExpandable, style }) => {
+const MovieCard: React.FC<MovieCardProps> = ({ movie, onHover, isExpandable, sx }) => {
     const [isHovered, setIsHovered] = useState(false);
     const [imageLoaded, setImageLoaded] = useState(false);
     
@@ -53,16 +54,14 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, onHover, isExpandable, sty
         <StyledCard
             key={movie.movieId}
             variant="outlined"
-            sx={{
-                flex: 1,
-                zIndex: 2,
+            style={{
                 animation: `Card-Wobble infinite ${movie.voteAverage
                     ? (4 * (movie.voteAverage / 10))
                     : 3}s alternate`,
                 visibility: imageLoaded || !movie.posterPath ? "visible" : "hidden",
                 opacity: imageLoaded || !movie.posterPath ? 1 : 0,
             }}
-            style={style}
+            sx={sx}
             onMouseEnter={handleMouseHovered}
             onMouseLeave={handleMouseNotHovered}
         >

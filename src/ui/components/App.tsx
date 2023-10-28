@@ -3,20 +3,26 @@ import React, { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Header from "./header/Header";
 import MoviePage from "./content/moviePage/MoviePage";
-import { Box, styled, ThemeProvider } from "@mui/material";
+import { Box, Stack, styled, ThemeProvider } from "@mui/material";
 import defaultTheme from "../themes/defaultTheme";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { DndProvider } from "react-dnd";
+import HomePage from "./content/homePage/HomePage";
 
-const StyledApp = styled(Box)(({ theme }) => ({
+const StyledApp = styled(Stack)(({ theme }) => ({
     background: theme.palette.background.default,
+    justifyContent: "center",
+    alignItems: "center",
     fontSize: "calc(10px + 2vmin)",
-    height: "100%"
+    height: "100%",
+    width: "100%",
+    minWidth: "280px"
 }));
 
 const StyledMain = styled(Box)`
-  text-align: center;
+  max-width: ${props => props.theme.breakpoints.values.xl}px;
   width: 100%;
+  text-align: center;
   height: 100%;
   display: flex;
   flex-direction: row;
@@ -39,6 +45,8 @@ const App: React.FC = () => {
                         />
                         <StyledMain style={{}} height={"100%"} width={"100%"}>
                             <Routes>
+                                <Route path="/"
+                                       element={<HomePage />}/>
                                 <Route path="/movies/:movieId"
                                        element={<MoviePage loadedMovie={null}/>}
                                 />

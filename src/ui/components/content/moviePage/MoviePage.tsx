@@ -8,12 +8,12 @@ import TrailerDisplay from "./TrailerDisplay";
 import MovieSideBar from "./MovieSideBar";
 import CastMemberRow from "../../common/CastMemberRow";
 
-const StyledMoviePage = styled(Box)`
-  width: ${props => props.theme.breakpoints.values.xl}px;
+const StyledMoviePage = styled(Stack)`
+  width: 100%;
   justify-content: center;
-  align-self: self-start;
   height: 100%;
   font-size: calc(10px + 2vmin);
+  background: ${props => props.theme.palette.background.paper};
   color: ${props => props.theme.palette.text.primary};
 `;
 
@@ -59,29 +59,36 @@ const MoviePage: React.FC<MoviePageProps> = ({ loadedMovie }) => {
     }, [movie]);
     
     return (
-        movie && <StyledMoviePage key={location.pathname}>
-            <MovieTitleDisplay key={movie.movieId} movie={movie}/>
-            {movie.credits.length > 0 && <CastMemberRow castMembers={movie.credits} movieId={movieId}/> }
-            <Stack flexDirection={{ xs: "column", md: "row" }}
-                   sx={{ backgroundColor: theme.palette.background.paper }}
-                   padding={2}>
-                {movie.videos.length > 0 && <Box flexDirection={"column"}
-                                                 justifyContent={"start"}
-                                                 flex={{ md: 2, lg: 3 }}>
-                    
-                    <TrailerDisplay movie={movie}
-                                    sx={{ width: "100%", aspectRatio: "16/9" }}/>
-                </Box>}
-                <Box flexDirection={"column"}
-                     flex={{ md: 1, lg: 1 }}
-                     padding={1}
-                     ml={1}
-                     mr={1}
-                     pl={{ md: 3 }}>
-                    <MovieSideBar movie={movie}/>
-                </Box>
-            </Stack>
-        </StyledMoviePage>
+        <>
+            {movie && <StyledMoviePage key={location.pathname}>
+                <MovieTitleDisplay key={movie.movieId} movie={movie}/>
+                {movie.credits.length > 0 && <CastMemberRow castMembers={movie.credits} movieId={movieId}/> }
+                
+                <Stack flexDirection={{ xs: "column", md: "row" }}
+                       alignItems={"center"}
+                       justifyContent={"space-evenly"}
+                       padding={2}>
+                    {movie.videos.length > 0 && <Box flexDirection={"column"}
+                                                     justifyContent={"center"}
+                                                     alignItems={"center"}
+                                                     display={"flex"}
+                                                     width={"100%"}
+                                                     flex={{ md: 2, lg: 3 }}>
+                        
+                        <TrailerDisplay movie={movie}
+                                        sx={{ width: "95%", aspectRatio: "16/9" }}/>
+                    </Box>}
+                    <Box flexDirection={"column"}
+                         flex={{ md: 1, lg: 1 }}
+                         justifyContent={"center"}
+                         padding={1}
+                         ml={1}
+                         mr={1}>
+                        <MovieSideBar movie={movie}/>
+                    </Box>
+                </Stack>
+            </StyledMoviePage>}
+        </>
     );
 };
 
