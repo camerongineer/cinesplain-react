@@ -5,6 +5,7 @@ import ProductionCountry from "./productionCountry";
 import Language from "./language";
 import Video from "./video";
 import CastMember from "./castMember";
+import { Images } from "./Image";
 
 class Movie {
     private readonly _adult: boolean;
@@ -13,6 +14,7 @@ class Movie {
     private readonly _budget: number;
     private _credits: CastMember[] | undefined;
     private readonly _genres: Genre[];
+    private readonly _images: Images;
     private readonly _imdbId: string;
     private readonly _movieId: number;
     private readonly _movieTitle: string;
@@ -40,6 +42,7 @@ class Movie {
         belongsToCollection: Collection[],
         budget: number,
         genres: Genre[],
+        images: Images,
         imdbId: string,
         movieId: number,
         movieTitle: string,
@@ -66,6 +69,7 @@ class Movie {
         this._belongsToCollection = belongsToCollection;
         this._budget = budget;
         this._genres = genres;
+        this._images = images;
         this._imdbId = imdbId;
         this._movieId = movieId;
         this._movieTitle = movieTitle;
@@ -114,6 +118,10 @@ class Movie {
     
     get genres (): Genre[] {
         return this._genres;
+    }
+    
+    get images (): Images {
+        return this._images;
     }
     
     get imdbId (): string {
@@ -203,6 +211,7 @@ class Movie {
         budget: "budget",
         genres: "genres",
         imdbId: "imdb_id",
+        images: "images",
         movieId: "id",
         movieTitle: "title",
         originalLanguage: "original_language",
