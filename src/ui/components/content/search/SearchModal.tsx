@@ -97,8 +97,18 @@ const SearchModal: React.FC<SearchModalProps> = ({ isModalOpen, onModalEvent, au
                         {movies.length > 0 && movies.slice(0, 6).map(movie => {
                             return (
                                 <Link key={movie.movieId} to={`/movies/${movie.movieId}`} onClick={onModalEvent}>
-                                    <MovieCard key={movie.movieId} movie={movie} style={{ width: 225, minWidth: 100 }}
-                                               onHover={() => {}} isExpandable={true}/>
+                                    <MovieCard key={movie.movieId}
+                                               movie={movie}
+                                               sx={{
+                                                   height: "auto",
+                                                   width: "auto",
+                                                   maxHeight: "100%",
+                                                   maxWidth: "250px",
+                                                   minWidth: 120,
+                                                   cursor: "pointer",
+                                               }}
+                                               onHover={() => {}}
+                                               isExpandable={true}/>
                                 </Link>);
                         })}
                         {invalidQueryPrompt && movies.length === 0 &&
