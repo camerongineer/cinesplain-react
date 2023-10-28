@@ -49,7 +49,6 @@ const Header: React.FC<HeaderProps> = (props) => {
     
     useEffect(() => {
         retrievePopularMovieTitles().then(popularMoviesTitles => {
-            console.log(popularMoviesTitles);
             setPopularMovieTitles(popularMoviesTitles);
         }).catch((error) => console.log(error));
     }, []);
