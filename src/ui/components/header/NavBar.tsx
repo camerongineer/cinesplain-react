@@ -54,15 +54,16 @@ const NavBar: React.FC<NavBarProps> = ({
                 
                 </Box>
             </Grid>
-            <Grid item xs={4} sm={4} sx={{ display: "flex" }}>
-                <Tabs indicatorColor={"secondary"} textColor={"inherit"}
-                      value={selectedTab}
-                      onChange={handleTabClick}>
-                    {Object.values(HeaderLink).
-                        map((link, index) => <Tab key={index}
-                                                  label={<StandardTypography>{link}</StandardTypography>}/>)}
-                </Tabs>
-            </Grid>
+            {/*<Grid item xs={4} sm={4} sx={{ display: "flex" }}>*/}
+            {/*    <Tabs indicatorColor={"secondary"} textColor={"inherit"}*/}
+            {/*          value={selectedTab}*/}
+            {/*          onChange={handleTabClick}>*/}
+            {/*        {Object.values(HeaderLink).*/}
+            {/*            map((link, index) => <Tab key={index}*/}
+            {/*                                      label={<StandardTypography>{link}</StandardTypography>}/>)}*/}
+            {/*    </Tabs>*/}
+            {/*</Grid>*/}
+            <Grid item xs={4} sm={4}/>
             <Grid item xs={3} sm={3} lg={5}/>
             <Grid item xs={1}  display={"flex"} justifyContent={"end"}>
                 <IconButton sx={{ marginLeft: "auto" }} onClick={onSearchButtonClicked}>
