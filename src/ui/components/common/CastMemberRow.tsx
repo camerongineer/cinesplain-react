@@ -2,14 +2,17 @@ import React from "react";
 import CastMember from "../../../models/castMember";
 import { Stack, styled } from "@mui/material";
 import CastMemberCard from "./CastMemberCard";
+import OuterCarousel from "./OuterCarousel";
 
 const StyledStack = styled(Stack)`
-  width: 100%;
-  justify-content: center;
-  align-items: center;
+  flex: 1;
   flex-direction: row;
+  align-items: center;
+  padding: 5px 5px 0 5px;
+  max-width: 100%;
+  gap: 5px;
+  justify-content: center;
   flex-wrap: nowrap;
-
 `;
 
 interface CastMemberRowProps {
@@ -20,22 +23,13 @@ interface CastMemberRowProps {
 const CastMemberRow: React.FC<CastMemberRowProps> = ({ castMembers, movieId }) => {
     return (
         <>
-            {castMembers.length > 0 && <StyledStack overflow={"scroll"}
-                                                    sx={{
-                                                        scrollbarWidth: "none",
-                                                        "&::-webkit-scrollbar": { display: "none" } }}>
-                <Stack flex={1}
-                       flexDirection={"row"}
-                       alignItems={"center"}
-                       key={movieId}
-                       padding={"5px 5px 0 5px"}
-                       gap={2}
-                       maxWidth={"100%"}>
+            {castMembers.length > 0 && <OuterCarousel>
+                <StyledStack key={movieId}>
                     {castMembers.slice(0, 8).map(
                         castMember => <CastMemberCard sx={{ minWidth: 150 }} key={castMember.castMemberId}
                                                       castMember={castMember}/>)}
-                </Stack>
-            </StyledStack>}
+                </StyledStack>
+            </OuterCarousel>}
         </>
     );
 };
