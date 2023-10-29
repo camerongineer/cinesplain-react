@@ -5,11 +5,10 @@ import CastMemberCard from "./CastMemberCard";
 import OuterCarousel from "./OuterCarousel";
 
 const StyledStack = styled(Stack)`
-  flex: 1;
-  float: left;
   flex-direction: row;
   align-items: center;
   padding: 5px 5px 0 5px;
+  width: auto;
   max-width: 100%;
   gap: 5px;
   justify-content: start;
@@ -27,8 +26,12 @@ const CastMemberRow: React.FC<CastMemberRowProps> = ({ castMembers, movieId }) =
             {castMembers.length > 0 && <OuterCarousel>
                 <StyledStack key={movieId}>
                     {castMembers.slice(0, 20).map(
-                        castMember => <CastMemberCard sx={{ minWidth: 150 }} key={castMember.castMemberId}
+                        castMember => <CastMemberCard key={castMember.castMemberId}
+                                                      sx={{
+                                                          minWidth: { xs: "26vw", sm: "18vw", md: "156px" }
+                                                      }}
                                                       castMember={castMember}/>)}
+                
                 </StyledStack>
             </OuterCarousel>}
         </>
