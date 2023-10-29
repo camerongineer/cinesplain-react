@@ -1,11 +1,9 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
-import { Box, Modal, useTheme } from "@mui/material";
-import { Link } from "react-router-dom";
-import MovieCard from "../moviePage/MovieCard";
-import { StandardTypography } from "../../../styles/Typography";
+import { Box, Modal } from "@mui/material";
 import Movie from "../../../../models/movie";
 import SearchField from "./SearchField";
 import { getMoviesSearchPath, retrieveMovies } from "../../../../utils/retrievalUtils";
+import MovieSearchRow from "./MovieSearchRow";
 
 interface SearchModalProps {
     isModalOpen: boolean;
@@ -14,7 +12,6 @@ interface SearchModalProps {
 }
 
 const SearchModal: React.FC<SearchModalProps> = ({ isModalOpen, onModalEvent, autoCompleteList }) => {
-    const theme = useTheme();
     const [searchQuery, setSearchQuery] = useState<string>("");
     const [movies, setMovies] = useState<Movie[]>([]);
     const [invalidQueryPrompt, setInvalidQueryPrompt] = useState<boolean>(false);
@@ -62,19 +59,18 @@ const SearchModal: React.FC<SearchModalProps> = ({ isModalOpen, onModalEvent, au
         <>
             <Modal open={isModalOpen}
                    onClose={onModalEvent}
-                   style={{ color: "white" }}
+                   style={{ width: "100%", color: "white" }}
             >
                 <Box width={"100%"}
                      height={"100%"}
                      display={"flex"}
                      flexDirection={"column"}
                      alignItems={"center"}
-                     justifyContent={"center"}
+                     justifyContent={"space-between"}
                 >
-                    <Box minWidth={"250px"}
+                    <Box minWidth={"260px"}
                          width={"25%"}
                          marginTop={11}
-                    
                     >
                         <SearchField formId={"modalSearch"}
                                      searchQuery={searchQuery}
@@ -84,36 +80,9 @@ const SearchModal: React.FC<SearchModalProps> = ({ isModalOpen, onModalEvent, au
                                      labelText={"Enter a Movie title"}
                         />
                     </Box>
-                    <Box display={"flex"}
-                         alignItems={"center"}
-                         justifyContent={"center"}
-                         width={"100%"}
-                         height={"100%"}
-                         flexDirection={"row"}
-                         gap={2}
-                         overflow={"hidden"}
-                         maxWidth={theme.breakpoints.values.xl}
-                    >
-                        {movies.length > 0 && movies.slice(0, 6).map(movie => {
-                            return (
-                                <Link key={movie.movieId} to={`/movies/${movie.movieId}`} onClick={onModalEvent}>
-                                    <MovieCard key={movie.movieId}
-                                               movie={movie}
-                                               sx={{
-                                                   height: "auto",
-                                                   width: "auto",
-                                                   maxHeight: "100%",
-                                                   maxWidth: "250px",
-                                                   minWidth: 120,
-                                                   cursor: "pointer",
-                                               }}
-                                               onHover={() => {}}
-                                               isExpandable={true}/>
-                                </Link>);
-                        })}
-                        {invalidQueryPrompt && movies.length === 0 &&
-                            <StandardTypography variant={"h2"}>No movie data available.</StandardTypography>}
-                    </Box>
+                    <MovieSearchRow movies={movies}
+                                    onModalEvent={onModalEvent}
+                                    invalidQueryPrompt={invalidQueryPrompt}/>
                 </Box>
             </Modal>
         </>

@@ -55,6 +55,7 @@ const MovieTitleDisplay: React.FC<MovieTitleDisplayProps> = ({ movie }) => {
         movie &&
         <StyledGrid container
                     padding={2}
+                    minHeight={{xs: "94vh", sm: "auto"}}
                     sx={backgroundStyle}>
             <Grid item
                   xs={0}
@@ -65,6 +66,7 @@ const MovieTitleDisplay: React.FC<MovieTitleDisplayProps> = ({ movie }) => {
                 <Box style={{
                     display: "flex",
                     flexDirection: "column",
+                    height: "100%",
                     alignItems: "center",
                     justifyContent: "center"
                 }}>
