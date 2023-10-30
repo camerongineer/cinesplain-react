@@ -31,7 +31,7 @@ const MovieSearchRow: React.FC<MovieSearchRowProps> = ({ movies, onModalEvent, i
                                            movie={movie}
                                            sx={{
                                                height: "auto",
-                                               width: {xs: "26vw", sm: "18vw", md: "15vw", lg: "12vw"},
+                                               width: { xs: "70vw", sm: "26vw", md: "20vw", lg: "15vw" },
                                                minWidth: "100px",
                                                cursor: "pointer",
                                                margin: "10px"

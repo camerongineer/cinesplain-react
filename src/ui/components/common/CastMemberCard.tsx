@@ -7,8 +7,9 @@ import maleSilhouette from "../../images/male_silhouette.png";
 import { SxProps } from "@mui/system";
 
 const StyledCard = styled(Card)`
-  overflow: hidden;
+  overflow: visible;
   height: fit-content;
+  min-width: 200px;
   margin: 5px;
   font-size: calc(10px + 2vmin);
   color: ${props => props.theme.palette.text.primary};

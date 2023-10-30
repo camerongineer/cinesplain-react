@@ -55,7 +55,7 @@ const MovieTitleDisplay: React.FC<MovieTitleDisplayProps> = ({ movie }) => {
         movie &&
         <StyledGrid container
                     padding={2}
-                    minHeight={{xs: "94vh", sm: "auto"}}
+                    maxHeight={{ xs: "93vh", sm: "auto" }}
                     sx={backgroundStyle}>
             <Grid item
                   xs={0}

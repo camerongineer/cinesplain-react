@@ -31,7 +31,6 @@ const CastMemberRow: React.FC<CastMemberRowProps> = ({ castMembers, movieId }) =
                                                           minWidth: { xs: "26vw", sm: "18vw", md: "156px" }
                                                       }}
                                                       castMember={castMember}/>)}
-                
                 </StyledStack>
             </OuterCarousel>}
         </>

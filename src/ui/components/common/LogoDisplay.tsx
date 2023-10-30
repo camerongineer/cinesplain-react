@@ -12,10 +12,10 @@ interface LogoDisplayProps {
 
 const LogoDisplay: React.FC<LogoDisplayProps> = ({ images, sx }) => (
     <Box component={"img"}
-         width={"80%"}
-         maxWidth={"350px"}
-         mb={{xs: 3, sm: 2}}
-         mt={{xs: 3, sm: 0}}
+         width={{ xs: "60%", md: "80%" }}
+         maxWidth={{ md: "350px" }}
+         mb={{ xs: 3, sm: 2 }}
+         mt={{ xs: 3, sm: 0 }}
          sx={sx}
          src={getBackdropPath(images.logos[0].filePath)}
          alt={"logo"}/>
