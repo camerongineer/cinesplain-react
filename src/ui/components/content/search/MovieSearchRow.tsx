@@ -1,6 +1,6 @@
 import React from "react";
 import { Stack, styled } from "@mui/material";
-import OuterCarousel from "../common/OuterCarousel";
+import OuterCarousel from "../../common/OuterCarousel";
 import Movie from "../../../../models/movie";
 import { Link } from "react-router-dom";
 import MovieCard from "../moviePage/MovieCard";
