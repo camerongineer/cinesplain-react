@@ -15,13 +15,9 @@ interface HeaderProps {
 }
 
 const StyledAppBar = styled(AppBar)(({ theme }) => ({
-    background: theme.palette.background.paper,
-    color: theme.palette.text.primary,
-    display: "flex",
-    position: "sticky",
-    alignItems: "center",
-    justifyContent: "center",
-    zIndex: 9999
+    background: theme.palette.secondary[theme.palette.mode],
+    color: theme.palette.getContrastText(theme.palette.secondary[theme.palette.mode]),
+    position: "sticky"
 }));
 
 const CenteredToolbar = styled(Toolbar)(({ theme }) => ({
@@ -61,12 +57,12 @@ const Header: React.FC<HeaderProps> = (props) => {
         <>
             {searchModalOpen && <SearchModal isModalOpen={searchModalOpen} onModalEvent={handleSearchButtonClick}
                                              autoCompleteList={popularMovieTitles}/>}
-            <StyledAppBar>
+            <StyledAppBar className={"center"} color={"info"}>
                 <CenteredToolbar>
                     {/*{isSmallScreen &&*/}
                     {/*    <NavDrawer {...props}/>}*/}
-
-                        <NavBar {...props} onSearchButtonClicked={handleSearchButtonClick} animateLogo={animateLogo}/>
+                    
+                    <NavBar {...props} onSearchButtonClicked={handleSearchButtonClick} animateLogo={animateLogo}/>
                 </CenteredToolbar>
             </StyledAppBar>
         </>

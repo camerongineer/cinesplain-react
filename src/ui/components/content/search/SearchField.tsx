@@ -1,16 +1,20 @@
-import { Autocomplete, AutocompleteChangeDetails, AutocompleteChangeReason, styled, TextField } from "@mui/material";
+import {
+    Autocomplete,
+    styled,
+    TextField
+} from "@mui/material";
 import React, { ChangeEvent, SyntheticEvent } from "react";
 import { SxProps } from "@mui/system";
 import { Theme } from "@mui/material/styles";
 
-const StyledTextField = styled(TextField)(({ theme }) => ({
-    fieldset: {
-        background: "rgb(255, 255, 255, 0.5)"
-    },
-    input: {
-        color: theme.palette.getContrastText(theme.palette.background.default)
-    }
-}));
+const StyledTextField = styled(TextField)`
+  fieldset {
+    background: rgb(240, 240, 240, 0.5);
+    z-index: -1
+  }
+
+,
+`;
 
 interface SearchFieldProps {
     formId: string,
@@ -33,9 +37,7 @@ const SearchField: React.FC<SearchFieldProps> = ({
 }) => {
     const handleQuerySubmit = (
         event: SyntheticEvent<Element, Event>,
-        value: string | null,
-        reason: AutocompleteChangeReason,
-        details?: AutocompleteChangeDetails<string> | undefined) => {
+        value: string | null) => {
         event.preventDefault();
         onQuerySubmit(value || "");
     };
@@ -55,7 +57,6 @@ const SearchField: React.FC<SearchFieldProps> = ({
                                                       placeholder={labelText}
                                                       sx={sx}
                                                       variant={"outlined"}
-                                                      color={"secondary"}
                                                       fullWidth
                                                       autoFocus
             />}

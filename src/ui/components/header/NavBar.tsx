@@ -1,12 +1,9 @@
-import "../../images/c_marr_icon.png";
-import { Box, Grid, IconButton, styled, Tab, Tabs } from "@mui/material";
+import { Box, Grid, IconButton, styled, useTheme } from "@mui/material";
 import React from "react";
-import { HeaderLink } from "./Header";
-import { StandardTypography } from "../../styles/Typography";
 import SearchIcon from "@mui/icons-material/Search";
 
 const SlidingLogo = styled("img")`
-  width: 150px;
+  height: 30px;
   position: relative;
 
   @keyframes slideIn {
@@ -22,6 +19,7 @@ const SlidingLogo = styled("img")`
       left: 0;
     }
   }
+
 `;
 
 interface NavBarProps {
@@ -37,21 +35,24 @@ const NavBar: React.FC<NavBarProps> = ({
     onSearchButtonClicked,
     animateLogo
 }) => {
+    const theme = useTheme();
     const handleTabClick = (_event: React.SyntheticEvent, value: number) => onSelectedTabChanged(value);
     
     return (
         <Grid container spacing={1}>
             <Grid item xs={4} sm={4} lg={2}>
-                <Box>
-                    <a href={"/"}>
-                        <SlidingLogo
-                            sx={{
-                                animation: `${animateLogo ? "slideIn 2s forwards" : "none"}`
-                            }}
-                            src={require("../../images/c_marr_icon.png")}
-                        />
-                    </a>
-                
+                <Box component={"a"} display={"flex"} alignItems={"center"} href={"/"}>
+                    <SlidingLogo
+                        sx={{
+                            animation: `${animateLogo ? "slideIn 2s forwards" : "none"}`
+                        }}
+                        src={require("../../images/cs_logo_text.png")}></SlidingLogo>
+                    <SlidingLogo
+                        sx={{
+                            animation: `${animateLogo ? "slideIn 2s forwards" : "none"}`,
+                            height: "40px"
+                        }}
+                        src={require("../../images/cs_logo_up.png")}></SlidingLogo>
                 </Box>
             </Grid>
             {/*<Grid item xs={4} sm={4} sx={{ display: "flex" }}>*/}
@@ -65,9 +66,9 @@ const NavBar: React.FC<NavBarProps> = ({
             {/*</Grid>*/}
             <Grid item xs={4} sm={4}/>
             <Grid item xs={3} sm={3} lg={5}/>
-            <Grid item xs={1}  display={"flex"} justifyContent={"end"}>
-                <IconButton sx={{ marginLeft: "auto" }} onClick={onSearchButtonClicked}>
-                    <SearchIcon/>
+            <Grid item xs={1} display={"flex"} justifyContent={"end"}>
+                <IconButton sx={{ marginLeft: "auto" }} onClick={onSearchButtonClicked} title={"search"}>
+                    <SearchIcon sx={{ color: theme.palette.text.primary }}/>
                 </IconButton>
             </Grid>
         </Grid>

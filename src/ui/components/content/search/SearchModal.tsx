@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
-import { Box, Modal } from "@mui/material";
+import { Box, Modal, Stack } from "@mui/material";
 import Movie from "../../../../models/movie";
 import SearchField from "./SearchField";
 import { getMoviesSearchPath, retrieveMovies } from "../../../../utils/retrievalUtils";
@@ -59,15 +59,8 @@ const SearchModal: React.FC<SearchModalProps> = ({ isModalOpen, onModalEvent, au
         <>
             <Modal open={isModalOpen}
                    onClose={onModalEvent}
-                   style={{ width: "100%", color: "white" }}
             >
-                <Box width={"100%"}
-                     height={"100%"}
-                     display={"flex"}
-                     flexDirection={"column"}
-                     alignItems={"center"}
-                     justifyContent={"space-between"}
-                >
+                <Stack className={"full center"}>
                     <Box minWidth={"260px"}
                          width={"25%"}
                          marginTop={11}
@@ -83,7 +76,7 @@ const SearchModal: React.FC<SearchModalProps> = ({ isModalOpen, onModalEvent, au
                     <MovieSearchRow movies={movies}
                                     onModalEvent={onModalEvent}
                                     invalidQueryPrompt={invalidQueryPrompt}/>
-                </Box>
+                </Stack>
             </Modal>
         </>
     );
