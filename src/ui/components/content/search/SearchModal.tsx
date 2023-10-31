@@ -60,7 +60,8 @@ const SearchModal: React.FC<SearchModalProps> = ({ isModalOpen, onModalEvent, au
             <Modal open={isModalOpen}
                    onClose={onModalEvent}
             >
-                <Stack className={"full center"}>
+                <Stack className={"full center"}
+                       justifyContent={"space-between"}>
                     <Box minWidth={"260px"}
                          width={"25%"}
                          marginTop={11}

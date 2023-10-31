@@ -12,8 +12,6 @@ const StyledTextField = styled(TextField)`
     background: rgb(240, 240, 240, 0.5);
     z-index: -1
   }
-
-,
 `;
 
 interface SearchFieldProps {
