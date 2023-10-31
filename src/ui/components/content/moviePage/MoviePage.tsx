@@ -18,10 +18,10 @@ const StyledMoviePage = styled(Stack)`
 `;
 
 interface MoviePageProps {
-    loadedMovie: Movie | null;
+    loadedMovie?: Movie | null;
 }
 
-const MoviePage: React.FC<MoviePageProps> = ({ loadedMovie }) => {
+const MoviePage: React.FC<MoviePageProps> = ({ loadedMovie = null }) => {
     const location = useLocation();
     const { movieId } = useParams();
     const [movie, setMovie] = useState<Movie | null>(loadedMovie);
@@ -34,6 +34,7 @@ const MoviePage: React.FC<MoviePageProps> = ({ loadedMovie }) => {
                     if (movieData === null) return null;
                     const credits = await retrieveCredits(movieData.movieId);
                     movieData.credits = credits ? credits : [];
+                    console.log(movie);
                     setMovie(movieData);
                 } catch (error) {
                     console.error(error);
@@ -44,7 +45,7 @@ const MoviePage: React.FC<MoviePageProps> = ({ loadedMovie }) => {
     }, [movieId]);
     
     useEffect(() => {
-        if (movie) {
+        if (movie && !movie.credits) {
             (async () => {
                 try {
                     const credits = await retrieveCredits(movie.movieId);
@@ -61,8 +62,7 @@ const MoviePage: React.FC<MoviePageProps> = ({ loadedMovie }) => {
         <>
             {movie && <StyledMoviePage key={location.pathname}>
                 <MovieTitleDisplay key={movie.movieId} movie={movie}/>
-                {movie.credits.length > 0 && <CastMemberRow castMembers={movie.credits} movieId={movieId}/> }
-                
+                {movie.credits.length > 0 && <CastMemberRow castMembers={movie.credits} movieId={movieId}/>}
                 <Stack flexDirection={{ xs: "column", md: "row" }}
                        alignItems={"center"}
                        justifyContent={"space-evenly"}

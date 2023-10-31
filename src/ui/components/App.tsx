@@ -21,7 +21,7 @@ const StyledMain = styled(Stack)`
   flex-direction: row;
   justify-content: space-evenly;
   transition-delay: .5s;
-  color: ${props => props.theme.palette.common.white};
+  color: ${props => props.theme.palette.text.primary};
 `;
 
 const App: React.FC = () => {
@@ -40,7 +40,7 @@ const App: React.FC = () => {
                                 <Route path="/"
                                        element={<HomePage/>}/>
                                 <Route path="/movies/:movieId"
-                                       element={<MoviePage loadedMovie={null}/>}
+                                       element={<MoviePage/>}
                                 />
                             </Routes>
                         </StyledMain>

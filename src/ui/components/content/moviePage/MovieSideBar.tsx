@@ -6,6 +6,7 @@ import { Paper, Stack, styled } from "@mui/material";
 import ReleaseDateDisplay from "../common/ReleaseDateDisplay";
 import CurrencyDisplay from "../common/CurrencyDisplay";
 import RuntimeDisplay from "../common/RuntimeDisplay";
+import SplainationDisplay from "../common/SplainationDisplay";
 
 const StyledPaper = styled(Paper)`
   flex-direction: column;
@@ -24,15 +25,7 @@ interface MovieSideBarProps {
 const MovieSideBar: React.FC<MovieSideBarProps> = ({ movie }) => (
     <StyledPaper elevation={5}>
         <TaglineDisplay tagline={movie.tagline}/>
-        <StandardTypography variant={"h5"}
-                            pt={2}
-                            pb={1}>
-            Overview
-        </StandardTypography>
-        <StandardTypography variant={"body1"}
-                            pb={5}>
-            {movie.overview}
-        </StandardTypography>
+        <SplainationDisplay overview={movie.overview}/>
         <Stack alignItems={"center"}
                spacing={1}>
             <RuntimeDisplay runtime={movie.runtime} includeLabel={true}/>

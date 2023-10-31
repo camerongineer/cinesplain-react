@@ -21,13 +21,14 @@ const TrailerDisplay: React.FC<TrailerCardProps> = ({ movie, sx }) => {
     const trailers = movie.videos.filter(video => video.videoType === "Trailer" && video.site === "YouTube");
     return (
         <>
-            {trailers.length > 0 && <StyledPaper key={movie.movieId} sx={sx} elevation={5}>
+            {trailers.length > 0 && <StyledPaper key={movie.movieId}
+                                                 sx={sx}
+                                                 elevation={5}>
                 <Box sx={sx}
                      component={"iframe"}
                      src={getYouTubeTrailerPath(trailers[0].videoKey)}
                      title={`${movie.movieTitle} trailer`}
                      allow=""
-
                      border={"0"}
                      allowFullScreen></Box>
             </StyledPaper>}
