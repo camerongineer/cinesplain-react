@@ -9,11 +9,11 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import { DndProvider } from "react-dnd";
 import HomePage from "./content/homePage/HomePage";
 
-const StyledApp = styled(Stack)(({ theme }) => ({
-    background: theme.palette.primary[theme.palette.mode],
-    fontSize: "calc(10px + 2vmin)",
-    minWidth: "280px"
-}));
+const StyledApp = styled(Stack)`
+  background: ${props => props.theme.palette.primary[props.theme.palette.mode]};
+  font-size: calc(10px + 2vmin);
+  min-width: 280px;
+`;
 
 const StyledMain = styled(Stack)`
   max-width: ${props => props.theme.breakpoints.values.xl}px;

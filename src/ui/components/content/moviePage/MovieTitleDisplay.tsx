@@ -3,11 +3,11 @@ import { Box, Grid, Rating, styled, Typography } from "@mui/material";
 import MovieCard from "./MovieCard";
 import Movie from "../../../../models/movie";
 import { getBackdropPath } from "../../../../utils/retrievalUtils";
-import TitleDisplay from "../../common/TitleDisplay";
-import ReleaseDateDisplay from "../../common/ReleaseDateDisplay";
-import GenreDisplay from "../../common/GenreDisplay";
-import RuntimeDisplay from "../../common/RuntimeDisplay";
-import LogoDisplay from "../../common/LogoDisplay";
+import TitleDisplay from "../common/TitleDisplay";
+import ReleaseDateDisplay from "../common/ReleaseDateDisplay";
+import GenreDisplay from "../common/GenreDisplay";
+import RuntimeDisplay from "../common/RuntimeDisplay";
+import LogoDisplay from "../common/LogoDisplay";
 
 const StyledGrid = styled(Grid)`
   width: 100%;

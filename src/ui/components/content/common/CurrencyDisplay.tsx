@@ -1,7 +1,7 @@
 import React from "react";
 import { SxProps } from "@mui/system";
 import { Theme } from "@mui/material/styles";
-import { getFormattedCurrencyAmount } from "../../../utils/formatUtils";
+import { getFormattedCurrencyAmount } from "../../../../utils/formatUtils";
 import { Typography } from "@mui/material";
 
 interface CurrencyDisplayProps {

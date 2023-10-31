@@ -1,5 +1,5 @@
 import React from "react";
-import CastMember from "../../../models/castMember";
+import CastMember from "../../../../models/castMember";
 import { Stack, styled } from "@mui/material";
 import CastMemberCard from "./CastMemberCard";
 import OuterCarousel from "./OuterCarousel";

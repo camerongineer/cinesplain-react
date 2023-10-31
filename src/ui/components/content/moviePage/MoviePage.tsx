@@ -6,7 +6,7 @@ import { Box, Stack, styled } from "@mui/material";
 import MovieTitleDisplay from "./MovieTitleDisplay";
 import TrailerDisplay from "./TrailerDisplay";
 import MovieSideBar from "./MovieSideBar";
-import CastMemberRow from "../../common/CastMemberRow";
+import CastMemberRow from "../common/CastMemberRow";
 
 const StyledMoviePage = styled(Stack)`
   width: 100%;

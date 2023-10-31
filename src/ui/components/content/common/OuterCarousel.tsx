@@ -3,12 +3,9 @@ import { Stack, styled } from "@mui/material";
 import { SxProps } from "@mui/system";
 
 const StyledStack = styled(Stack)`
-  width: 100%;
-  justify-content: center;
-  align-items: center;
   flex-direction: row;
   flex-wrap: nowrap;
-  overflow: scroll;
+  overflow-x: scroll;
   scrollbar-width: "none";
 
   &::-webkit-scrollbar {
@@ -22,7 +19,7 @@ interface OuterCarouselProps {
 }
 
 const OuterCarousel: React.FC<OuterCarouselProps> = ({ children, sx }) => (
-    <StyledStack sx={sx}>
+    <StyledStack className={"full center"} sx={sx}>
         {children}
     </StyledStack>
 );

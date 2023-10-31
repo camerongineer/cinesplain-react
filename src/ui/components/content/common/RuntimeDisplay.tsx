@@ -1,7 +1,7 @@
 import React from "react";
 import { SxProps } from "@mui/system";
 import { Theme } from "@mui/material/styles";
-import { getFormattedRuntime } from "../../../utils/formatUtils";
+import { getFormattedRuntime } from "../../../../utils/formatUtils";
 import { Typography } from "@mui/material";
 
 interface RuntimeDisplayProps {

@@ -1,8 +1,8 @@
 import React from "react";
-import { Images } from "../../../models/Image";
+import { Images } from "../../../../models/Image";
 import { SxProps } from "@mui/system";
 import { Theme } from "@mui/material/styles";
-import { getBackdropPath } from "../../../utils/retrievalUtils";
+import { getBackdropPath } from "../../../../utils/retrievalUtils";
 import { Box } from "@mui/material";
 
 interface LogoDisplayProps {

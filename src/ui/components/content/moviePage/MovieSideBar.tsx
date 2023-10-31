@@ -1,11 +1,11 @@
 import React from "react";
 import Movie from "../../../../models/movie";
-import TaglineDisplay from "../../common/TaglineDisplay";
+import TaglineDisplay from "../common/TaglineDisplay";
 import { StandardTypography } from "../../../styles/Typography";
 import { Paper, Stack, styled } from "@mui/material";
-import ReleaseDateDisplay from "../../common/ReleaseDateDisplay";
-import CurrencyDisplay from "../../common/CurrencyDisplay";
-import RuntimeDisplay from "../../common/RuntimeDisplay";
+import ReleaseDateDisplay from "../common/ReleaseDateDisplay";
+import CurrencyDisplay from "../common/CurrencyDisplay";
+import RuntimeDisplay from "../common/RuntimeDisplay";
 
 const StyledPaper = styled(Paper)`
   flex-direction: column;

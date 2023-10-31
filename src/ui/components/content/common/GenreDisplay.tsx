@@ -1,7 +1,7 @@
 import React from "react";
 import { SxProps } from "@mui/system";
 import { Theme } from "@mui/material/styles";
-import Genre from "../../../models/genre";
+import Genre from "../../../../models/genre";
 import { Button, Typography } from "@mui/material";
 
 interface GenreDisplayProps {
