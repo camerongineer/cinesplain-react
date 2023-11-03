@@ -15,7 +15,7 @@ const GenreDisplay: React.FC<GenreDisplayProps> = ({ genres, sx }) => (
             {genres.map((genre) => {
                 return <Button variant={"contained"}
                                size={"small"}
-                               sx={{ m: 1 }}
+                               sx={{ m: 2 }}
                                key={genre.name}>{genre.name}
                 </Button>;
             })}

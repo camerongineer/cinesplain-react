@@ -9,7 +9,7 @@ import { StandardTypography } from "../../../styles/Typography";
 const StyledStack = styled(Stack)`
   flex-direction: row;
   align-items: center;
-  max-width: 100%;
+  min-width: 100%;
   justify-content: start;
 `;
 
@@ -22,13 +22,12 @@ interface MovieSearchRowProps {
 const MovieSearchRow: React.FC<MovieSearchRowProps> = ({ movies, onModalEvent, invalidQueryPrompt }) => {
     return (
         <>
-            {movies.length > 0 && <OuterCarousel sx={{ height: "inherit" }}>
-                <StyledStack>
+            {movies.length > 0 && <OuterCarousel sx={{ overflow: "auto", height: "inherit" }}>
+                <StyledStack className={"full center"}>
                     {movies.length > 0 && movies.slice(0, 20).map(movie => {
                         return (
                             <Link key={movie.movieId} to={`/movies/${movie.movieId}`} onClick={onModalEvent}>
-                                <MovieCard key={movie.movieId}
-                                           movie={movie}
+                                <MovieCard movie={movie}
                                            sx={{
                                                height: "auto",
                                                width: { xs: "70vw", sm: "26vw", md: "20vw", lg: "15vw" },

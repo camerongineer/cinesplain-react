@@ -43,11 +43,13 @@ const NavBar: React.FC<NavBarProps> = ({
             <Grid item xs={4} sm={4} lg={2}>
                 <Box component={"a"} display={"flex"} alignItems={"center"} href={"/"}>
                     <SlidingLogo
+                        alt={"CineSplain logo"}
                         sx={{
                             animation: `${animateLogo ? "slideIn 2s forwards" : "none"}`
                         }}
                         src={require("../../images/cs_logo_text.png")}></SlidingLogo>
                     <SlidingLogo
+                        alt={"CineSplain icon"}
                         sx={{
                             animation: `${animateLogo ? "slideIn 2s forwards" : "none"}`,
                             height: "40px"

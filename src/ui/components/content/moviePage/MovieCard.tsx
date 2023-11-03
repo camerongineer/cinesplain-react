@@ -14,6 +14,7 @@ import { getFormattedDate } from "../../../../utils/formatUtils";
 import { SxProps } from "@mui/system";
 
 const StyledCard = styled(Card)(({ theme }) => ({
+    position: "relative",
     background: theme.palette.background.paper,
     transition: `height 2s ease-in-out, opacity ${theme.transitions.duration.complex}ms ease-in-out`,
     "@keyframes Card-Wobble": {

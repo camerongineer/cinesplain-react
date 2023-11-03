@@ -19,7 +19,7 @@ interface OuterCarouselProps {
 }
 
 const OuterCarousel: React.FC<OuterCarouselProps> = ({ children, sx }) => (
-    <StyledStack className={"full center"} sx={sx}>
+    <StyledStack className={"full"} sx={sx}>
         {children}
     </StyledStack>
 );
