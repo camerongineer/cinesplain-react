@@ -25,7 +25,7 @@ const useMovieBackdrop = (movie: Movie | null) => {
             setBackgroundImage(getBackdropPath(movie.backdropPath));
         }
     }, [movie]);
-    return [backgroundImage, backgroundImageLoaded];
+    return { backgroundImage, backgroundImageLoaded };
 };
 
 export default useMovieBackdrop;

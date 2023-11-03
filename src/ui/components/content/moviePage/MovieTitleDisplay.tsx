@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Box, Grid, Rating, styled, Typography } from "@mui/material";
 import MovieCard from "./MovieCard";
 import Movie from "../../../../models/movie";
-import { getBackdropPath } from "../../../../utils/retrievalUtils";
 import TitleDisplay from "../common/TitleDisplay";
 import ReleaseDateDisplay from "../common/ReleaseDateDisplay";
 import GenreDisplay from "../common/GenreDisplay";
 import RuntimeDisplay from "../common/RuntimeDisplay";
 import LogoDisplay from "../common/LogoDisplay";
+import useMovieBackdrop from "../../../../hooks/UseMovieBackdrop";
 
 const StyledGrid = styled(Grid)`
   width: 100%;
@@ -21,28 +21,7 @@ interface MovieTitleDisplayProps {
 }
 
 const MovieTitleDisplay: React.FC<MovieTitleDisplayProps> = ({ movie }) => {
-    const [backgroundImage, setBackgroundImage] = useState<string | null>(null);
-    const [backgroundImageLoaded, setBackgroundImageLoaded] = useState<boolean>(false);
-    
-    useEffect(() => {
-        if (movie && !movie.backdropPath) {
-            setBackgroundImageLoaded(true);
-        }
-        if (!backgroundImage) return;
-        const backgroundImageUrl = backgroundImage;
-        const backgroundImg = new Image();
-        backgroundImg.src = backgroundImageUrl;
-        backgroundImg.alt = "Movie Backdrop";
-        backgroundImg.onload = () => {
-            setBackgroundImageLoaded(true);
-        };
-    }, [backgroundImage]);
-    
-    useEffect(() => {
-        if (movie && movie.backdropPath) {
-            setBackgroundImage(getBackdropPath(movie.backdropPath));
-        }
-    }, [movie]);
+    const { backgroundImage, backgroundImageLoaded } = useMovieBackdrop(movie);
     
     const backgroundStyle = {
         background: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.7)), url(${backgroundImage})`,
@@ -97,20 +76,25 @@ const MovieTitleDisplay: React.FC<MovieTitleDisplayProps> = ({ movie }) => {
                   justifyContent={"center"}>
                 {movie.images.logos.length > 0 && <LogoDisplay images={movie.images}/>}
                 {movie.images.logos.length === 0 && <TitleDisplay title={movie.movieTitle}/>}
-                <Box sx={{ mb: 4 }}
+                <Box sx={{ mb: 1 }}
                      display={"flex"}
                      flexDirection={"row"}>
-                    <ReleaseDateDisplay releaseDate={movie.releaseDate}/>
-                    <Typography>&nbsp;&nbsp;•&nbsp;&nbsp;</Typography>
-                    <RuntimeDisplay runtime={movie.runtime}/>
+                    {movie.releaseDate && <ReleaseDateDisplay releaseDate={movie.releaseDate}/>}
+                    {movie.runtime &&
+                        <>
+                            <Typography>&nbsp;&nbsp;•&nbsp;&nbsp;</Typography>
+                            <RuntimeDisplay runtime={movie.runtime}/>
+                        </>}
                 </Box>
-                <GenreDisplay genres={movie.genres}/>
                 {movie.voteCount > 3 &&
-                    <Rating name="read-only"
-                            precision={0.5}
-                            size="medium"
-                            value={Math.max(movie.voteAverage / 2, 0.5)}
-                            readOnly/>}
+                    <>
+                        <Rating name="read-only"
+                                precision={0.5}
+                                size="medium"
+                                value={Math.max(movie.voteAverage / 2, 0.5)}
+                                readOnly/>
+                    </>}
+                <GenreDisplay genres={movie.genres}/>
             </Grid>
             <Grid item
                   xs={0}
