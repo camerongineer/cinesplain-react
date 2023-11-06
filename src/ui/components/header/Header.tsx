@@ -14,11 +14,13 @@ interface HeaderProps {
     onSelectedTabChanged: (newSelectedTab: number) => void,
 }
 
-const StyledAppBar = styled(AppBar)(({ theme }) => ({
-    background: theme.palette.secondary[theme.palette.mode],
-    color: theme.palette.getContrastText(theme.palette.secondary[theme.palette.mode]),
-    position: "sticky"
-}));
+const StyledAppBar = styled(AppBar)`
+    background: linear-gradient(
+      ${props => props.theme.palette.secondary[props.theme.palette.mode]},
+      ${props => props.theme.palette.secondary[props.theme.palette.mode]}99);
+    color: ${props => props.theme.palette.getContrastText(props.theme.palette.secondary[props.theme.palette.mode])};
+    position: sticky;
+`;
 
 const CenteredToolbar = styled(Toolbar)(({ theme }) => ({
     maxWidth: (theme.breakpoints.values.xl - 100),

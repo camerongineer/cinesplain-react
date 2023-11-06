@@ -10,7 +10,10 @@ import { DndProvider } from "react-dnd";
 import HomePage from "./content/homePage/HomePage";
 
 const StyledApp = styled(Stack)`
-  background: ${props => props.theme.palette.primary[props.theme.palette.mode]};
+  background: linear-gradient(100deg,
+  ${props => props.theme.palette.primary[props.theme.palette.mode]}90,
+  ${props => props.theme.palette.primary[props.theme.palette.mode]}05,
+  ${props => props.theme.palette.primary[props.theme.palette.mode]}90);
   font-size: calc(10px + 2vmin);
   min-width: 280px;
 `;
