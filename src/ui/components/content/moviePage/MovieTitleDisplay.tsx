@@ -80,20 +80,21 @@ const MovieTitleDisplay: React.FC<MovieTitleDisplayProps> = ({ movie }) => {
                      display={"flex"}
                      flexDirection={"row"}>
                     {movie.releaseDate && <ReleaseDateDisplay releaseDate={movie.releaseDate}/>}
-                    {movie.runtime &&
+                    {movie.runtime > 0 &&
                         <>
                             <Typography>&nbsp;&nbsp;•&nbsp;&nbsp;</Typography>
                             <RuntimeDisplay runtime={movie.runtime}/>
                         </>}
                 </Box>
-                {movie.voteCount > 3 &&
+                {movie.voteCount >= 20 &&
                     <>
                         <Rating name="read-only"
                                 precision={0.5}
                                 size="medium"
                                 value={Math.max(movie.voteAverage / 2, 0.5)}
                                 readOnly/>
-                    </>}
+                    </>
+                }
                 <GenreDisplay genres={movie.genres}/>
             </Grid>
             <Grid item
