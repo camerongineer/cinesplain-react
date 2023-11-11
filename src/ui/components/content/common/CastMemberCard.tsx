@@ -13,6 +13,7 @@ const StyledCard = styled(Card)`
   margin: 5px;
   font-size: calc(10px + 2vmin);
   color: ${props => props.theme.palette.text.primary};
+  transition: opacity ${props => props.theme.transitions.duration.complex}ms ease-in-out;
 `;
 
 interface CastMemberCardProps {
@@ -21,12 +22,15 @@ interface CastMemberCardProps {
 }
 
 const CastMemberCard: React.FC<CastMemberCardProps> = ({ castMember, sx }) => {
-    const [isHovered, setIsHovered] = useState(false);
-    const headshotPath = castMember.gender === 1 ? femaleSilhouette : maleSilhouette;
+    const [isHovered, setIsHovered] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(true);
+    
+    const altSilhouette = castMember.gender === 1 ? femaleSilhouette : maleSilhouette;
     
     return (
         <StyledCard elevation={5}
                     sx={sx}
+                    style={{ opacity: loading ? "0" : "1" }}
                     key={castMember.castMemberId}
                     onMouseEnter={() => setIsHovered(true)}
                     onMouseLeave={() => setIsHovered(false)}>
@@ -35,8 +39,9 @@ const CastMemberCard: React.FC<CastMemberCardProps> = ({ castMember, sx }) => {
             </CardContent>}
             <CardMedia
                 component="img"
-                image={castMember.profilePath ? getSmallHeadShotPath(castMember.profilePath) : headshotPath}
+                image={castMember.profilePath ? getSmallHeadShotPath(castMember.profilePath) : altSilhouette}
                 alt={castMember.castMemberName}
+                onLoad={() => setLoading(false)}
             />
             {castMember.character && <CardHeader
                 title={<Typography variant={"body2"}>"<strong>{castMember.character}</strong>"</Typography>}/>}
