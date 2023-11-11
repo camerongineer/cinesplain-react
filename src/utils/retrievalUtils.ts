@@ -3,10 +3,20 @@ import Movie from "../models/movie";
 import Video from "../models/video";
 import CastMember from "../models/castMember";
 import Image, { Images } from "../models/Image";
+import { getFormattedDate } from "./formatUtils";
+import { getSubtractedDate } from "./timeUtils";
 
 const retrieveData = async (url: string) => {
+    const options = {
+        method: "GET",
+        headers: {
+            accept: "application/json",
+            Authorization: `Bearer ${process.env.REACT_APP_TMDB_API_KEY}`
+        }
+    };
+    
     try {
-        let response: AxiosResponse<any, any> = await axios.get(url);
+        let response: AxiosResponse<any, any> = await axios.get(url, options);
         if (response.status !== 200) {
             return null;
         }
@@ -201,22 +211,26 @@ export const getSmallHeadShotPath = (relativePath: string) =>
     `https://www.themoviedb.org/t/p/w276_and_h350_face${relativePath}`;
 
 export const getMoviePath = (movieId: string) =>
-    withApiKey(`${MOVIES_URL}movie/${movieId}?append_to_response=videos,images&language=en`);
+    `${MOVIES_URL}movie/${movieId}?append_to_response=videos,images&language=en`;
 
 export const getYouTubeTrailerPath = (videoKey: string) => `https://www.youtube.com/embed/${videoKey}`;
 
 export const getMoviesSearchPath = (query: string, page: number, includeAdult: boolean = false) => (
-    withApiKey(
-        `${MOVIES_URL}search/movie?query=${query}&sort_by=popularity.desc&page=${page}&include_adult=${includeAdult}&language=en`)
+    `${MOVIES_URL}search/movie?query=${query}&sort_by=popularity.desc&page=${page}&include_adult=${includeAdult}&language=en`
 );
 export const getPopularMoviesPath = (page: number, includeAdult: boolean = false) => (
-    withApiKey(
-        `${MOVIES_URL}discover/movie?sort_by=popularity.desc&page=${page}&include_adult=${includeAdult}&language=en`)
+    `${MOVIES_URL}discover/movie?sort_by=popularity.desc&page=${page}&include_adult=${includeAdult}&language=en`
 );
 
-export const getNowPlayingMoviesPath = () => withApiKey(`${MOVIES_URL}movie/now_playing?language=en-US&page=1`);
-export const getMovieCastPath = (movieId: number) =>
-    withApiKey(`${MOVIES_URL}movie/${movieId}/credits?language=en`);
+const sixMonthsAgoFormatted = getFormattedDate(getSubtractedDate(new Date(), 0, 6, 0));
 
-const withApiKey = (url: string) => url + `&api_key=${process.env.REACT_APP_TMDB_API_KEY}`;
+export const getNowPlayingMoviesPath = () => `${MOVIES_URL}movie/now_playing?language=en-US&page=1`;
+export const getHighestRatedMoviesPath = () => `${MOVIES_URL}discover/movie?include_adult=false&language=en-US&with_original_language=en&page=1&sort_by=vote_average.desc&primary_release_date.gte=${sixMonthsAgoFormatted}&without_genres=99,10755&vote_count.gte=20`;
+export const getLowestRatedMoviesPath = () => `${MOVIES_URL}discover/movie?include_adult=false&language=en-US&with_original_language=en&page=1&sort_by=vote_average.asc&primary_release_date.gte=${sixMonthsAgoFormatted}&without_genres=99,10755&vote_count.gte=20`;
+export const getUpcomingMoviesPath = () => `${getPopularMoviesPath(1)}&primary_release_date.gte=${getFormattedDate(
+    new Date())}`;
+export const getClassicMoviesPath = () => `${MOVIES_URL}discover/movie?include_adult=false&language=en-US&with_original_language=en&page=1&sort_by=vote_average.desc&without_genres=99,10755&vote_count.gte=1000`;
+
+export const getMovieCastPath = (movieId: number) => `${MOVIES_URL}movie/${movieId}/credits?language=en`;
+
 const MOVIES_URL = "https://api.themoviedb.org/3/";
