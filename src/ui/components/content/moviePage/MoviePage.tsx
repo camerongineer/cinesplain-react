@@ -13,7 +13,6 @@ const StyledMoviePage = styled(Stack)`
   justify-content: center;
   height: 100%;
   font-size: calc(10px + 2vmin);
-  background: ${props => props.theme.palette.background.paper};
   color: ${props => props.theme.palette.text.primary};
 `;
 
