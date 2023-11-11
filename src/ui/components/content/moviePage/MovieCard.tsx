@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import Movie from "../../../../models/movie";
 import { StandardTypography } from "../../../styles/Typography";
-import { getFormattedDate } from "../../../../utils/formatUtils";
+import { getFormattedDisplayedDate } from "../../../../utils/formatUtils";
 import { SxProps } from "@mui/system";
 
 const StyledCard = styled(Card)(({ theme }) => ({
@@ -89,7 +89,8 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, onHover, isExpandable, sx 
                         subheader={
                             <>
                                 {movie.releaseDate &&
-                                    <StandardTypography>{getFormattedDate(movie.releaseDate)}</StandardTypography>}
+                                    <StandardTypography>{getFormattedDisplayedDate(
+                                        movie.releaseDate)}</StandardTypography>}
                                 {movie.voteAverage > 0 &&
                                     <>
                                         <Rating style={{ marginTop: 4 }} precision={0.5} size="small"

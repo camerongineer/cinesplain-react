@@ -33,8 +33,8 @@ const MoviePage: React.FC<MoviePageProps> = ({ loadedMovie = null }) => {
                     if (movieData === null) return null;
                     const credits = await retrieveCredits(movieData.movieId);
                     movieData.credits = credits ? credits : [];
-                    console.log(movie);
                     setMovie(movieData);
+                    console.log(movie);
                 } catch (error) {
                     console.error(error);
                     setMovie(null);
@@ -49,7 +49,6 @@ const MoviePage: React.FC<MoviePageProps> = ({ loadedMovie = null }) => {
                 try {
                     const credits = await retrieveCredits(movie.movieId);
                     movie.credits = credits ? credits : [];
-                    console.log(movie);
                 } catch (error) {
                     console.error(error);
                 }
