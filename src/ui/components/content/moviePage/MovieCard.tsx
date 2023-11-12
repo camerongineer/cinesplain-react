@@ -12,29 +12,37 @@ import Movie from "../../../../models/movie";
 import { StandardTypography } from "../../../styles/Typography";
 import { getFormattedDisplayedDate } from "../../../../utils/formatUtils";
 import { SxProps } from "@mui/system";
+import { getImagePath } from "../../../../utils/retrievalUtils";
 
-const StyledCard = styled(Card)(({ theme }) => ({
-    position: "relative",
-    background: theme.palette.background.paper,
-    transition: `height 2s ease-in-out, opacity ${theme.transitions.duration.complex}ms ease-in-out`,
-    "@keyframes Card-Wobble": {
-        from: {
-            transform: "rotate(-1deg)"
-        },
-        to: {
-            transform: "rotate(1deg)"
-        }
+const StyledCard = styled(Card)`
+  position: relative;
+  background: ${props => props.theme.palette.background.paper};
+  transition: height 2s ease-in-out, opacity ${props => props.theme.transitions.duration.complex}ms ease-in-out;
+  @keyframes Card-Wobble {
+    from {
+      transform: rotate(-1deg);
     }
-}));
+    to {
+      transform: rotate(1deg);
+    }
+  }
+`;
 
 export interface MovieCardProps {
     movie: Movie;
+    posterWidth?: string;
     onHover: (backdropPath: string) => void;
     isExpandable: boolean;
     sx?: SxProps;
 }
 
-const MovieCard: React.FC<MovieCardProps> = ({ movie, onHover, isExpandable, sx }) => {
+const MovieCard: React.FC<MovieCardProps> = ({
+    movie,
+    posterWidth = "w780",
+    onHover,
+    isExpandable,
+    sx
+}) => {
     const [isHovered, setIsHovered] = useState(false);
     const [imageLoaded, setImageLoaded] = useState(false);
     
@@ -60,7 +68,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, onHover, isExpandable, sx 
                     ? (4 * (movie.voteAverage / 10))
                     : 3}s alternate`,
                 visibility: imageLoaded || !movie.posterPath ? "visible" : "hidden",
-                opacity: imageLoaded || !movie.posterPath ? 1 : 0,
+                opacity: imageLoaded || !movie.posterPath ? 1 : 0
             }}
             sx={sx}
             onMouseEnter={handleMouseHovered}
@@ -69,7 +77,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, onHover, isExpandable, sx 
             {movie.posterPath && (
                 <CardMedia
                     component="img"
-                    image={`https://image.tmdb.org/t/p/original/${movie.posterPath}`}
+                    image={getImagePath(movie.posterPath, posterWidth)}
                     alt="Movie Poster"
                     onLoad={handleImageLoad}
                 />
@@ -81,7 +89,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, onHover, isExpandable, sx 
                         height: isHovered || !imageLoaded || !movie.posterPath
                             ? "auto"
                             : "0",
-                        overflow: "hidden",
+                        overflow: "hidden"
                     }}
                 >
                     <CardHeader
