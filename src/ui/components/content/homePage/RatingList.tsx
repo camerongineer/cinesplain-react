@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import Movie from "../../../../models/movie";
 import useRandomMovie from "../../../../hooks/UseRandomMovie";
 import {
@@ -42,7 +42,8 @@ const RatingList: React.FC<RatingListProps> = ({
 }) => {
     const theme = useTheme();
     const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
-    const { backgroundImage, backgroundImageLoaded } = useMovieBackdrop(useRandomMovie(movies, backdropInterval, true));
+    const { backgroundImage, backgroundImageLoaded } = useMovieBackdrop(useRandomMovie(movies, backdropInterval, true),
+        "w1280");
     
     return (
         <>

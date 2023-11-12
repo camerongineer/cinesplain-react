@@ -2,7 +2,7 @@ import Movie from "../models/movie";
 import { useEffect, useState } from "react";
 import { getImagePath } from "../utils/retrievalUtils";
 
-const useMovieBackdrop = (movie: Movie | null) => {
+const useMovieBackdrop = (movie: Movie | null, imageWidth: string = "original") => {
     const [backgroundImage, setBackgroundImage] = useState<string | null>(null);
     const [backgroundImageLoaded, setBackgroundImageLoaded] = useState<boolean>(false);
     
@@ -22,7 +22,7 @@ const useMovieBackdrop = (movie: Movie | null) => {
     
     useEffect(() => {
         if (movie && movie.backdropPath) {
-            setBackgroundImage(getImagePath(movie.backdropPath));
+            setBackgroundImage(getImagePath(movie.backdropPath, imageWidth));
         }
     }, [movie]);
     return { backgroundImage, backgroundImageLoaded };
