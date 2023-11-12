@@ -1,6 +1,6 @@
-export const BASE_URL = "http://image.tmdb.org/t/p/";
+export const BASE_IMAGE_URL = "http://image.tmdb.org/t/p/";
 
-export const SECURE_BASE_URL = "https://image.tmdb.org/t/p/";
+export const SECURE_BASE_IMAGE_URL = "https://image.tmdb.org/t/p/";
 
 export const BACKDROP_SIZE = {
     SM_W300: "w300",

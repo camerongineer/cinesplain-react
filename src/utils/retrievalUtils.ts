@@ -5,6 +5,7 @@ import CastMember from "../models/castMember";
 import Image, { Images } from "../models/Image";
 import { getFormattedDate } from "./formatUtils";
 import { getSubtractedDate } from "./timeUtils";
+import { SECURE_BASE_IMAGE_URL } from "../constants/ImageSizes";
 
 const retrieveData = async (url: string) => {
     const options = {
@@ -205,10 +206,8 @@ export const retrieveCredits = async (movieId: number) => {
     }
 };
 
-export const getImagePath = (relativePath: string, imageWidth: string = "original") =>
-    `https://image.tmdb.org/t/p/${imageWidth}${relativePath}`;
-export const getSmallHeadShotPath = (relativePath: string) =>
-    `https://www.themoviedb.org/t/p/w276_and_h350_face${relativePath}`;
+export const getImagePath = (relativePath: string, imageSize: string) =>
+    `${SECURE_BASE_IMAGE_URL}${imageSize}${relativePath}`;
 
 export const getMoviePath = (movieId: string) =>
     `${MOVIES_URL}movie/${movieId}?append_to_response=videos,images&language=en`;
