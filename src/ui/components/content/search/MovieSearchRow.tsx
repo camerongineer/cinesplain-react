@@ -28,7 +28,7 @@ const MovieSearchRow: React.FC<MovieSearchRowProps> = ({ movies, onModalEvent, i
                         return (
                             <Link key={movie.movieId} to={`/movies/${movie.movieId}`} onClick={onModalEvent}>
                                 <MovieCard movie={movie}
-                                           posterWidth={"w342"}
+                                           posterSize={"w342"}
                                            sx={{
                                                height: "auto",
                                                width: { xs: "70vw", sm: "26vw", md: "20vw", lg: "15vw" },

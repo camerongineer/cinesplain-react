@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { getImagePath } from "../utils/retrievalUtils";
 import { BACKDROP_SIZE } from "../constants/ImageSizes";
 
-const useMovieBackdrop = (movie: Movie | null, imageWidth: string = BACKDROP_SIZE.MAX) => {
+const useMovieBackdrop = (movie: Movie | null, imageSize: string = BACKDROP_SIZE.MAX) => {
     const [backgroundImage, setBackgroundImage] = useState<string | null>(null);
     const [backgroundImageLoaded, setBackgroundImageLoaded] = useState<boolean>(false);
     
@@ -23,7 +23,7 @@ const useMovieBackdrop = (movie: Movie | null, imageWidth: string = BACKDROP_SIZ
     
     useEffect(() => {
         if (movie && movie.backdropPath) {
-            setBackgroundImage(getImagePath(movie.backdropPath, imageWidth));
+            setBackgroundImage(getImagePath(movie.backdropPath, imageSize));
         }
     }, [movie]);
     return { backgroundImage, backgroundImageLoaded };

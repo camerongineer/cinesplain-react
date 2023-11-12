@@ -13,6 +13,7 @@ import { StandardTypography } from "../../../styles/Typography";
 import { getFormattedDisplayedDate } from "../../../../utils/formatUtils";
 import { SxProps } from "@mui/system";
 import { getImagePath } from "../../../../utils/retrievalUtils";
+import { POSTER_SIZE } from "../../../../constants/ImageSizes";
 
 const StyledCard = styled(Card)`
   position: relative;
@@ -30,7 +31,7 @@ const StyledCard = styled(Card)`
 
 export interface MovieCardProps {
     movie: Movie;
-    posterWidth?: string;
+    posterSize?: string;
     onHover: (backdropPath: string) => void;
     isExpandable: boolean;
     sx?: SxProps;
@@ -38,7 +39,7 @@ export interface MovieCardProps {
 
 const MovieCard: React.FC<MovieCardProps> = ({
     movie,
-    posterWidth = "w780",
+    posterSize = POSTER_SIZE.LG_W780,
     onHover,
     isExpandable,
     sx
@@ -77,7 +78,7 @@ const MovieCard: React.FC<MovieCardProps> = ({
             {movie.posterPath && (
                 <CardMedia
                     component="img"
-                    image={getImagePath(movie.posterPath, posterWidth)}
+                    image={getImagePath(movie.posterPath, posterSize)}
                     alt="Movie Poster"
                     onLoad={handleImageLoad}
                 />
