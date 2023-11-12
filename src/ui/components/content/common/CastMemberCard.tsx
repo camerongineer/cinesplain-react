@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { Card, CardContent, CardHeader, CardMedia, styled, Typography } from "@mui/material";
 import CastMember from "../../../../models/castMember";
-import { getSmallHeadShotPath } from "../../../../utils/retrievalUtils";
+import { getImagePath } from "../../../../utils/retrievalUtils";
 import femaleSilhouette from "../../../images/female_silhouette.png";
 import maleSilhouette from "../../../images/male_silhouette.png";
 import { SxProps } from "@mui/system";
+import { PROFILE_SIZE } from "../../../../constants/ImageSizes";
 
 const StyledCard = styled(Card)`
   overflow: visible;
@@ -39,7 +40,9 @@ const CastMemberCard: React.FC<CastMemberCardProps> = ({ castMember, sx }) => {
             </CardContent>}
             <CardMedia
                 component="img"
-                image={castMember.profilePath ? getSmallHeadShotPath(castMember.profilePath) : altSilhouette}
+                image={castMember.profilePath
+                    ? getImagePath(castMember.profilePath, PROFILE_SIZE.MD_W185)
+                    : altSilhouette}
                 alt={castMember.castMemberName}
                 onLoad={() => setLoading(false)}
             />
