@@ -16,6 +16,7 @@ import ListLabel from "./ListLabel";
 import { SxProps } from "@mui/system";
 import { Link } from "react-router-dom";
 import OverlaidImageBox from "../../common/OverlaidImageBox";
+import { BACKDROP_SIZE } from "../../../../constants/ImageSizes";
 
 const StyledStack = styled(Stack)`
   border-radius: 10px;
@@ -43,7 +44,7 @@ const RatingList: React.FC<RatingListProps> = ({
     const theme = useTheme();
     const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
     const { backgroundImage, backgroundImageLoaded } = useMovieBackdrop(useRandomMovie(movies, backdropInterval, true),
-        "w1280");
+        BACKDROP_SIZE.LG_W1280);
     
     return (
         <>
