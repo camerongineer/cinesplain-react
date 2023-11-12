@@ -1,8 +1,9 @@
 import Movie from "../models/movie";
 import { useEffect, useState } from "react";
 import { getImagePath } from "../utils/retrievalUtils";
+import { BACKDROP_SIZE } from "../constants/ImageSizes";
 
-const useMovieBackdrop = (movie: Movie | null, imageWidth: string = "original") => {
+const useMovieBackdrop = (movie: Movie | null, imageWidth: string = BACKDROP_SIZE.MAX) => {
     const [backgroundImage, setBackgroundImage] = useState<string | null>(null);
     const [backgroundImageLoaded, setBackgroundImageLoaded] = useState<boolean>(false);
     
