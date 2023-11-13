@@ -1,21 +1,35 @@
-import Movie from "../models/movie";
 import { useEffect, useState } from "react";
+import Movie from "../models/movie";
 
 const useRandomMovie = (movies: Movie[], interval: number, requireBackdrop: boolean = false) => {
-    const [randomMovieIndex, setRandomMovieIndex] = useState(Math.floor(movies.length / 2));
+    const [randomMovieIndex, setRandomMovieIndex] = useState(0);
+    const [initialRender, setInitialRender] = useState(true);
+    
+    const filteredMovies = requireBackdrop ? movies.filter(movie => movie.backdropPath) : movies;
+    
     useEffect(() => {
-        const timer = setInterval(() => {
-            setRandomMovieIndex(prevIndex => {
-                const newIndex = Math.floor(Math.random() * movies.length);
-                return newIndex !== prevIndex ? newIndex : (newIndex + 1) % movies.length;
-            });
-        }, interval);
-        
-        return () => {
-            clearInterval(timer);
-        };
-    }, [movies]);
-    return movies[randomMovieIndex];
+        if (initialRender && filteredMovies.length) {
+            setRandomMovieIndex(Math.floor(Math.random() * filteredMovies.length));
+            setInitialRender(false);
+        }
+    }, [initialRender, movies]);
+    
+    useEffect(() => {
+        if (filteredMovies.length) {
+            const timer = setInterval(() => {
+                setRandomMovieIndex((prevIndex) => {
+                    const newIndex = Math.floor(Math.random() * filteredMovies.length);
+                    return newIndex !== prevIndex ? newIndex : (newIndex + 1) % filteredMovies.length;
+                });
+            }, interval);
+            
+            return () => {
+                clearInterval(timer);
+            };
+        }
+    }, [movies, interval]);
+    
+    return filteredMovies[randomMovieIndex];
 };
 
 export default useRandomMovie;
