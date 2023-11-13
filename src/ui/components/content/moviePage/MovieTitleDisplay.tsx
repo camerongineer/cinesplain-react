@@ -21,13 +21,13 @@ interface MovieTitleDisplayProps {
 }
 
 const MovieTitleDisplay: React.FC<MovieTitleDisplayProps> = ({ movie }) => {
-    const { backgroundImage, backgroundImageLoaded } = useMovieBackdrop(movie);
+    const [movieBackdrop, movieBackdropLoading] = useMovieBackdrop(movie);
     
     const backgroundStyle = {
-        background: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.7)), url(${backgroundImage})`,
+        background: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.7)), url(${movieBackdrop})`,
         backgroundSize: "cover",
         backgroundPosition: "top left",
-        opacity: !backgroundImageLoaded || !movie?.posterPath ? 0 : 1
+        opacity: !movieBackdropLoading || !movie?.posterPath ? 1 : 0
     };
     
     return (
