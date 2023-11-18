@@ -213,6 +213,7 @@ export const getMoviePath = (movieId: string) =>
     `${MOVIES_URL}movie/${movieId}?append_to_response=videos,images&language=en`;
 
 export const getYouTubeTrailerPath = (videoKey: string) => `https://www.youtube.com/embed/${videoKey}`;
+export const getImdbPath = (imdbId: string) => `https://www.imdb.com/title/${imdbId}`;
 
 export const getMoviesSearchPath = (query: string, page: number, includeAdult: boolean = false) => (
     `${MOVIES_URL}search/movie?query=${query}&sort_by=popularity.desc&page=${page}&include_adult=${includeAdult}&language=en`
