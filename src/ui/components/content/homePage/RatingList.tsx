@@ -17,6 +17,7 @@ import { SxProps } from "@mui/system";
 import { Link } from "react-router-dom";
 import OverlaidImageBox from "../../common/OverlaidImageBox";
 import { BACKDROP_SIZE } from "../../../../constants/ImageSizes";
+import PopcornRating from "../../common/PopcornRating";
 
 const StyledStack = styled(Stack)`
   border-radius: 10px;
@@ -74,11 +75,7 @@ const RatingList: React.FC<RatingListProps> = ({
                                             </Link>
                                         </TableCell>
                                         <TableCell align={"right"} sx={{ borderBottom: "none" }}>
-                                            {movie.voteCount >= 20 && <Typography variant={"h6"}
-                                                                                  color={theme.palette.getContrastText(
-                                                                                      backgroundOverlayColor)}>
-                                                {movie.voteAverage}
-                                            </Typography>}
+                                            {movie.voteCount >= 20 && <PopcornRating voteAverage={movie.voteAverage}/>}
                                         </TableCell>
                                     </TableRow>
                                 )}
