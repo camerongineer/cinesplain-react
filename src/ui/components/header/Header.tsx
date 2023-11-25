@@ -15,11 +15,10 @@ interface HeaderProps {
 }
 
 const StyledAppBar = styled(AppBar)`
-    background: linear-gradient(
-      ${props => props.theme.palette.secondary[props.theme.palette.mode]},
-      ${props => props.theme.palette.secondary[props.theme.palette.mode]}99);
-    color: ${props => props.theme.palette.getContrastText(props.theme.palette.secondary[props.theme.palette.mode])};
-    position: sticky;
+  background: linear-gradient(${props => props.theme.palette.secondary[props.theme.palette.mode]},
+  ${props => props.theme.palette.secondary[props.theme.palette.mode]}99);
+  color: ${props => props.theme.palette.getContrastText(props.theme.palette.secondary[props.theme.palette.mode])};
+  position: sticky;
 `;
 
 const CenteredToolbar = styled(Toolbar)(({ theme }) => ({
@@ -46,9 +45,7 @@ const Header: React.FC<HeaderProps> = (props) => {
     }, []);
     
     useEffect(() => {
-        retrievePopularMovieTitles().then(popularMoviesTitles => {
-            setPopularMovieTitles(popularMoviesTitles);
-        }).catch((error) => console.log(error));
+        retrievePopularMovieTitles().then(setPopularMovieTitles);
     }, []);
     
     const handleSearchButtonClick = () => {

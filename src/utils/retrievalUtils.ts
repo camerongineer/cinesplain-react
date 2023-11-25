@@ -85,17 +85,9 @@ export const retrieveMovies = async (url: string) => {
     }
 };
 
-export const retrievePopularMovieTitles = async (pages: number = 10) => {
+export const retrievePopularMovieTitles = async (): Promise<string[]> => {
     try {
-        const popularMovieTitles: string[] = [];
-        for (let page = 1; page <= pages; page++) {
-            let res: string | null = await retrieveData(getPopularMoviesPath(page));
-            if (res !== null) {
-                const popularMoviesArray = JSON.parse(res).results;
-                popularMoviesArray.forEach((resObj: any) => popularMovieTitles.push(resObj["title"]));
-            }
-        }
-        return popularMovieTitles;
+        return JSON.parse(<string>await retrieveData(getTop200MovieTitlesPath())) ?? [];
     } catch (error) {
         console.error(error);
         return [];
@@ -215,11 +207,10 @@ export const getMoviesSearchPath = (
     searchQuery: string,
     page: number) => `${process.env.REACT_APP_CINESPLAIN_API_URL}/movies/search?query=${searchQuery}&page=${page}`;
 export const getPopularMoviesPath = (page: number) => `${process.env.REACT_APP_CINESPLAIN_API_URL}/movies/discover?page=${page}`;
-
+export const getTop200MovieTitlesPath = () => `${process.env.REACT_APP_CINESPLAIN_API_URL}/movies/top_200_titles`;
 export const getNowPlayingMoviesPath = () => `${process.env.REACT_APP_CINESPLAIN_API_URL}/movies/now_playing`;
 export const getUpcomingMoviesPath = () => `${process.env.REACT_APP_CINESPLAIN_API_URL}/movies/upcoming`;
 export const getClassicMoviesPath = () => `${process.env.REACT_APP_CINESPLAIN_API_URL}/movies/classics`;
 export const getMostLovedMoviesPath = () => `${process.env.REACT_APP_CINESPLAIN_API_URL}/movies/most_loved`;
 export const getMostHatedMoviesPath = () => `${process.env.REACT_APP_CINESPLAIN_API_URL}/movies/most_hated`;
-
 export const getMovieCastPath = (movieId: number) => `${process.env.REACT_APP_CINESPLAIN_API_URL}/movie/${movieId}/credits`;
