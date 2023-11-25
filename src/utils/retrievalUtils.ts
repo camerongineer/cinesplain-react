@@ -3,16 +3,13 @@ import Movie from "../models/movie";
 import Video from "../models/video";
 import CastMember from "../models/castMember";
 import Image, { Images } from "../models/Image";
-import { getFormattedDate } from "./formatUtils";
-import { getSubtractedDate } from "./timeUtils";
 import { SECURE_BASE_IMAGE_URL } from "../constants/ImageSizes";
 
 const retrieveData = async (url: string) => {
     const options = {
         method: "GET",
         headers: {
-            accept: "application/json",
-            Authorization: `Bearer ${process.env.REACT_APP_TMDB_API_KEY}`
+            accept: "application/json"
         }
     };
     
@@ -209,28 +206,20 @@ export const retrieveCredits = async (movieId: number) => {
 export const getImagePath = (relativePath: string, imageSize: string) =>
     `${SECURE_BASE_IMAGE_URL}${imageSize}${relativePath}`;
 
-export const getMoviePath = (movieId: string) =>
-    `${MOVIES_URL}movie/${movieId}?append_to_response=videos,images&language=en`;
+export const getMoviePath = (movieId: string) => `${process.env.REACT_APP_CINESPLAIN_API_URL}/movie/${movieId}`;
 
 export const getYouTubeTrailerPath = (videoKey: string) => `https://www.youtube.com/embed/${videoKey}`;
 export const getImdbPath = (imdbId: string) => `https://www.imdb.com/title/${imdbId}`;
 
-export const getMoviesSearchPath = (query: string, page: number, includeAdult: boolean = false) => (
-    `${MOVIES_URL}search/movie?query=${query}&sort_by=popularity.desc&page=${page}&include_adult=${includeAdult}&language=en`
-);
-export const getPopularMoviesPath = (page: number, includeAdult: boolean = false) => (
-    `${MOVIES_URL}discover/movie?sort_by=popularity.desc&page=${page}&include_adult=${includeAdult}&language=en`
-);
+export const getMoviesSearchPath = (
+    searchQuery: string,
+    page: number) => `${process.env.REACT_APP_CINESPLAIN_API_URL}/movies/search?query=${searchQuery}&page=${page}`;
+export const getPopularMoviesPath = (page: number) => `${process.env.REACT_APP_CINESPLAIN_API_URL}/movies/discover?page=${page}`;
 
-const sixMonthsAgoFormatted = getFormattedDate(getSubtractedDate(new Date(), 0, 6, 0));
+export const getNowPlayingMoviesPath = () => `${process.env.REACT_APP_CINESPLAIN_API_URL}/movies/now_playing`;
+export const getUpcomingMoviesPath = () => `${process.env.REACT_APP_CINESPLAIN_API_URL}/movies/upcoming`;
+export const getClassicMoviesPath = () => `${process.env.REACT_APP_CINESPLAIN_API_URL}/movies/classics`;
+export const getMostLovedMoviesPath = () => `${process.env.REACT_APP_CINESPLAIN_API_URL}/movies/most_loved`;
+export const getMostHatedMoviesPath = () => `${process.env.REACT_APP_CINESPLAIN_API_URL}/movies/most_hated`;
 
-export const getNowPlayingMoviesPath = () => `${MOVIES_URL}movie/now_playing?language=en-US&page=1`;
-export const getHighestRatedMoviesPath = () => `${MOVIES_URL}discover/movie?include_adult=false&language=en-US&with_original_language=en&page=1&sort_by=vote_average.desc&primary_release_date.gte=${sixMonthsAgoFormatted}&without_genres=99,10755&vote_count.gte=20`;
-export const getLowestRatedMoviesPath = () => `${MOVIES_URL}discover/movie?include_adult=false&language=en-US&with_original_language=en&page=1&sort_by=vote_average.asc&primary_release_date.gte=${sixMonthsAgoFormatted}&without_genres=99,10755&vote_count.gte=20`;
-export const getUpcomingMoviesPath = () => `${getPopularMoviesPath(1)}&primary_release_date.gte=${getFormattedDate(
-    new Date())}`;
-export const getClassicMoviesPath = () => `${MOVIES_URL}discover/movie?include_adult=false&language=en-US&with_original_language=en&page=1&sort_by=vote_average.desc&without_genres=99,10755&vote_count.gte=1000`;
-
-export const getMovieCastPath = (movieId: number) => `${MOVIES_URL}movie/${movieId}/credits?language=en`;
-
-const MOVIES_URL = "https://api.themoviedb.org/3/";
+export const getMovieCastPath = (movieId: number) => `${process.env.REACT_APP_CINESPLAIN_API_URL}/movie/${movieId}/credits`;
