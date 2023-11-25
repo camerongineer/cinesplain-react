@@ -120,6 +120,28 @@ const retrieveVideos = (res: Object): Video[] => {
     }
 };
 
+export const retrieveMovieTrailers = async (movieId: string): Promise<Video[]> => {
+    try {
+        const videoObjects = JSON.parse(<string>await retrieveData(getMovieTrailersPath(movieId))) ?? [];
+        // @ts-ignore
+        return videoObjects.map((videoObj) => new Video(
+            videoObj[Video.objMap.iso6391],
+            videoObj[Video.objMap.iso31661],
+            videoObj[Video.objMap.videoName],
+            videoObj[Video.objMap.videoKey],
+            videoObj[Video.objMap.publishedAt],
+            videoObj[Video.objMap.site],
+            videoObj[Video.objMap.size],
+            videoObj[Video.objMap.videoType],
+            videoObj[Video.objMap.official],
+            videoObj[Video.objMap.videoId]
+        ));
+    } catch (error) {
+        console.error(error);
+        return [];
+    }
+};
+
 const retrieveImages = (res: Object): Image[] => {
     if (res && Array.isArray(res)) {
         const images: Image[] = [];
@@ -199,6 +221,7 @@ export const getImagePath = (relativePath: string, imageSize: string) =>
     `${SECURE_BASE_IMAGE_URL}${imageSize}${relativePath}`;
 
 export const getMoviePath = (movieId: string) => `${process.env.REACT_APP_CINESPLAIN_API_URL}/movie/${movieId}`;
+export const getMovieTrailersPath = (movieId: string) => `${process.env.REACT_APP_CINESPLAIN_API_URL}/movie/${movieId}/trailers`;
 
 export const getYouTubeTrailerPath = (videoKey: string) => `https://www.youtube.com/embed/${videoKey}`;
 export const getImdbPath = (imdbId: string) => `https://www.imdb.com/title/${imdbId}`;
