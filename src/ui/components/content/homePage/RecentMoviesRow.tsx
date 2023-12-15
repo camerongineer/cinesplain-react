@@ -66,6 +66,7 @@ const RecentMoviesRow: React.FC<RecentMoviesRowProps> = ({ movies }) => {
                                 sx={{
                                     scrollSnapAlign: "center",
                                     width: {
+                                        xs: theme.breakpoints.values.md / 2,
                                         md: theme.breakpoints.values.lg / 2,
                                         lg: theme.breakpoints.values.xl / 3.5
                                     },
