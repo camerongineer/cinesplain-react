@@ -43,6 +43,7 @@ const CastMemberCard: React.FC<CastMemberCardProps> = ({ castMember, sx }) => {
                 image={castMember.profilePath
                     ? getImagePath(castMember.profilePath, PROFILE_SIZE.MD_W185)
                     : altSilhouette}
+                height={"200px"}
                 alt={castMember.castMemberName}
                 onLoad={() => setLoading(false)}
             />
