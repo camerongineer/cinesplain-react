@@ -15,9 +15,9 @@ interface HeaderProps {
 }
 
 const StyledAppBar = styled(AppBar)`
-  background: linear-gradient(${props => props.theme.palette.secondary[props.theme.palette.mode]},
-  ${props => props.theme.palette.secondary[props.theme.palette.mode]}99);
-  color: ${props => props.theme.palette.getContrastText(props.theme.palette.secondary[props.theme.palette.mode])};
+    background: linear-gradient(${props => props.theme.palette.primary.main},
+    ${props => props.theme.palette.primary.main}99);
+    color: ${props => props.theme.palette.primary.contrastText};
   position: sticky;
 `;
 
@@ -56,7 +56,7 @@ const Header: React.FC<HeaderProps> = (props) => {
         <>
             {searchModalOpen && <SearchModal isModalOpen={searchModalOpen} onModalEvent={handleSearchButtonClick}
                                              autoCompleteList={popularMovieTitles}/>}
-            <StyledAppBar className={"center"} color={"info"}>
+            <StyledAppBar className={"center"}>
                 <CenteredToolbar>
                     {/*{isSmallScreen &&*/}
                     {/*    <NavDrawer {...props}/>}*/}

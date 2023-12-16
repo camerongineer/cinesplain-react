@@ -3,7 +3,13 @@ import { createTheme } from "@mui/material";
 const defaultTheme = createTheme({
     
     palette: {
-        mode: "light"
+        mode: "light",
+        primary: {
+            main: "#7925c2"
+        },
+        secondary: {
+            main: "#f7006b"
+        }
     },
     
     typography: {
@@ -14,7 +20,7 @@ const defaultTheme = createTheme({
         duration: {
             complex: 1000
         }
-    }
-})
+    },
+});
 
-export default defaultTheme
+export default defaultTheme;

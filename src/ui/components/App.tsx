@@ -8,12 +8,13 @@ import { DndProvider } from "react-dnd";
 import MainContent from "./content/MainContent";
 
 const StyledApp = styled(Stack)`
-  background: linear-gradient(100deg,
-  ${props => props.theme.palette.primary[props.theme.palette.mode]}90,
-  ${props => props.theme.palette.primary[props.theme.palette.mode]}05,
-  ${props => props.theme.palette.primary[props.theme.palette.mode]}90);
-  font-size: calc(10px + 2vmin);
-  min-width: 280px;
+    background: linear-gradient(100deg,
+    ${props => props.theme.palette.secondary.main}80,
+    ${props => props.theme.palette.secondary.main}25,
+    ${props => props.theme.palette.secondary.main}80),
+    ${props => props.theme.palette.background.default};
+
+    min-width: 280px;
 `;
 
 const App: React.FC = () => {
