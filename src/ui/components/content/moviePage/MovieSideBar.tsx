@@ -14,9 +14,8 @@ const StyledPaper = styled(Paper)`
   justify-content: center;
   align-items: center;
   transition: ${props => `opacity ${props.theme.transitions.duration.short}ms ease-in-out`};
-  background: linear-gradient(270deg, ${props => props.theme.palette.grey[500]}, ${props => props.theme.palette.grey[200]});
+    background: linear-gradient(270deg, ${props => props.theme.palette.grey[600]}, ${props => props.theme.palette.background.paper});
   padding: 20px;
-  color: ${props => props.theme.palette.getContrastText(props.theme.palette.grey[300])};
 `;
 
 interface MovieSideBarProps {

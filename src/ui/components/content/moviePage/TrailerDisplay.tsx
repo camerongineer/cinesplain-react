@@ -7,7 +7,7 @@ import { getYouTubeTrailerPath, retrieveMovieTrailers } from "../../../../utils/
 import Video from "../../../../models/video";
 
 const StyledPaper = styled(Paper)`
-  background: linear-gradient(270deg, ${props => props.theme.palette.grey[200]}, ${props => props.theme.palette.grey[500]});
+    background: linear-gradient(270deg, ${props => props.theme.palette.background.paper}, ${props => props.theme.palette.grey[600]});
   display: flex;
   align-items: center;
   justify-content: center;
