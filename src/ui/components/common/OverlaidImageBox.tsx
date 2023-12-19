@@ -63,6 +63,7 @@ const OverlaidImageBox: React.FC<OverlaidImageBoxProps> = ({
                 <Typography
                     variant="overline"
                     color="white"
+                    fontSize="x-small"
                     fontWeight="bolder">
                     {bottomLabelText}
                 </Typography>
