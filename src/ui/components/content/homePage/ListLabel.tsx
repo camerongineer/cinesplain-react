@@ -1,25 +1,26 @@
 import React from "react";
-import { Stack, styled, Typography } from "@mui/material";
-import { SxProps } from "@mui/system";
+import { Stack, StackProps, styled, Typography } from "@mui/material";
 
 const StyledStack = styled(Stack)`
-  flex-direction: row;
-  justify-content: end;
-  padding: 5px 1em;
+    flex-direction: row;
+    justify-content: end;
+    user-select: none;
 `;
 
-interface ListLabelProps {
+interface ListLabelProps extends StackProps {
     labelText: string;
-    fontColor: string;
-    sx?: SxProps;
 }
 
-const ListLabel: React.FC<ListLabelProps> = ({ labelText, fontColor, sx }) => (
-    <StyledStack color={fontColor} sx={sx}>
-        <img height={"35px"}
-             src={require("../../../images/cs_logo_up.png")}
-             alt={"CineSplain Logo"}/>
-        <Typography variant={"h5"}>
+const ListLabel: React.FC<ListLabelProps> = ({ labelText, ...props }) => (
+    <StyledStack {...props}>
+        <img
+            height="30px"
+            src={require("../../../images/cs_logo_up.png")}
+            alt="CineSplain Logo"/>
+        <Typography
+            component="label"
+            variant="h5"
+            pl={.25}>
             {labelText}
         </Typography>
     </StyledStack>
