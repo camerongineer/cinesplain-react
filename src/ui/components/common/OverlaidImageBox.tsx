@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { Stack } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import { SxProps } from "@mui/system";
 
 interface OverlaidImageBoxProps {
@@ -9,6 +9,7 @@ interface OverlaidImageBoxProps {
     imageGrayScalePercentage?: number,
     imageAlt: string,
     borderRadius?: string,
+    bottomLabelText?: string,
     sx?: SxProps,
     children: ReactNode
 }
@@ -20,6 +21,7 @@ const OverlaidImageBox: React.FC<OverlaidImageBoxProps> = ({
     imageGrayScalePercentage = 100,
     imageAlt,
     borderRadius = "0px",
+    bottomLabelText = "",
     sx,
     children
 }) => {
@@ -53,6 +55,18 @@ const OverlaidImageBox: React.FC<OverlaidImageBoxProps> = ({
                 className="full"
                 position="absolute"
                 style={backgroundImageStyle}/>
+            <Box
+                display="block"
+                position="absolute"
+                width="100%"
+                bottom={0}>
+                <Typography
+                    variant="overline"
+                    color="white"
+                    fontWeight="bolder">
+                    {bottomLabelText}
+                </Typography>
+            </Box>
             {children}
         </Stack>
     
