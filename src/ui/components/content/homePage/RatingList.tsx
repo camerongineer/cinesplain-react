@@ -33,8 +33,8 @@ const RatingList: React.FC<RatingListProps> = ({
 }) => {
     const theme = useTheme();
     const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
-    const [movieBackdrop, movieBackdropLoading] = useMovieBackdrop(useRandomMovie(movies, backdropInterval, true),
-        BACKDROP_SIZE.LG_W1280);
+    const randomMovie = useRandomMovie(movies, backdropInterval, true);
+    const [movieBackdrop, movieBackdropLoading] = useMovieBackdrop(randomMovie, BACKDROP_SIZE.LG_W1280);
     
     return (
         <>
@@ -49,7 +49,8 @@ const RatingList: React.FC<RatingListProps> = ({
                     backgroundImageUrl={movieBackdrop}
                     imageAlt={`${labelText} backdrop`}
                     overlayColor={backgroundOverlayColor}
-                    borderRadius={"10px"}>
+                    borderRadius="10px"
+                    bottomLabelText={randomMovie.movieTitle}>
                     <TableContainer
                         className="center"
                         component={Stack}
@@ -61,7 +62,7 @@ const RatingList: React.FC<RatingListProps> = ({
                                 pb={2}
                                 zIndex={1}/>}
                         <Table
-                            size={"small"}
+                            size="small"
                             sx={{ width: "90%", height: "80%", zIndex: 1 }}>
                             <TableBody>
                                 {movies.map(movie =>
