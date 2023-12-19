@@ -15,7 +15,7 @@ interface OverlaidImageBoxProps {
 
 const OverlaidImageBox: React.FC<OverlaidImageBoxProps> = ({
     overlayColor,
-    overlayOpacity = .25,
+    overlayOpacity = .5,
     backgroundImageUrl,
     imageGrayScalePercentage = 100,
     imageAlt,
@@ -35,15 +35,24 @@ const OverlaidImageBox: React.FC<OverlaidImageBoxProps> = ({
         backgroundImage: `url(${backgroundImageUrl})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
+        alt: imageAlt,
         filter: `grayscale(${imageGrayScalePercentage}%)`,
         zIndex: 0,
         borderRadius: borderRadius
     };
     
     return (
-        <Stack position={"relative"} sx={sx}>
-            <Stack className={"full"} position={"absolute"} style={colorOverlayStyle}/>
-            <Stack className={"full"} position={"absolute"} style={backgroundImageStyle}/>
+        <Stack
+            position="relative"
+            sx={sx}>
+            <Stack
+                className="full"
+                position="absolute"
+                style={colorOverlayStyle}/>
+            <Stack
+                className="full"
+                position="absolute"
+                style={backgroundImageStyle}/>
             {children}
         </Stack>
     
