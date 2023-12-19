@@ -36,7 +36,7 @@ const RecentMoviesRow: React.FC<RecentMoviesRowProps> = ({ movies }) => {
     
     const backdropStyle = {
         alignItems: "end",
-        minHeight: "600px",
+        
         width: "100%",
         opacity: movieBackdropLoading ? 0 : 1,
         transition: `opacity ${theme.transitions.duration.short}ms ease-in-out`
