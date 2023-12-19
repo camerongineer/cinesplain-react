@@ -1,28 +1,17 @@
 import React from "react";
 import Movie from "../../../../models/movie";
 import useRandomMovie from "../../../../hooks/UseRandomMovie";
-import {
-    Stack,
-    styled,
-    Table,
-    TableBody,
-    TableCell,
-    TableContainer,
-    TableRow,
-    Typography, useMediaQuery, useTheme
-} from "@mui/material";
+import { Stack, styled, Table, TableBody, TableContainer, useMediaQuery, useTheme } from "@mui/material";
 import useMovieBackdrop from "../../../../hooks/UseMovieBackdrop";
 import ListLabel from "./ListLabel";
 import { SxProps } from "@mui/system";
-import { Link } from "react-router-dom";
 import OverlaidImageBox from "../../common/OverlaidImageBox";
 import { BACKDROP_SIZE } from "../../../../constants/ImageSizes";
-import PopcornRating from "../../common/PopcornRating";
+import RatingListRow from "./RatingListRow";
 
 const StyledStack = styled(Stack)`
-  border-radius: 10px;
-  gap: 20px;
-  transition: opacity ${props => props.theme.transitions.duration.short}ms ease-in-out;
+    border-radius: 10px;
+    transition: opacity ${props => props.theme.transitions.duration.short}ms ease-in-out;
 `;
 
 interface RatingListProps {
@@ -51,33 +40,35 @@ const RatingList: React.FC<RatingListProps> = ({
         <>
             <StyledStack sx={{ ...outerSx, opacity: movieBackdropLoading ? 0 : 1 }}>
                 {!isSmallScreen &&
-                    <ListLabel labelText={labelText} fontColor={"#00000090"} sx={{ paddingTop: "1em" }}/>}
-                <OverlaidImageBox sx={innerSx}
-                                  backgroundImageUrl={movieBackdrop}
-                                  imageAlt={`${labelText} backdrop`}
-                                  overlayColor={backgroundOverlayColor}
-                                  borderRadius={"10px"}>
-                    <TableContainer className={"center"} component={Stack} margin={"2em 0"}>
-                        {isSmallScreen && <ListLabel labelText={labelText}
-                                                     fontColor={theme.palette.getContrastText(backgroundOverlayColor)}
-                                                     sx={{ zIndex: 2 }}/>}
-                        <Table size={"small"} sx={{ width: "80%", height: "80%", zIndex: 2 }}>
+                    <ListLabel
+                        labelText={labelText}
+                        pb={1}
+                        pr={3}/>}
+                <OverlaidImageBox
+                    sx={innerSx}
+                    backgroundImageUrl={movieBackdrop}
+                    imageAlt={`${labelText} backdrop`}
+                    overlayColor={backgroundOverlayColor}
+                    borderRadius={"10px"}>
+                    <TableContainer
+                        className="center"
+                        component={Stack}
+                        marginY={5}>
+                        {isSmallScreen &&
+                            <ListLabel
+                                labelText={labelText}
+                                color={theme => theme.palette.getContrastText(backgroundOverlayColor)}
+                                pb={2}
+                                zIndex={1}/>}
+                        <Table
+                            size={"small"}
+                            sx={{ width: "90%", height: "80%", zIndex: 1 }}>
                             <TableBody>
                                 {movies.map(movie =>
-                                    <TableRow key={movie.movieId} sx={{ margin: "0 20px" }}>
-                                        <TableCell align={"left"} sx={{ borderBottom: "none" }}>
-                                            <Link to={`/movies/${movie.movieId}`}>
-                                                <Typography variant={"h6"}
-                                                            color={theme.palette.getContrastText(
-                                                                backgroundOverlayColor)}>
-                                                    {movie.movieTitle}
-                                                </Typography>
-                                            </Link>
-                                        </TableCell>
-                                        <TableCell align={"right"} sx={{ borderBottom: "none" }}>
-                                            {movie.voteCount >= 20 && <PopcornRating voteAverage={movie.voteAverage}/>}
-                                        </TableCell>
-                                    </TableRow>
+                                    <RatingListRow
+                                        key={movie.movieId}
+                                        movie={movie}
+                                        link={`/movies/${movie.movieId}`}/>
                                 )}
                             </TableBody>
                         </Table>
