@@ -43,25 +43,30 @@ const RecentMoviesRow: React.FC<RecentMoviesRowProps> = ({ movies }) => {
     };
     
     return (
-        <OverlaidImageBox sx={backdropStyle}
-                          backgroundImageUrl={movieBackdrop}
-                          imageAlt={`${randomMovie?.movieTitle} backdrop`}
-                          imageGrayScalePercentage={75}
-                          overlayColor={"#000000"}
-                          borderRadius={"0"}>
-            <Typography color={theme.palette.getContrastText(theme.palette.common.black)}
-                        width={"fit-content"}
-                        variant={"h5"}
-                        fontWeight={"bolder"}
-                        paddingTop={"20%"}
-                        zIndex={2}
-                        mr={3}>
+        <OverlaidImageBox
+            sx={backdropStyle}
+            backgroundImageUrl={movieBackdrop}
+            imageAlt={`${randomMovie?.movieTitle} backdrop`}
+            imageGrayScalePercentage={75}
+            overlayColor={"#000000"}
+            borderRadius="0"
+            bottomLabelText={randomMovie.movieTitle}>
+            <Typography
+                color={theme.palette.getContrastText(theme.palette.common.black)}
+                width="fit-content"
+                variant="h5"
+                fontWeight="bolder"
+                paddingTop="20%"
+                zIndex={2}
+                mr={3}>
                 Now In Theaters
             </Typography>
             <OuterCarousel sx={{ paddingBottom: "20px" }}>
                 <StyledImageList gap={20}>
                     {movies.map(movie => (
-                        <Link to={`/movies/${movie.movieId}`} key={movie.movieId}>
+                        <Link
+                            to={`/movies/${movie.movieId}`}
+                            key={movie.movieId}>
                             <ImageListItem
                                 sx={{
                                     scrollSnapAlign: "center",
