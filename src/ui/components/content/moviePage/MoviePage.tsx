@@ -12,7 +12,7 @@ const StyledMoviePage = styled(Stack)`
     justify-content: center;
 `;
 
-const loader = async (movieId: string | undefined) => {
+const moviePageLoader = async (movieId: string | undefined) => {
     const movie = await retrieveMovie(movieId);
     if (movie) {
         const credits = await retrieveCredits(movie.movieId);
@@ -77,5 +77,5 @@ const MoviePage: React.FC = () => {
     );
 };
 
-export { loader };
+export { moviePageLoader };
 export default MoviePage;
