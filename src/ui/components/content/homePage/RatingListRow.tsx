@@ -37,11 +37,14 @@ const RatingListRow: React.FC<RatingListRowProps> = ({
                 </Stack>
             </Link>
         </TableCell>
-        {movie.voteCount >= 20 && <Link to={link}>
-            <TableCell width={30} sx={{ borderBottom: "none" }}>
+        {movie.voteCount >= 20 && <TableCell
+            width={30}
+            sx={{ borderBottom: "none" }}>
+            <Link to={link}>
                 <PopcornRating voteAverage={movie.voteAverage}/>
-            </TableCell>
-        </Link>}
+            </Link>
+        </TableCell>
+        }
     </StyledTableRow>
 );
 
