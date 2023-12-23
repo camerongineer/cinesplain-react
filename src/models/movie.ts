@@ -16,7 +16,7 @@ class Movie {
     private readonly _genres: Genre[];
     private readonly _images: Images;
     private readonly _imdbId: string;
-    private readonly _movieId: number;
+    private readonly _movieId: string;
     private readonly _movieTitle: string;
     private readonly _originalLanguage: string;
     private readonly _originalTitle: string;
@@ -44,7 +44,7 @@ class Movie {
         genres: Genre[],
         images: Images,
         imdbId: string,
-        movieId: number,
+        movieId: string,
         movieTitle: string,
         originalLanguage: string,
         originalTitle: string,
@@ -128,7 +128,7 @@ class Movie {
         return this._imdbId;
     }
     
-    get movieId (): number {
+    get movieId (): string {
         return this._movieId;
     }
     
