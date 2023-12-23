@@ -3,10 +3,14 @@ import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } 
 import HomePage, { loader as homePageLoader } from "./content/homePage/HomePage";
 import MoviePage, { loader as moviePageLoader } from "./content/moviePage/MoviePage";
 import Layout from "./Layout";
+import Loading from "./common/Loading";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
-        <Route id="root" element={<Layout/>} loader={homePageLoader}>
+        <Route
+            id="root"
+            element={<Layout/>}
+            loader={homePageLoader}>
             <Route
                 index
                 element={<HomePage/>}
@@ -20,6 +24,9 @@ const router = createBrowserRouter(
     )
 );
 
-const Router: React.FC = () => <RouterProvider router={router}/>;
+const Router: React.FC = () => <RouterProvider
+    router={router}
+    fallbackElement={<Loading/>}
+/>;
 
 export default Router;
