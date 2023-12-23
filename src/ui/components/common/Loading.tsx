@@ -3,7 +3,7 @@ import { Stack, styled } from "@mui/material";
 
 const StyledStack = styled(Stack)`
   position: relative;
-  height: 94vh;
+    height: 100lvh;
   overflow: hidden;
 `;
 
