@@ -67,7 +67,7 @@ export const retrieveMovie = async (movieId: string | undefined) => {
     }
 };
 
-export const retrieveMovies = async (url: string) => {
+export const retrieveMovies = async (url: string): Promise<Movie[] | null> => {
     try {
         let res: string | null = await retrieveData(url);
         if (res !== null) {
@@ -180,7 +180,7 @@ const retrieveAllImages = (res: Object) => {
     return images;
 };
 
-export const retrieveCredits = async (movieId: number) => {
+export const retrieveCredits = async (movieId: string) => {
     try {
         let res: string | null = await retrieveData(getMovieCastPath(movieId));
         if (res) {
@@ -236,4 +236,4 @@ export const getUpcomingMoviesPath = () => `${process.env.REACT_APP_CINESPLAIN_A
 export const getClassicMoviesPath = () => `${process.env.REACT_APP_CINESPLAIN_API_URL}/movies/classics`;
 export const getMostLovedMoviesPath = () => `${process.env.REACT_APP_CINESPLAIN_API_URL}/movies/most_loved`;
 export const getMostHatedMoviesPath = () => `${process.env.REACT_APP_CINESPLAIN_API_URL}/movies/most_hated`;
-export const getMovieCastPath = (movieId: number) => `${process.env.REACT_APP_CINESPLAIN_API_URL}/movie/${movieId}/credits`;
+export const getMovieCastPath = (movieId: string) => `${process.env.REACT_APP_CINESPLAIN_API_URL}/movie/${movieId}/credits`;
