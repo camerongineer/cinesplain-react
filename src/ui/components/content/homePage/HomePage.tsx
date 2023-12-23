@@ -1,72 +1,99 @@
 import React from "react";
-import { Grid, Stack, styled } from "@mui/material";
+import { useRouteLoaderData } from "react-router-dom";
+import { Stack } from "@mui/material";
 import Masonry from "@mui/lab/Masonry";
 import RecentMoviesRow from "./RecentMoviesRow";
 import RatingList from "./RatingList";
-import Loading from "../../common/Loading";
+import { purple } from "@mui/material/colors";
+import Hero from "./Hero";
 import Movie from "../../../../models/movie";
+import {
+    getClassicMoviesPath,
+    getMostHatedMoviesPath,
+    getMostLovedMoviesPath,
+    getNowPlayingMoviesPath,
+    getUpcomingMoviesPath,
+    retrieveMovies
+} from "../../../../utils/retrievalUtils";
 
-const StyledStack = styled(Stack)`
-    font-size: calc(10px + 2vmin);
-    min-height: 100%;
-    color: ${props => props.theme.palette.text.primary};
-`;
+const loader = async () => {
+    const recentMovies = await retrieveMovies(getNowPlayingMoviesPath()) ?? [];
+    const lovedMovies = await retrieveMovies(getMostLovedMoviesPath()) ?? [];
+    const hatedMovies = await retrieveMovies(getMostHatedMoviesPath()) ?? [];
+    const classicMovies = await retrieveMovies(getClassicMoviesPath()) ?? [];
+    const upcomingMovies = await retrieveMovies(getUpcomingMoviesPath()) ?? [];
+    return {
+        recentMovies,
+        lovedMovies,
+        hatedMovies,
+        classicMovies,
+        upcomingMovies
+    };
+};
 
-interface HomePageProps {
-    loading: boolean,
-    recentMovies: Movie[],
-    popularMovies: Movie[],
-    lovedMovies: Movie[],
-    hatedMovies: Movie[],
-    classicMovies: Movie[],
-    upcomingMovies: Movie[],
+interface LoaderData {
+    recentMovies: Movie[];
+    lovedMovies: Movie[];
+    hatedMovies: Movie[];
+    classicMovies: Movie[];
+    upcomingMovies: Movie[];
 }
 
-const HomePage: React.FC<HomePageProps> = ({
-    loading,
-    recentMovies,
-    popularMovies,
-    lovedMovies,
-    hatedMovies,
-    classicMovies,
-    upcomingMovies
-}) => {
-    
-    if (loading) {
-        return <Loading/>;
-    }
+const HomePage: React.FC = () => {
+    const {
+        recentMovies,
+        lovedMovies,
+        hatedMovies,
+        classicMovies,
+        upcomingMovies
+    } = useRouteLoaderData("root") as LoaderData;
     
     return (
-        <StyledStack className={"full center"}>
+        <Stack className="full center">
             <RecentMoviesRow movies={recentMovies.filter(movie => movie.backdropPath)}/>
-            <Masonry className={"full"} columns={{ xs: 1, sm: 2, md: 3 }} spacing={4} sx={{ paddingTop: 2 }}>
+            <Hero/>
+            <Masonry
+                className="full"
+                columns={{
+                    xs: 1,
+                    md: 2,
+                    lg: 3
+                }}
+                spacing={4}
+                sx={{
+                    paddingTop: 2,
+                    margin: 0
+                }}>
                 
+                <RatingList
+                    movies={upcomingMovies.slice(0, 10)}
+                    backgroundOverlayColor={"#B5179E"}
+                    backdropInterval={25000}
+                    labelText="Upcoming"
+                />
+                <RatingList
+                    movies={lovedMovies.slice(0, 10)}
+                    backgroundOverlayColor={"#F72585"}
+                    backdropInterval={27500}
+                    labelText="Most Loved"
+                />
                 
-                <RatingList movies={upcomingMovies.slice(0, 10)}
-                            backgroundOverlayColor={"#B5179E"}
-                            backdropInterval={25000}
-                            labelText={"Upcoming"}
+                <RatingList
+                    movies={hatedMovies.slice(0, 10)}
+                    backgroundOverlayColor={purple["800"]}
+                    backdropInterval={40000}
+                    labelText="Most Hated"
                 />
-                <RatingList movies={lovedMovies.slice(0, 10)}
-                            backgroundOverlayColor={"#F72585"}
-                            backdropInterval={27500}
-                            labelText={"Most Loved"}
-                />
-                
-                <RatingList movies={hatedMovies.slice(0, 10)}
-                            backgroundOverlayColor={"#3F37C9"}
-                            backdropInterval={40000}
-                            labelText={"Most Hated"}
-                />
-                <RatingList movies={classicMovies}
-                            backgroundOverlayColor={"#4CC9F0"}
-                            backdropInterval={22000}
-                            labelText={"Classics"}
+                <RatingList
+                    movies={classicMovies}
+                    backgroundOverlayColor={"#4CC9F0"}
+                    backdropInterval={22000}
+                    labelText="Classics"
                 />
             </Masonry>
-        
-        </StyledStack>
+        </Stack>
     );
 };
 
+export { loader };
 export default HomePage;
