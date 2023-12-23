@@ -10,6 +10,7 @@ import CastMemberRow from "../common/CastMemberRow";
 
 const StyledMoviePage = styled(Stack)`
     justify-content: center;
+    text-align: center;
 `;
 
 const moviePageLoader = async (movieId: string | undefined) => {
@@ -42,8 +43,8 @@ const MoviePage: React.FC = () => {
                         xs: "column",
                         md: "row"
                     }}
-                    alignItems={"center"}
-                    justifyContent={"space-evenly"}
+                    alignItems="center"
+                    justifyContent="space-evenly"
                     padding={1}>
                     {movie.videos.length > 0 && <Stack
                         justifyContent="center"
