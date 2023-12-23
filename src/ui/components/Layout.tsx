@@ -5,6 +5,7 @@ import Header from "./header/Header";
 
 const StyledStack = styled(Stack)`
     max-width: ${props => props.theme.breakpoints.values.xl}px;
+    width: 100%;
 `;
 
 const Layout: React.FC = () => (
