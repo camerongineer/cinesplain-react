@@ -8,6 +8,7 @@ const StyledStack = styled(Stack)`
     padding: 1em 0;
     user-select: none;
     overflow: auto;
+    color: ${props => props.theme.palette.text.primary};
 `;
 
 const Hero: React.FC = () => (
@@ -23,8 +24,12 @@ const Hero: React.FC = () => (
                 variant={"h2"}>
                 CineSplain
             </Typography>
-            <Typography variant="h5">Your home for all-things cinema</Typography>
-            <Typography variant="subtitle2">We've got some 'splaining to do...</Typography>
+            <Typography variant="h5">
+                Your home for all-things cinema
+            </Typography>
+            <Typography variant="subtitle2">
+                We've got some 'splaining to do...
+            </Typography>
         </Stack>
     </StyledStack>
 );
