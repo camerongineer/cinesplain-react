@@ -1,7 +1,7 @@
 import React from "react";
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from "react-router-dom";
-import HomePage, { loader as homePageLoader } from "./content/homePage/HomePage";
-import MoviePage, { loader as moviePageLoader } from "./content/moviePage/MoviePage";
+import HomePage, { homePageLoader } from "./content/homePage/HomePage";
+import MoviePage, { moviePageLoader } from "./content/moviePage/MoviePage";
 import Layout from "./Layout";
 import Loading from "./common/Loading";
 
