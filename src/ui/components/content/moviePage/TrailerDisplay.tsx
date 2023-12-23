@@ -1,47 +1,47 @@
-import React, { useEffect, useState } from "react";
-import { Box, Paper, styled } from "@mui/material";
-import { SxProps } from "@mui/system";
-import { Theme } from "@mui/material/styles";
+import React from "react";
+import { Box, Paper, Stack, styled } from "@mui/material";
 import Movie from "../../../../models/movie";
-import { getYouTubeTrailerPath, retrieveMovieTrailers } from "../../../../utils/retrievalUtils";
+import { getYouTubeTrailerPath } from "../../../../utils/retrievalUtils";
 import Video from "../../../../models/video";
 
 const StyledPaper = styled(Paper)`
     background: linear-gradient(270deg, ${props => props.theme.palette.background.paper}, ${props => props.theme.palette.grey[600]});
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    display: flex;
+    width: 95%;
 `;
 
 interface TrailerCardProps {
     movie: Movie;
-    sx?: SxProps<Theme>;
+    trailer: Video;
 }
 
-const TrailerDisplay: React.FC<TrailerCardProps> = ({ movie, sx }) => {
-    const [trailer, setTrailer] = useState<Video | null>(null);
-    
-    useEffect(() => {
-        retrieveMovieTrailers(movie.movieId.toString()).then(res => {
-            if (res.length > 0 && res[0]) {
-                setTrailer(res[0]);
-            }
-        });
-    }, [movie]);
-    
+const TrailerDisplay: React.FC<TrailerCardProps> = ({
+    movie,
+    trailer
+}) => {
     return (
         <>
-            {trailer && <StyledPaper key={movie.movieId}
-                                     sx={sx}
-                                     elevation={5}>
-                <Box sx={sx}
-                     component={"iframe"}
-                     src={getYouTubeTrailerPath(trailer.videoKey)}
-                     title={`${movie.movieTitle} trailer`}
-                     allow=""
-                     border={"0"}
-                     allowFullScreen></Box>
-            </StyledPaper>}
+            {trailer && <Stack
+                className="full center"
+                flex={{
+                    md: 2,
+                    lg: 3
+                }}>
+                <StyledPaper>
+                    <Box
+                        className="center"
+                        component="iframe"
+                        width="100%"
+                        padding={2}
+                        border={0}
+                        style={{ aspectRatio: "16/9" }}
+                        allow=""
+                        src={getYouTubeTrailerPath(trailer.videoKey)}
+                        title={`${movie.movieTitle} trailer`}
+                        allowFullScreen
+                    />
+                </StyledPaper>
+            </Stack>}
         </>
     );
 };

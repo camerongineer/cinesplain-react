@@ -120,8 +120,9 @@ const retrieveVideos = (res: Object): Video[] => {
     }
 };
 
-export const retrieveMovieTrailers = async (movieId: string): Promise<Video[]> => {
+export const retrieveMovieTrailers = async (movieId: string | undefined): Promise<Video[]> => {
     try {
+        if (!movieId) return [];
         const videoObjects = JSON.parse(<string>await retrieveData(getMovieTrailersPath(movieId))) ?? [];
         // @ts-ignore
         return videoObjects.map((videoObj) => new Video(

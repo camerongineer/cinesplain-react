@@ -1,5 +1,5 @@
 import { useLoaderData } from "react-router-dom";
-import { retrieveCredits, retrieveMovie } from "../../../../utils/retrievalUtils";
+import { retrieveCredits, retrieveMovie, retrieveMovieTrailers } from "../../../../utils/retrievalUtils";
 import Movie from "../../../../models/movie";
 import React from "react";
 import { Stack, styled } from "@mui/material";
@@ -7,6 +7,7 @@ import MovieTitleDisplay from "./MovieTitleDisplay";
 import TrailerDisplay from "./TrailerDisplay";
 import MovieSideBar from "./MovieSideBar";
 import CastMemberRow from "../common/CastMemberRow";
+import Video from "../../../../models/video";
 
 const StyledMoviePage = styled(Stack)`
     justify-content: center;
@@ -19,11 +20,18 @@ const moviePageLoader = async (movieId: string | undefined) => {
         const credits = await retrieveCredits(movie.movieId);
         movie.credits = credits ? credits : [];
     }
-    return movie;
+    const movieTrailers = await retrieveMovieTrailers(movieId);
+    const trailer = movieTrailers.length > 0 ? movieTrailers[0] : null;
+    return { movie, trailer };
 };
 
+interface LoaderData {
+    movie: Movie;
+    trailer: Video;
+}
+
 const MoviePage: React.FC = () => {
-    const movie = useLoaderData() as Movie;
+    const { movie: movie, trailer: trailer } = useLoaderData() as LoaderData;
     
     return (
         <>
@@ -46,32 +54,11 @@ const MoviePage: React.FC = () => {
                     alignItems="center"
                     justifyContent="space-evenly"
                     padding={1}>
-                    {movie.videos.length > 0 && <Stack
-                        justifyContent="center"
-                        alignItems="center"
-                        width="100%"
-                        flex={{
-                            md: 2,
-                            lg: 3
-                        }}>
-                        
-                        <TrailerDisplay
-                            movie={movie}
-                            sx={{
-                                width: "95%",
-                                aspectRatio: "16/9"
-                            }}/>
-                    </Stack>}
-                    <Stack
-                        flex={{
-                            md: 1,
-                            lg: 1
-                        }}
-                        justifyContent="center"
-                        padding={1}
-                        marginX={1}>
-                        <MovieSideBar movie={movie}/>
-                    </Stack>
+                    <TrailerDisplay
+                        movie={movie}
+                        trailer={trailer}
+                    />
+                    <MovieSideBar movie={movie}/>
                 </Stack>
             </StyledMoviePage>}
         </>
