@@ -13,8 +13,7 @@ import {
     getMostLovedMoviesPath,
     getNowPlayingMoviesPath,
     getUpcomingMoviesPath,
-    retrieveMovies,
-    retrievePopularMovieTitles
+    retrieveMovies
 } from "../../../../utils/retrievalUtils";
 
 const homePageLoader = async () => {
@@ -23,14 +22,12 @@ const homePageLoader = async () => {
     const hatedMovies = await retrieveMovies(getMostHatedMoviesPath()) ?? [];
     const classicMovies = await retrieveMovies(getClassicMoviesPath()) ?? [];
     const upcomingMovies = await retrieveMovies(getUpcomingMoviesPath()) ?? [];
-    const popularMovieTitles = await retrievePopularMovieTitles() ?? [];
     return {
         recentMovies,
         lovedMovies,
         hatedMovies,
         classicMovies,
         upcomingMovies,
-        popularMovieTitles
     };
 };
 
@@ -40,7 +37,6 @@ interface LoaderData {
     hatedMovies: Movie[];
     classicMovies: Movie[];
     upcomingMovies: Movie[];
-    popularMovieTitles: string[];
 }
 
 const HomePage: React.FC = () => {
