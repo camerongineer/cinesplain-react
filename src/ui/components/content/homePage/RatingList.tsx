@@ -1,12 +1,20 @@
-import React from "react";
-import Movie from "../../../../models/movie";
-import useRandomMovie from "../../../../hooks/UseRandomMovie";
-import { Stack, styled, Table, TableBody, TableContainer, useMediaQuery, useTheme } from "@mui/material";
-import useMovieBackdrop from "../../../../hooks/UseMovieBackdrop";
-import ListLabel from "./ListLabel";
+import {
+    Stack,
+    styled,
+    Table,
+    TableBody,
+    TableContainer,
+    useMediaQuery,
+    useTheme
+} from "@mui/material";
 import { SxProps } from "@mui/system";
-import OverlaidImageBox from "../../common/OverlaidImageBox";
+import React from "react";
 import { BACKDROP_SIZE } from "../../../../constants/ImageSizes";
+import useMovieBackdrop from "../../../../hooks/UseMovieBackdrop";
+import useRandomMovie from "../../../../hooks/UseRandomMovie";
+import Movie from "../../../../models/movie";
+import OverlaidImageBox from "../../common/OverlaidImageBox";
+import ListLabel from "./ListLabel";
 import RatingListRow from "./RatingListRow";
 
 const StyledStack = styled(Stack)`
@@ -38,38 +46,52 @@ const RatingList: React.FC<RatingListProps> = ({
     
     return (
         <>
-            <StyledStack sx={{ ...outerSx, opacity: movieBackdropLoading ? 0 : 1 }}>
+            <StyledStack sx={{
+                ...outerSx,
+                opacity: movieBackdropLoading ? 0 : 1
+            }}>
                 {!isSmallScreen &&
                     <ListLabel
                         labelText={labelText}
                         pb={1}
-                        pr={3}/>}
+                        pr={3}
+                    />}
                 <OverlaidImageBox
                     sx={innerSx}
                     backgroundImageUrl={movieBackdrop}
                     imageAlt={`${labelText} backdrop`}
                     overlayColor={backgroundOverlayColor}
                     borderRadius="10px"
-                    bottomLabelText={randomMovie.movieTitle}>
+                    bottomLabelText={randomMovie.movieTitle}
+                >
                     <TableContainer
                         className="center"
                         component={Stack}
-                        marginY={5}>
+                        marginY={5}
+                    >
                         {isSmallScreen &&
                             <ListLabel
                                 labelText={labelText}
                                 color={theme => theme.palette.getContrastText(backgroundOverlayColor)}
                                 pb={2}
-                                zIndex={1}/>}
+                                zIndex={1}
+                            />}
                         <Table
                             size="small"
-                            sx={{ width: "90%", height: "80%", zIndex: 1 }}>
+                            sx={{
+                                width: "90%",
+                                height: "80%",
+                                zIndex: 1
+                            }}
+                        >
                             <TableBody>
-                                {movies.map(movie =>
-                                    <RatingListRow
-                                        key={movie.movieId}
-                                        movie={movie}
-                                        link={`/movies/${movie.movieId}`}/>
+                                {movies.map(
+                                    movie =>
+                                        <RatingListRow
+                                            key={movie.movieId}
+                                            movie={movie}
+                                            link={`/movies/${movie.movieId}`}
+                                        />
                                 )}
                             </TableBody>
                         </Table>
