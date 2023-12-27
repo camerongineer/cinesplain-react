@@ -1,7 +1,10 @@
+import {
+    Box,
+    styled
+} from "@mui/material";
+import { grey } from "@mui/material/colors";
 import React from "react";
 import popcornRating from "../../images/popcorn_rating.png";
-import { Box, styled } from "@mui/material";
-import { grey } from "@mui/material/colors";
 
 const RatingCircle = styled(Box)`
     display: flex;
@@ -29,15 +32,20 @@ const PopcornRating: React.FC<CSRatingProps> = ({
             "rgba(255,132,232,0.7)" : "rgba(76,67,212,0.7)";
     
     return (
-        <Box position={"relative"} width={"fit-content"}>
-            <Box component={"img"}
-                 position={"relative"}
-                 height={"40px"}
+        <Box
+            position="relative"
+            width="fit-content"
+        >
+            <Box component="img"
+                 position="relative"
+                 height={40}
                  src={popcornRating}
-                 alt={displayedRating.toString()}/>
+                 alt={displayedRating.toString()}
+            />
             <RatingCircle
-                className={"center"}
-                bgcolor={ratingColor}>
+                className="center"
+                bgcolor={ratingColor}
+            >
                 {displayedRating}
             </RatingCircle>
         </Box>
