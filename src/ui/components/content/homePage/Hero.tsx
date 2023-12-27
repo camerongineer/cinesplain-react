@@ -5,6 +5,7 @@ const StyledStack = styled(Stack)`
     width: 100%;
     justify-content: center;
     align-items: center;
+    text-align: center;
     padding: 1em 0;
     user-select: none;
     overflow: auto;
@@ -17,7 +18,8 @@ const Hero: React.FC = () => (
             component="img"
             height={150}
             src={require("../../../images/cs_logo_up.png")}
-            alt="CineSplain Logo"/>
+            alt="CineSplain Logo"
+        />
         <Stack>
             <Typography
                 component="h1"
