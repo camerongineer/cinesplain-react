@@ -1,12 +1,20 @@
-import React from "react";
-import { Stack, styled, TableCell, TableRow, Typography } from "@mui/material";
-import PopcornRating from "../../common/PopcornRating";
-import Movie from "../../../../models/movie";
-import { Link } from "react-router-dom";
+import {
+    styled,
+    TableCell,
+    TableRow,
+    Typography,
+    useTheme
+} from "@mui/material";
 import { grey } from "@mui/material/colors";
+import React from "react";
+import { Link } from "react-router-dom";
+import Movie from "../../../../models/movie";
+import PopcornRating from "../../common/PopcornRating";
 
 const StyledTableRow = styled(TableRow)`
-    width: 10px;
+    &:hover > img {
+        filter: saturate(150%);
+    }
 `;
 
 interface RatingListRowProps {
@@ -17,35 +25,41 @@ interface RatingListRowProps {
 const RatingListRow: React.FC<RatingListRowProps> = ({
     movie,
     link
-}) => (
-    <StyledTableRow>
-        <TableCell sx={{ borderBottom: "none" }}>
+}) => {
+    const theme = useTheme();
+    return (
+        <StyledTableRow>
             <Link to={link}>
-                <Stack
-                    direction="row"
-                    spacing={.5}
-                    alignContent="center">
+                <TableCell sx={{ borderBottom: "none" }}>
                     <Typography
                         component="p"
                         variant="overline"
                         fontWeight="bolder"
                         fontStyle="italic"
                         fontSize="medium"
-                        color={grey[100]}>
+                        color={grey[100]}
+                        sx={{
+                            "&:hover": {
+                                color: theme.palette.text.primary,
+                                fontStyle: "normal"
+                            }
+                        }}
+                    >
                         {movie.movieTitle}
                     </Typography>
-                </Stack>
+                </TableCell>
             </Link>
-        </TableCell>
-        {movie.voteCount >= 20 && <TableCell
-            width={30}
-            sx={{ borderBottom: "none" }}>
-            <Link to={link}>
-                <PopcornRating voteAverage={movie.voteAverage}/>
-            </Link>
-        </TableCell>
-        }
-    </StyledTableRow>
-);
+            {movie.voteCount >= 20 &&
+                <TableCell
+                    width={30}
+                    sx={{ borderBottom: "none" }}
+                >
+                    <Link to={link}>
+                        <PopcornRating voteAverage={movie.voteAverage}/>
+                    </Link>
+                </TableCell>}
+        </StyledTableRow>
+    );
+};
 
 export default RatingListRow;
