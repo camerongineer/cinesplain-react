@@ -1,7 +1,6 @@
 import React from "react";
 import { useRouteLoaderData } from "react-router-dom";
-import { Stack } from "@mui/material";
-import Masonry from "@mui/lab/Masonry";
+import { Grid, Stack } from "@mui/material";
 import RecentMoviesRow from "./RecentMoviesRow";
 import RatingList from "./RatingList";
 import { purple } from "@mui/material/colors";
@@ -27,7 +26,7 @@ const homePageLoader = async () => {
         lovedMovies,
         hatedMovies,
         classicMovies,
-        upcomingMovies,
+        upcomingMovies
     };
 };
 
@@ -52,45 +51,65 @@ const HomePage: React.FC = () => {
         <Stack className="full center">
             <RecentMoviesRow movies={recentMovies.filter(movie => movie.backdropPath)}/>
             <Hero/>
-            <Masonry
+            <Grid
+                container
                 className="full"
-                columns={{
-                    xs: 1,
-                    md: 2,
-                    lg: 3
-                }}
-                spacing={4}
-                sx={{
-                    paddingTop: 2,
-                    margin: 0
-                }}>
-                
-                <RatingList
-                    movies={upcomingMovies.slice(0, 10)}
-                    backgroundOverlayColor={"#B5179E"}
-                    backdropInterval={25000}
-                    labelText="Upcoming"
-                />
-                <RatingList
-                    movies={lovedMovies.slice(0, 10)}
-                    backgroundOverlayColor={"#F72585"}
-                    backdropInterval={27500}
-                    labelText="Most Loved"
-                />
-                
-                <RatingList
-                    movies={hatedMovies.slice(0, 10)}
-                    backgroundOverlayColor={purple["800"]}
-                    backdropInterval={40000}
-                    labelText="Most Hated"
-                />
-                <RatingList
-                    movies={classicMovies}
-                    backgroundOverlayColor={"#4CC9F0"}
-                    backdropInterval={22000}
-                    labelText="Classics"
-                />
-            </Masonry>
+                paddingTop={2}
+                margin={0}
+                spacing={0}
+            >
+                <Grid
+                    item
+                    xs={12}
+                    md={4}
+                    padding={1}
+                >
+                    <RatingList
+                        movies={upcomingMovies.slice(0, 10)}
+                        backgroundOverlayColor={"#B5179E"}
+                        backdropInterval={25000}
+                        labelText="Upcoming"
+                    />
+                </Grid>
+                <Grid
+                    item
+                    xs={12}
+                    md={8}
+                    padding={1}
+                >
+                    <RatingList
+                        movies={lovedMovies.slice(0, 10)}
+                        backgroundOverlayColor={"#F72585"}
+                        backdropInterval={27500}
+                        labelText="Most Loved"
+                    />
+                </Grid>
+                <Grid
+                    item
+                    xs={12}
+                    sm={8}
+                    padding={1}
+                >
+                    <RatingList
+                        movies={hatedMovies.slice(0, 10)}
+                        backgroundOverlayColor={purple["800"]}
+                        backdropInterval={40000}
+                        labelText="Most Hated"
+                    />
+                </Grid>
+                <Grid
+                    item
+                    xs={12}
+                    padding={1}
+                >
+                    <RatingList
+                        movies={classicMovies}
+                        backgroundOverlayColor={"#4CC9F0"}
+                        backdropInterval={22000}
+                        labelText="Classics"
+                    />
+                </Grid>
+            </Grid>
         </Stack>
     );
 };
