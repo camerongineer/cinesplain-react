@@ -45,3 +45,17 @@ a:hover {
 a:active {
     text-decoration: none;
 }
+
+html > ::-webkit-scrollbar {
+    width: 10px;
+}
+
+html > ::-webkit-scrollbar-track {
+    background: linear-gradient(90deg, rgba(247, 37, 133, 0.5), rgba(247, 37, 133, 0.7));
+}
+
+html > ::-webkit-scrollbar-thumb {
+    background: #F7258570;
+    border-radius: 5px;
+
+}
