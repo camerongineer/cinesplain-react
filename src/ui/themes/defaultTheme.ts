@@ -1,4 +1,7 @@
-import { createTheme } from "@mui/material";
+import {
+    alpha,
+    createTheme
+} from "@mui/material";
 
 const defaultTheme = createTheme({
     
@@ -21,6 +24,28 @@ const defaultTheme = createTheme({
             complex: 1000
         }
     },
+                                     
+                                     components: {
+                                         MuiCssBaseline: {
+                                             styleOverrides: themeParam => ({
+                                                 "&::-webkit-scrollbar": {
+                                                     width: "10px"
+                                                 },
+                                                 "&::-webkit-scrollbar-track": {
+                                                     background: alpha(
+                                                         themeParam.palette.secondary[themeParam.palette.mode], 0.6)
+                                                 },
+                                                 "&::-webkit-scrollbar-thumb": {
+                                                     background: alpha(
+                                                         themeParam.palette.secondary[themeParam.palette.mode], 0.5),
+                                                     borderRadius: "10px"
+                                                 },
+                                                 "a": {
+                                                     textDecoration: "none"
+                                                 }
+                                             })
+                                         }
+                                     }
 });
 
 export default defaultTheme;
