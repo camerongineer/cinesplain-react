@@ -1,28 +1,48 @@
+import {
+    Box,
+    ImageListItem,
+    ImageListItemBar,
+    styled,
+    useTheme
+} from "@mui/material";
 import React from "react";
-import { Box, ImageListItem, ImageListItemBar, useTheme } from "@mui/material";
-import { getImagePath } from "../../../../utils/retrievalUtils";
 import { BACKDROP_SIZE } from "../../../../constants/ImageSizes";
-import { getFormattedDisplayedDate } from "../../../../utils/formatUtils";
 import Movie from "../../../../models/movie";
+import { getFormattedDisplayedDate } from "../../../../utils/formatUtils";
+import { getImagePath } from "../../../../utils/retrievalUtils";
+
+const StyledImageListItem = styled(ImageListItem)`
+    scroll-snap-align: center;
+    z-index: 2;
+
+    &:hover {
+        font-weight: 900;
+    }
+
+    &:hover > img {
+        filter: saturate(150%);
+    }
+`;
 
 interface RecentMoviesItemProps {
     movie: Movie;
 }
 
-const RecentMoviesItem: React.FC<RecentMoviesItemProps> = ({ movie }) => {
+const RecentMoviesItem: React.FC<RecentMoviesItemProps> = ({
+    movie
+}) => {
     const theme = useTheme();
+    
     return (
-        <ImageListItem
+        <StyledImageListItem
             sx={{
-                scrollSnapAlign: "center",
                 width: {
                     xs: theme.breakpoints.values.md / 2,
                     md: theme.breakpoints.values.lg / 2,
                     lg: theme.breakpoints.values.xl / 3.5
                 },
-                zIndex: 2,
-                borderRadius: "10px"
-            }}>
+            }}
+        >
             <Box
                 component="img"
                 src={getImagePath(movie.backdropPath, BACKDROP_SIZE.MD_W780)}
@@ -33,7 +53,7 @@ const RecentMoviesItem: React.FC<RecentMoviesItemProps> = ({ movie }) => {
                 subtitle={getFormattedDisplayedDate(movie.releaseDate)}
                 position="bottom"
             />
-        </ImageListItem>
+        </StyledImageListItem>
     );
 };
 
