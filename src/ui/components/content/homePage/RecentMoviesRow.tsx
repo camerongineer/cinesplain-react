@@ -1,14 +1,12 @@
 import React from "react";
 import Movie from "../../../../models/movie";
 import OuterCarousel from "../../common/OuterCarousel";
-import { ImageList, ImageListItem, ImageListItemBar, styled, Typography, useTheme } from "@mui/material";
-import { getImagePath } from "../../../../utils/retrievalUtils";
+import { ImageList, styled, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
-import { getFormattedDisplayedDate } from "../../../../utils/formatUtils";
 import useRandomMovie from "../../../../hooks/UseRandomMovie";
 import OverlaidImageBox from "../../common/OverlaidImageBox";
 import useMovieBackdrop from "../../../../hooks/UseMovieBackdrop";
-import { BACKDROP_SIZE } from "../../../../constants/ImageSizes";
+import RecentMoviesItem from "./RecentMoviesItem";
 
 const StyledImageList = styled(ImageList)`
     display: flex;
@@ -36,7 +34,6 @@ const RecentMoviesRow: React.FC<RecentMoviesRowProps> = ({ movies }) => {
     
     const backdropStyle = {
         alignItems: "end",
-        
         width: "100%",
         opacity: movieBackdropLoading ? 0 : 1,
         transition: `opacity ${theme.transitions.duration.short}ms ease-in-out`
@@ -50,7 +47,8 @@ const RecentMoviesRow: React.FC<RecentMoviesRowProps> = ({ movies }) => {
             imageGrayScalePercentage={75}
             overlayColor={"#000000"}
             borderRadius="0"
-            bottomLabelText={randomMovie.movieTitle}>
+            bottomLabelText={randomMovie.movieTitle}
+        >
             <Typography
                 color={theme.palette.getContrastText(theme.palette.common.black)}
                 width="fit-content"
@@ -58,7 +56,8 @@ const RecentMoviesRow: React.FC<RecentMoviesRowProps> = ({ movies }) => {
                 fontWeight="bolder"
                 paddingTop="20%"
                 zIndex={2}
-                mr={3}>
+                mr={3}
+            >
                 Now In Theaters
             </Typography>
             <OuterCarousel sx={{ paddingBottom: "20px" }}>
@@ -67,32 +66,11 @@ const RecentMoviesRow: React.FC<RecentMoviesRowProps> = ({ movies }) => {
                         <Link
                             to={`/movies/${movie.movieId}`}
                             key={movie.movieId}>
-                            <ImageListItem
-                                sx={{
-                                    scrollSnapAlign: "center",
-                                    width: {
-                                        xs: theme.breakpoints.values.md / 2,
-                                        md: theme.breakpoints.values.lg / 2,
-                                        lg: theme.breakpoints.values.xl / 3.5
-                                    },
-                                    zIndex: 2,
-                                    borderRadius: "10px"
-                                }}>
-                                <img
-                                    src={getImagePath(movie.backdropPath, BACKDROP_SIZE.MD_W780)}
-                                    alt={movie.movieTitle}
-                                />
-                                <ImageListItemBar
-                                    title={movie.movieTitle}
-                                    subtitle={<span>{getFormattedDisplayedDate(movie.releaseDate)}</span>}
-                                    position="bottom"
-                                />
-                            </ImageListItem>
+                            <RecentMoviesItem movie={movie}/>
                         </Link>
                     ))}
                 </StyledImageList>
             </OuterCarousel>
-        
         </OverlaidImageBox>
     );
 };
