@@ -1,11 +1,16 @@
+import {
+    ImageList,
+    styled,
+    Typography,
+    useTheme
+} from "@mui/material";
 import React from "react";
+import { Link } from "react-router-dom";
+import useMovieBackdrop from "../../../../hooks/UseMovieBackdrop";
+import useRandomMovie from "../../../../hooks/UseRandomMovie";
 import Movie from "../../../../models/movie";
 import OuterCarousel from "../../common/OuterCarousel";
-import { ImageList, styled, Typography, useTheme } from "@mui/material";
-import { Link } from "react-router-dom";
-import useRandomMovie from "../../../../hooks/UseRandomMovie";
 import OverlaidImageBox from "../../common/OverlaidImageBox";
-import useMovieBackdrop from "../../../../hooks/UseMovieBackdrop";
 import RecentMoviesItem from "./RecentMoviesItem";
 
 const StyledImageList = styled(ImageList)`
@@ -50,9 +55,9 @@ const RecentMoviesRow: React.FC<RecentMoviesRowProps> = ({ movies }) => {
             bottomLabelText={randomMovie.movieTitle}
         >
             <Typography
-                color={theme.palette.getContrastText(theme.palette.common.black)}
-                width="fit-content"
                 variant="h5"
+                width="fit-content"
+                color={theme.palette.getContrastText(theme.palette.common.black)}
                 fontWeight="bolder"
                 paddingTop="20%"
                 zIndex={2}
@@ -65,7 +70,8 @@ const RecentMoviesRow: React.FC<RecentMoviesRowProps> = ({ movies }) => {
                     {movies.map(movie => (
                         <Link
                             to={`/movies/${movie.movieId}`}
-                            key={movie.movieId}>
+                            key={movie.movieId}
+                        >
                             <RecentMoviesItem movie={movie}/>
                         </Link>
                     ))}
