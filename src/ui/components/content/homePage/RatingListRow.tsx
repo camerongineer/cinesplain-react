@@ -1,13 +1,13 @@
 import {
+    Link as MuiLink,
     styled,
     TableCell,
     TableRow,
-    Typography,
     useTheme
 } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 import Movie from "../../../../models/movie";
 import PopcornRating from "../../common/PopcornRating";
 
@@ -27,16 +27,18 @@ const RatingListRow: React.FC<RatingListRowProps> = ({
     link
 }) => {
     const theme = useTheme();
+    
     return (
         <StyledTableRow>
-            <Link to={link}>
-                <TableCell sx={{ borderBottom: "none" }}>
-                    <Typography
-                        component="p"
+            <TableCell sx={{ borderBottom: "none" }}>
+                <RouterLink to={link}>
+                    <MuiLink
+                        component="span"
                         variant="overline"
                         fontWeight="bolder"
                         fontStyle="italic"
                         fontSize="medium"
+                        underline="none"
                         color={grey[100]}
                         sx={{
                             "&:hover": {
@@ -46,17 +48,17 @@ const RatingListRow: React.FC<RatingListRowProps> = ({
                         }}
                     >
                         {movie.movieTitle}
-                    </Typography>
-                </TableCell>
-            </Link>
+                    </MuiLink>
+                </RouterLink>
+            </TableCell>
             {movie.voteCount >= 20 &&
                 <TableCell
                     width={30}
                     sx={{ borderBottom: "none" }}
                 >
-                    <Link to={link}>
+                    <RouterLink to={link}>
                         <PopcornRating voteAverage={movie.voteAverage}/>
-                    </Link>
+                    </RouterLink>
                 </TableCell>}
         </StyledTableRow>
     );
