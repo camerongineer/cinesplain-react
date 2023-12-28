@@ -4,26 +4,26 @@ import {
 } from "@mui/material";
 
 const defaultTheme = createTheme({
-    
-    palette: {
-        mode: "light",
-        primary: {
-            main: "#7925c2"
-        },
-        secondary: {
-            main: "#f7006b"
-        }
-    },
-    
-    typography: {
-        "fontFamily": "Quicksand, Roboto"
-    },
-    
-    transitions: {
-        duration: {
-            complex: 1000
-        }
-    },
+                                     
+                                     palette: {
+                                         mode: "light",
+                                         primary: {
+                                             main: "#7925c2"
+                                         },
+                                         secondary: {
+                                             main: "#f7006b"
+                                         }
+                                     },
+                                     
+                                     typography: {
+                                         "fontFamily": "Quicksand, Roboto"
+                                     },
+                                     
+                                     transitions: {
+                                         duration: {
+                                             complex: 1000
+                                         }
+                                     },
                                      
                                      components: {
                                          MuiCssBaseline: {
@@ -38,7 +38,9 @@ const defaultTheme = createTheme({
                                                  "&::-webkit-scrollbar-thumb": {
                                                      background: alpha(
                                                          themeParam.palette.secondary[themeParam.palette.mode], 0.5),
-                                                     borderRadius: "10px"
+                                                     borderRadius: "10px",
+                                                     outline: `1px solid ${alpha(
+                                                         themeParam.palette.secondary[themeParam.palette.mode], 0.3)}`
                                                  },
                                                  "a": {
                                                      textDecoration: "none"
@@ -46,6 +48,6 @@ const defaultTheme = createTheme({
                                              })
                                          }
                                      }
-});
+                                 });
 
 export default defaultTheme;
