@@ -11,17 +11,17 @@ const StyledStack = styled(Stack)`
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding: 1em 0;
+    padding: 0;
+    margin: 2em 0 1em;
     user-select: none;
-    overflow: clip;
-    color: ${props => props.theme.palette.text.primary};
+    overflow-x: clip;
 `;
 
 const Hero: React.FC = () => (
     <StyledStack direction="row">
         <CSLoadingIcon
             loadRotationMilliseconds={1250}
-            height={150}
+            height={{ xs: 100, md: 125 }}
         />
         <Stack>
             <Typography
