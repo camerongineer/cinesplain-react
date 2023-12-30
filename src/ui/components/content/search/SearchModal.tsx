@@ -1,24 +1,48 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
-import { Box, Modal, Stack } from "@mui/material";
+import {
+    Box,
+    Modal,
+    styled
+} from "@mui/material";
+import React, {
+    ChangeEvent,
+    useEffect,
+    useState
+} from "react";
 import Movie from "../../../../models/movie";
-import SearchField from "./SearchField";
-import { getMoviesSearchPath, retrieveMovies } from "../../../../utils/retrievalUtils";
+import {
+    getMoviesSearchPath,
+    retrieveMovies
+} from "../../../../utils/retrievalUtils";
 import MovieSearchRow from "./MovieSearchRow";
+import SearchField from "./SearchField";
+
+const StyledSearchBox = styled(Box)`
+    min-width: 260px;
+    width: 25%;
+    margin-top: 2em;
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+`;
 
 interface SearchModalProps {
-    isModalOpen: boolean;
+    modalOpen: boolean;
     onModalEvent: () => void;
     autoCompleteList: string[];
 }
 
-const SearchModal: React.FC<SearchModalProps> = ({ isModalOpen, onModalEvent, autoCompleteList }) => {
+const SearchModal: React.FC<SearchModalProps> = ({
+    modalOpen,
+    onModalEvent,
+    autoCompleteList
+}) => {
     const [searchQuery, setSearchQuery] = useState<string>("");
     const [movies, setMovies] = useState<Movie[]>([]);
     const [invalidQueryPrompt, setInvalidQueryPrompt] = useState<boolean>(false);
     const [searchTimer, setSearchTimer] = useState<NodeJS.Timeout | null>(null);
     
     const handleMovieSubmit = (query: string) => {
-        console.log(searchQuery);
         setSearchQuery(query);
         setInvalidQueryPrompt(false);
     };
@@ -57,27 +81,28 @@ const SearchModal: React.FC<SearchModalProps> = ({ isModalOpen, onModalEvent, au
     
     return (
         <>
-            <Modal open={isModalOpen}
-                   onClose={onModalEvent}
+            <Modal
+                open={modalOpen}
+                onClose={onModalEvent}
             >
-                <Stack className={"full center"}
-                       justifyContent={"space-between"}>
-                    <Box minWidth={"260px"}
-                         width={"25%"}
-                         marginTop={11}
-                    >
-                        <SearchField formId={"modalSearch"}
-                                     searchQuery={searchQuery}
-                                     autoCompleteList={autoCompleteList}
-                                     onQueryChange={handleQueryChange}
-                                     onQuerySubmit={handleMovieSubmit}
-                                     labelText={"Enter a Movie title"}
+                <>
+                    <StyledSearchBox>
+                        <SearchField
+                            formId="modalSearch"
+                            searchQuery={searchQuery}
+                            autoCompleteList={autoCompleteList}
+                            onQueryChange={handleQueryChange}
+                            onQuerySubmit={handleMovieSubmit}
+                            labelText="Enter a Movie title"
+                        />
+                    </StyledSearchBox>
+                    <Box onClick={onModalEvent}>
+                        <MovieSearchRow
+                            movies={movies}
+                            invalidQueryPrompt={invalidQueryPrompt}
                         />
                     </Box>
-                    <MovieSearchRow movies={movies}
-                                    onModalEvent={onModalEvent}
-                                    invalidQueryPrompt={invalidQueryPrompt}/>
-                </Stack>
+                </>
             </Modal>
         </>
     );

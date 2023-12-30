@@ -1,9 +1,16 @@
-import React, { useEffect, useState } from "react";
-import NavBar from "./NavBar";
-import { AppBar, styled, Toolbar } from "@mui/material";
-import SearchModal from "../content/search/SearchModal";
+import {
+    AppBar,
+    styled,
+    Toolbar
+} from "@mui/material";
+import React, {
+    useEffect,
+    useState
+} from "react";
 import { useRouteLoaderData } from "react-router-dom";
 import { retrievePopularMovieTitles } from "../../../utils/retrievalUtils";
+import SearchModal from "../content/search/SearchModal";
+import NavBar from "./NavBar";
 
 const StyledAppBar = styled(AppBar)`
     background: linear-gradient(${props => props.theme.palette.primary.main},
@@ -41,21 +48,21 @@ const Header: React.FC = () => {
         };
     }, []);
     
-    const handleSearchButtonClick = () => {
+    const handleToggleModal = () => {
         setSearchModalOpen(!searchModalOpen);
     };
     
     return (
         <>
             {searchModalOpen && <SearchModal
-                isModalOpen={searchModalOpen}
-                onModalEvent={handleSearchButtonClick}
+                modalOpen={searchModalOpen}
+                onModalEvent={handleToggleModal}
                 autoCompleteList={popularMovieTitles}
             />}
             <StyledAppBar className="center">
                 <CenteredToolbar>
                     <NavBar
-                        onSearchButtonClicked={handleSearchButtonClick}
+                        onSearchButtonClicked={handleToggleModal}
                         animateLogo={animateLogo}
                     />
                 </CenteredToolbar>
