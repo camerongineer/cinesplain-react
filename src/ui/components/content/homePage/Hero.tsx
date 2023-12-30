@@ -1,5 +1,10 @@
+import {
+    Stack,
+    styled,
+    Typography
+} from "@mui/material";
 import React from "react";
-import { Box, Stack, styled, Typography } from "@mui/material";
+import CSLoadingIcon from "../../common/CSLoadingIcon";
 
 const StyledStack = styled(Stack)`
     width: 100%;
@@ -8,22 +13,21 @@ const StyledStack = styled(Stack)`
     text-align: center;
     padding: 1em 0;
     user-select: none;
-    overflow: auto;
+    overflow: clip;
     color: ${props => props.theme.palette.text.primary};
 `;
 
 const Hero: React.FC = () => (
     <StyledStack direction="row">
-        <Box
-            component="img"
+        <CSLoadingIcon
+            loadRotationMilliseconds={1250}
             height={150}
-            src={require("../../../images/cs_logo_up.png")}
-            alt="CineSplain Logo"
         />
         <Stack>
             <Typography
                 component="h1"
-                variant={"h2"}>
+                variant="h2"
+            >
                 CineSplain
             </Typography>
             <Typography variant="h5">
