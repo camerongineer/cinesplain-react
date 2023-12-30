@@ -1,36 +1,41 @@
+import {
+    Stack,
+    styled
+} from "@mui/material";
 import React from "react";
-import { Stack, styled } from "@mui/material";
 
 const StyledStack = styled(Stack)`
-  position: relative;
-    height: 100lvh;
-  overflow: hidden;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    overflow: hidden;
 `;
 
 const StyledIcon = styled("img")`
-  width: 25%;
-  animation: spin 2000ms linear infinite;
-  @keyframes spin {
-    from {
-      transform: rotate(0deg);
+    width: 25%;
+    animation: spin 2000ms linear infinite;
+    @keyframes spin {
+        from {
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(360deg);
+        }
     }
-    to {
-      transform: rotate(360deg);
-    }
-  }
 `;
 
 const StyledLogo = styled("img")`
-  width: 40%;
-  padding-top: 20px;
-  @keyframes spin {
-    from {
-      transform: rotate(0deg);
+    width: 40%;
+    padding-top: 20px;
+    @keyframes spin {
+        from {
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(360deg);
+        }
     }
-    to {
-      transform: rotate(360deg);
-    }
-  }
 `;
 
 const Loading = () => {
