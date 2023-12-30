@@ -51,15 +51,17 @@ const CastMemberCard: React.FC<CastMemberCardProps> = ({ castMember, sx }) => {
                     ? getImagePath(castMember.profilePath, PROFILE_SIZE.MD_W185)
                     : altSilhouette}
                 alt={castMember.castMemberName}
-                height={180}
+                height={210}
+                style={{ objectPosition: "50% 15%" }}
                 onLoad={() => setLoading(false)}
             />
-            {castMember.character && <CardHeader
-                title={
-                    <Typography
-                        variant="body2">
-                        "<strong>{castMember.character}</strong>"
-                    </Typography>}/>}
+            {castMember.character &&
+                <CardHeader
+                    title={
+                        <Typography variant="body2">
+                            "<strong>{castMember.character}</strong>"
+                        </Typography>}
+                />}
         </StyledCard>
     );
 };
