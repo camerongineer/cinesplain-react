@@ -1,11 +1,16 @@
+import {
+    Box,
+    Paper,
+    Stack,
+    styled
+} from "@mui/material";
 import React from "react";
-import { Box, Paper, Stack, styled } from "@mui/material";
 import Movie from "../../../../models/movie";
-import { getYouTubeTrailerPath } from "../../../../utils/retrievalUtils";
 import Video from "../../../../models/video";
+import { getYouTubeTrailerPath } from "../../../../utils/retrievalUtils";
 
 const StyledPaper = styled(Paper)`
-    background: linear-gradient(270deg, ${props => props.theme.palette.background.paper}, ${props => props.theme.palette.grey[600]});
+    background: linear-gradient(270deg, ${props => props.theme.palette.background.paper}, ${props => props.theme.palette.primary.main}60);
     display: flex;
     width: 95%;
 `;
