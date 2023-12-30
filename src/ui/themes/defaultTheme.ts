@@ -21,7 +21,7 @@ const defaultTheme = createTheme(
         
         transitions: {
             duration: {
-                complex: 1000
+                complex: 750
             }
         },
         
