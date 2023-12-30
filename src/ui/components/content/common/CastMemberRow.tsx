@@ -30,15 +30,16 @@ const CastMemberRow: React.FC<CastMemberRowProps> = ({ castMembers, movieId }) =
                 <OuterCarousel paddingY={2}>
                     <StyledStack key={movieId}>
                         {castMembers.map(
-                            castMember => <CastMemberCard key={castMember.castMemberId}
-                                                          sx={{
-                                                              minWidth: {
-                                                                  xs: "26vw",
-                                                                  sm: "18vw",
-                                                                  md: "156px"
-                                                              }
-                                                          }}
-                                                          castMember={castMember}
+                            castMember => <CastMemberCard
+                                key={castMember.castMemberId}
+                                sx={{
+                                    minWidth: {
+                                        xs: "40vw",
+                                        sm: "28vw",
+                                        md: "156px"
+                                    }
+                                }}
+                                castMember={castMember}
                             />)}
                     </StyledStack>
                 </OuterCarousel>}
