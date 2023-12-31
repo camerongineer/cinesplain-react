@@ -1,94 +1,69 @@
-import { useLocation, useParams } from "react-router-dom";
-import { retrieveCredits, retrieveMovie } from "../../../../utils/retrievalUtils";
+import { useLoaderData } from "react-router-dom";
+import { retrieveCredits, retrieveMovie, retrieveMovieTrailers } from "../../../../utils/retrievalUtils";
 import Movie from "../../../../models/movie";
-import React, { useEffect, useState } from "react";
-import { Box, Stack, styled } from "@mui/material";
+import React from "react";
+import { Stack, styled } from "@mui/material";
 import MovieTitleDisplay from "./MovieTitleDisplay";
 import TrailerDisplay from "./TrailerDisplay";
 import MovieSideBar from "./MovieSideBar";
 import CastMemberRow from "../common/CastMemberRow";
+import Video from "../../../../models/video";
 
 const StyledMoviePage = styled(Stack)`
-  width: 100%;
-  justify-content: center;
-  height: 100%;
-  font-size: calc(10px + 2vmin);
-  background: ${props => props.theme.palette.background.paper};
-  color: ${props => props.theme.palette.text.primary};
+    justify-content: center;
+    text-align: center;
 `;
 
-interface MoviePageProps {
-    loadedMovie: Movie | null;
+const moviePageLoader = async (movieId: string | undefined) => {
+    const movie = await retrieveMovie(movieId);
+    if (movie) {
+        const credits = await retrieveCredits(movie.movieId);
+        movie.credits = credits ? credits : [];
+    }
+    const movieTrailers = await retrieveMovieTrailers(movieId);
+    const trailer = movieTrailers.length > 0 ? movieTrailers[0] : null;
+    return { movie, trailer };
+};
+
+interface LoaderData {
+    movie: Movie;
+    trailer: Video;
 }
 
-const MoviePage: React.FC<MoviePageProps> = ({ loadedMovie }) => {
-    const location = useLocation();
-    const { movieId } = useParams();
-    const [movie, setMovie] = useState<Movie | null>(loadedMovie);
-    
-    useEffect(() => {
-        if (!loadedMovie) {
-            (async () => {
-                try {
-                    const movieData = await retrieveMovie(movieId);
-                    if (movieData === null) return null;
-                    const credits = await retrieveCredits(movieData.movieId);
-                    movieData.credits = credits ? credits : [];
-                    setMovie(movieData);
-                } catch (error) {
-                    console.error(error);
-                    setMovie(null);
-                }
-            })();
-        }
-    }, [movieId]);
-    
-    useEffect(() => {
-        if (movie) {
-            (async () => {
-                try {
-                    const credits = await retrieveCredits(movie.movieId);
-                    movie.credits = credits ? credits : [];
-                    console.log(movie);
-                } catch (error) {
-                    console.error(error);
-                }
-            })();
-        }
-    }, [movie]);
+const MoviePage: React.FC = () => {
+    const { movie: movie, trailer: trailer } = useLoaderData() as LoaderData;
     
     return (
         <>
-            {movie && <StyledMoviePage key={location.pathname}>
-                <MovieTitleDisplay key={movie.movieId} movie={movie}/>
-                {movie.credits.length > 0 && <CastMemberRow castMembers={movie.credits} movieId={movieId}/> }
-                
-                <Stack flexDirection={{ xs: "column", md: "row" }}
-                       alignItems={"center"}
-                       justifyContent={"space-evenly"}
-                       padding={1}>
-                    {movie.videos.length > 0 && <Box flexDirection={"column"}
-                                                     justifyContent={"center"}
-                                                     alignItems={"center"}
-                                                     display={"flex"}
-                                                     width={"100%"}
-                                                     flex={{ md: 2, lg: 3 }}>
-                        
-                        <TrailerDisplay movie={movie}
-                                        sx={{ width: "95%", aspectRatio: "16/9" }}/>
-                    </Box>}
-                    <Box flexDirection={"column"}
-                         flex={{ md: 1, lg: 1 }}
-                         justifyContent={"center"}
-                         padding={1}
-                         ml={1}
-                         mr={1}>
-                        <MovieSideBar movie={movie}/>
-                    </Box>
+            {movie && <StyledMoviePage
+                className="full"
+                key={movie.movieId}>
+                <MovieTitleDisplay
+                    key={movie.movieId}
+                    movie={movie}
+                />
+                {movie.credits.length > 0 && <CastMemberRow
+                    castMembers={movie.credits}
+                    movieId={movie.movieId}
+                />}
+                <Stack
+                    flexDirection={{
+                        xs: "column",
+                        md: "row"
+                    }}
+                    alignItems="center"
+                    justifyContent="space-evenly"
+                    padding={1}>
+                    <TrailerDisplay
+                        movie={movie}
+                        trailer={trailer}
+                    />
+                    <MovieSideBar movie={movie}/>
                 </Stack>
             </StyledMoviePage>}
         </>
     );
 };
 
+export { moviePageLoader };
 export default MoviePage;

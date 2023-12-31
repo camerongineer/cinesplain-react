@@ -3,10 +3,18 @@ import Movie from "../models/movie";
 import Video from "../models/video";
 import CastMember from "../models/castMember";
 import Image, { Images } from "../models/Image";
+import { SECURE_BASE_IMAGE_URL } from "../constants/ImageSizes";
 
 const retrieveData = async (url: string) => {
+    const options = {
+        method: "GET",
+        headers: {
+            accept: "application/json"
+        }
+    };
+    
     try {
-        let response: AxiosResponse<any, any> = await axios.get(url);
+        let response: AxiosResponse<any, any> = await axios.get(url, options);
         if (response.status !== 200) {
             return null;
         }
@@ -59,7 +67,7 @@ export const retrieveMovie = async (movieId: string | undefined) => {
     }
 };
 
-export const retrieveMovies = async (url: string) => {
+export const retrieveMovies = async (url: string): Promise<Movie[] | null> => {
     try {
         let res: string | null = await retrieveData(url);
         if (res !== null) {
@@ -77,17 +85,9 @@ export const retrieveMovies = async (url: string) => {
     }
 };
 
-export const retrievePopularMovieTitles = async (pages: number = 10) => {
+export const retrievePopularMovieTitles = async (): Promise<string[]> => {
     try {
-        const popularMovieTitles: string[] = [];
-        for (let page = 1; page <= pages; page++) {
-            let res: string | null = await retrieveData(getPopularMoviesPath(page));
-            if (res !== null) {
-                const popularMoviesArray = JSON.parse(res).results;
-                popularMoviesArray.forEach((resObj: any) => popularMovieTitles.push(resObj["title"]));
-            }
-        }
-        return popularMovieTitles;
+        return JSON.parse(<string>await retrieveData(getTop200MovieTitlesPath())) ?? [];
     } catch (error) {
         console.error(error);
         return [];
@@ -116,6 +116,29 @@ const retrieveVideos = (res: Object): Video[] => {
         });
         return videos;
     } else {
+        return [];
+    }
+};
+
+export const retrieveMovieTrailers = async (movieId: string | undefined): Promise<Video[]> => {
+    try {
+        if (!movieId) return [];
+        const videoObjects = JSON.parse(<string>await retrieveData(getMovieTrailersPath(movieId))) ?? [];
+        // @ts-ignore
+        return videoObjects.map((videoObj) => new Video(
+            videoObj[Video.objMap.iso6391],
+            videoObj[Video.objMap.iso31661],
+            videoObj[Video.objMap.videoName],
+            videoObj[Video.objMap.videoKey],
+            videoObj[Video.objMap.publishedAt],
+            videoObj[Video.objMap.site],
+            videoObj[Video.objMap.size],
+            videoObj[Video.objMap.videoType],
+            videoObj[Video.objMap.official],
+            videoObj[Video.objMap.videoId]
+        ));
+    } catch (error) {
+        console.error(error);
         return [];
     }
 };
@@ -158,8 +181,7 @@ const retrieveAllImages = (res: Object) => {
     return images;
 };
 
-
-export const retrieveCredits = async (movieId: number) => {
+export const retrieveCredits = async (movieId: string) => {
     try {
         let res: string | null = await retrieveData(getMovieCastPath(movieId));
         if (res) {
@@ -196,26 +218,23 @@ export const retrieveCredits = async (movieId: number) => {
     }
 };
 
-export const getBackdropPath = (relativePath: string) =>
-    `https://image.tmdb.org/t/p/original${relativePath}`;
-export const getSmallHeadShotPath = (relativePath: string) =>
-    `https://www.themoviedb.org/t/p/w276_and_h350_face${relativePath}`;
+export const getImagePath = (relativePath: string, imageSize: string) =>
+    `${SECURE_BASE_IMAGE_URL}${imageSize}${relativePath}`;
 
-export const getMoviePath = (movieId: string) =>
-    withApiKey(`https://api.themoviedb.org/3/movie/${movieId}?append_to_response=videos,images&language=en`);
+export const getMoviePath = (movieId: string) => `${process.env.REACT_APP_CINESPLAIN_API_URL}/movie/${movieId}`;
+export const getMovieTrailersPath = (movieId: string) => `${process.env.REACT_APP_CINESPLAIN_API_URL}/movie/${movieId}/trailers`;
 
 export const getYouTubeTrailerPath = (videoKey: string) => `https://www.youtube.com/embed/${videoKey}`;
+export const getImdbPath = (imdbId: string) => `https://www.imdb.com/title/${imdbId}`;
 
-export const getMoviesSearchPath = (query: string, page: number, includeAdult: boolean = false) => (
-    withApiKey(
-        `https://api.themoviedb.org/3/search/movie?query=${query}&sort_by=popularity.desc&page=${page}&include_adult=${includeAdult}&language=en`)
-);
-export const getPopularMoviesPath = (page: number, includeAdult: boolean = false) => (
-    withApiKey(
-        `https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&page=${page}&include_adult=${includeAdult}&language=en`)
-);
-
-export const getMovieCastPath = (movieId: number) =>
-    withApiKey(`https://api.themoviedb.org/3/movie/${movieId}/credits?language=en`);
-
-const withApiKey = (url: string) => url + `&api_key=${process.env.REACT_APP_TMDB_API_KEY}`;
+export const getMoviesSearchPath = (
+    searchQuery: string,
+    page: number) => `${process.env.REACT_APP_CINESPLAIN_API_URL}/movies/search?query=${searchQuery}&page=${page}`;
+export const getPopularMoviesPath = (page: number) => `${process.env.REACT_APP_CINESPLAIN_API_URL}/movies/discover?page=${page}`;
+export const getTop200MovieTitlesPath = () => `${process.env.REACT_APP_CINESPLAIN_API_URL}/movies/top_200_titles`;
+export const getNowPlayingMoviesPath = () => `${process.env.REACT_APP_CINESPLAIN_API_URL}/movies/now_playing`;
+export const getUpcomingMoviesPath = () => `${process.env.REACT_APP_CINESPLAIN_API_URL}/movies/upcoming`;
+export const getClassicMoviesPath = () => `${process.env.REACT_APP_CINESPLAIN_API_URL}/movies/classics`;
+export const getMostLovedMoviesPath = () => `${process.env.REACT_APP_CINESPLAIN_API_URL}/movies/most_loved`;
+export const getMostHatedMoviesPath = () => `${process.env.REACT_APP_CINESPLAIN_API_URL}/movies/most_hated`;
+export const getMovieCastPath = (movieId: string) => `${process.env.REACT_APP_CINESPLAIN_API_URL}/movie/${movieId}/credits`;

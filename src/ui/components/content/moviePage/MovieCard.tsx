@@ -1,39 +1,38 @@
 import React, { useState } from "react";
-import {
-    Box,
-    Card,
-    CardContent,
-    CardHeader,
-    CardMedia,
-    Rating,
-    styled
-} from "@mui/material";
+import { Box, Card, CardContent, CardHeader, CardMedia, CardProps, Rating, styled, Typography } from "@mui/material";
 import Movie from "../../../../models/movie";
-import { StandardTypography } from "../../../styles/Typography";
-import { getFormattedDate } from "../../../../utils/formatUtils";
-import { SxProps } from "@mui/system";
+import { getFormattedDisplayedDate } from "../../../../utils/formatUtils";
+import { getImagePath } from "../../../../utils/retrievalUtils";
+import { POSTER_SIZE } from "../../../../constants/ImageSizes";
 
-const StyledCard = styled(Card)(({ theme }) => ({
-    background: theme.palette.background.paper,
-    transition: `height 2s ease-in-out, opacity ${theme.transitions.duration.complex}ms ease-in-out`,
-    "@keyframes Card-Wobble": {
-        from: {
-            transform: "rotate(-1deg)"
-        },
-        to: {
-            transform: "rotate(1deg)"
+const StyledCard = styled(Card)`
+    position: relative;
+    background: ${props => props.theme.palette.background.paper};
+    transition: height 2s ease-in-out, opacity ${props => props.theme.transitions.duration.complex}ms ease-in-out;
+    @keyframes Card-Wobble {
+        from {
+            transform: rotate(-1deg);
+        }
+        to {
+            transform: rotate(1deg);
         }
     }
-}));
+`;
 
-export interface MovieCardProps {
+export interface MovieCardProps extends CardProps {
     movie: Movie;
+    posterSize?: string;
     onHover: (backdropPath: string) => void;
     isExpandable: boolean;
-    sx?: SxProps;
 }
 
-const MovieCard: React.FC<MovieCardProps> = ({ movie, onHover, isExpandable, sx }) => {
+const MovieCard: React.FC<MovieCardProps> = ({
+    movie,
+    posterSize = POSTER_SIZE.LG_W780,
+    onHover,
+    isExpandable,
+    ...props
+}) => {
     const [isHovered, setIsHovered] = useState(false);
     const [imageLoaded, setImageLoaded] = useState(false);
     
@@ -52,23 +51,22 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, onHover, isExpandable, sx 
     
     return (
         <StyledCard
-            key={movie.movieId}
             variant="outlined"
             style={{
                 animation: `Card-Wobble infinite ${movie.voteAverage
                     ? (4 * (movie.voteAverage / 10))
                     : 3}s alternate`,
                 visibility: imageLoaded || !movie.posterPath ? "visible" : "hidden",
-                opacity: imageLoaded || !movie.posterPath ? 1 : 0,
+                opacity: imageLoaded || !movie.posterPath ? 1 : 0
             }}
-            sx={sx}
             onMouseEnter={handleMouseHovered}
             onMouseLeave={handleMouseNotHovered}
+            {...props}
         >
             {movie.posterPath && (
                 <CardMedia
                     component="img"
-                    image={`https://image.tmdb.org/t/p/original/${movie.posterPath}`}
+                    image={getImagePath(movie.posterPath, posterSize)}
                     alt="Movie Poster"
                     onLoad={handleImageLoad}
                 />
@@ -80,19 +78,25 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, onHover, isExpandable, sx 
                         height: isHovered || !imageLoaded || !movie.posterPath
                             ? "auto"
                             : "0",
-                        overflow: "hidden",
-                    }}
-                >
+                        overflow: "hidden"
+                    }}>
                     <CardHeader
-                        title={<StandardTypography variant={"h6"}>{movie.movieTitle}</StandardTypography>}
+                        title={<Typography variant={"h6"}>{movie.movieTitle}</Typography>}
                         subheader={
                             <>
                                 {movie.releaseDate &&
-                                    <StandardTypography>{getFormattedDate(movie.releaseDate)}</StandardTypography>}
+                                    <Typography>
+                                        {getFormattedDisplayedDate(movie.releaseDate)}
+                                    </Typography>}
                                 {movie.voteAverage > 0 &&
                                     <>
-                                        <Rating style={{ marginTop: 4 }} precision={0.5} size="small"
-                                                value={movie.voteAverage / 2} readOnly/>
+                                        <Rating
+                                            style={{ marginTop: 4 }}
+                                            precision={0.5}
+                                            size="small"
+                                            value={movie.voteAverage / 2}
+                                            readOnly
+                                        />
                                     </>
                                 }
                             </>
@@ -100,9 +104,11 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, onHover, isExpandable, sx 
                         }
                     />
                     <CardContent>
-                        <StandardTypography variant="body2" color="text.secondary">
+                        <Typography
+                            variant="body2"
+                            color="text.secondary">
                             {`${movie.overview.substring(0, 200)}${movie.overview.length > 200 ? "..." : ""}`}
-                        </StandardTypography>
+                        </Typography>
                     </CardContent>
                 </Box>
             }

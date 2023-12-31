@@ -1,4 +1,4 @@
-export const getFormattedDate = (dateString: string | undefined) => {
+export const getFormattedDisplayedDate = (dateString: string | undefined) => {
     if (!dateString) {
         return "";
     }
@@ -16,5 +16,5 @@ export const getFormattedCurrencyAmount = (dollarAmount: number) => {
 export const getFormattedRuntime = (runtimeMinutes: number) => {
     const hours = Math.floor(runtimeMinutes / 60);
     const minutes = runtimeMinutes % 60;
-    return `${hours > 0 ? `${hours}h `: ""}${minutes}m`
-}
+    return `${hours > 0 ? `${hours}h ` : ""}${minutes}m`;
+};
