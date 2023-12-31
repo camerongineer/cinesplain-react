@@ -1,32 +1,13 @@
 import {
-    ImageList,
-    styled,
     Typography,
     useTheme
 } from "@mui/material";
 import React from "react";
-import { Link } from "react-router-dom";
 import useMovieBackdrop from "../../../../hooks/UseMovieBackdrop";
 import useRandomMovie from "../../../../hooks/UseRandomMovie";
 import Movie from "../../../../models/movie";
-import OuterCarousel from "../../common/OuterCarousel";
 import OverlaidImageBox from "../../common/OverlaidImageBox";
-import RecentMoviesItem from "./RecentMoviesItem";
-
-const StyledImageList = styled(ImageList)`
-    display: flex;
-    flex-direction: row;
-    overflow-x: scroll;
-    margin: 10px;
-    background-size: cover;
-    background-position: center;
-    scroll-snap-type: x mandatory;
-    scroll-behavior: smooth;
-
-    &::-webkit-scrollbar {
-        display: none;
-    }
-`;
+import BackdropImageListRow from "../common/BackdropImageListRow";
 
 interface RecentMoviesRowProps {
     movies: Movie[];
@@ -65,18 +46,7 @@ const RecentMoviesRow: React.FC<RecentMoviesRowProps> = ({ movies }) => {
             >
                 Now In Theaters
             </Typography>
-            <OuterCarousel sx={{ paddingBottom: "20px" }}>
-                <StyledImageList gap={20}>
-                    {movies.map(movie => (
-                        <Link
-                            to={`/movies/${movie.movieId}`}
-                            key={movie.movieId}
-                        >
-                            <RecentMoviesItem movie={movie}/>
-                        </Link>
-                    ))}
-                </StyledImageList>
-            </OuterCarousel>
+            <BackdropImageListRow movies={movies}/>
         </OverlaidImageBox>
     );
 };
