@@ -33,7 +33,7 @@ const OverlaidImageBox: React.FC<OverlaidImageBoxProps> = ({
     const colorOverlayStyle = {
         backgroundColor: overlayColor,
         opacity: overlayOpacity,
-        zIndex: -1,
+        zIndex: 1,
         borderRadius: borderRadius
     };
     
@@ -43,7 +43,6 @@ const OverlaidImageBox: React.FC<OverlaidImageBoxProps> = ({
         backgroundPosition: "center",
         alt: imageAlt,
         filter: `grayscale(${imageGrayScalePercentage}%)`,
-        zIndex: -3,
         borderRadius: borderRadius
     };
     
@@ -67,7 +66,6 @@ const OverlaidImageBox: React.FC<OverlaidImageBoxProps> = ({
                 position="absolute"
                 width="100%"
                 textAlign="right"
-                zIndex={-2}
                 bottom={0}
             >
                 <Typography
