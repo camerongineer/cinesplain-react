@@ -22,12 +22,20 @@ const CSLoadingIcon: React.FC<CSLoadingIconProps> = ({
     const [iconIndex, setIconIndex] = useState(0);
     
     useEffect(() => {
-        const intervalId = setInterval(() => {
-            setIconIndex((prevIndex) => (prevIndex === 0 ? 1 : 0));
-        }, loadRotationMilliseconds / 3);
+        let intervalId: NodeJS.Timeout | null = null;
         
-        return () => clearInterval(intervalId);
-    }, [loadRotationMilliseconds]);
+        if (navigation.state === "loading") {
+            intervalId = setInterval(() => {
+                setIconIndex((prevIndex) => (prevIndex === 0 ? 1 : 0));
+            }, loadRotationMilliseconds / 3);
+        }
+        
+        return () => {
+            if (intervalId) {
+                clearInterval(intervalId);
+            }
+        };
+    }, [navigation.state, loadRotationMilliseconds]);
     
     const getAnimationStyle = () => {
         if (navigation.state === "loading") {
