@@ -1,13 +1,23 @@
-import { useLoaderData } from "react-router-dom";
-import { retrieveCredits, retrieveMovie, retrieveMovieTrailers } from "../../../../utils/retrievalUtils";
-import Movie from "../../../../models/movie";
+import {
+    Stack,
+    styled
+} from "@mui/material";
 import React from "react";
-import { Stack, styled } from "@mui/material";
+import { useLoaderData } from "react-router-dom";
+import Movie from "../../../../models/movie";
+import Video from "../../../../models/video";
+import {
+    getMovieRecommendationsPath,
+    getSimilarMoviesPath,
+    retrieveCredits,
+    retrieveMovie,
+    retrieveMovies,
+    retrieveMovieTrailers
+} from "../../../../utils/retrievalUtils";
+import CastMemberRow from "../common/CastMemberRow";
+import MovieSideBar from "./MovieSideBar";
 import MovieTitleDisplay from "./MovieTitleDisplay";
 import TrailerDisplay from "./TrailerDisplay";
-import MovieSideBar from "./MovieSideBar";
-import CastMemberRow from "../common/CastMemberRow";
-import Video from "../../../../models/video";
 
 const StyledMoviePage = styled(Stack)`
     justify-content: center;
@@ -21,8 +31,10 @@ const moviePageLoader = async (movieId: string | undefined) => {
         movie.credits = credits ? credits : [];
     }
     const movieTrailers = await retrieveMovieTrailers(movieId);
+    const similarMovies = await retrieveMovies(getSimilarMoviesPath(movieId ?? ""));
+    const recommendedMovies = await retrieveMovies(getMovieRecommendationsPath(movieId ?? ""));
     const trailer = movieTrailers.length > 0 ? movieTrailers[0] : null;
-    return { movie, trailer };
+    return { movie, trailer, similarMovies, recommendedMovies };
 };
 
 interface LoaderData {
