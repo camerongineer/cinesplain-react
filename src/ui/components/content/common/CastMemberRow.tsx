@@ -27,8 +27,11 @@ const CastMemberRow: React.FC<CastMemberRowProps> = ({ castMembers, movieId }) =
     return (
         <>
             {castMembers.length > 0 &&
-                <OuterCarousel paddingY={1}>
-                    <StyledStack key={movieId}>
+                <OuterCarousel
+                    paddingY={1}
+                    style={{ overflow: "auto" }}
+                >
+                    <StyledStack>
                         {castMembers.map(
                             castMember =>
                                 <CastMemberCard
