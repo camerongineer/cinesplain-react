@@ -16,7 +16,7 @@ const retrieveData = async (url: string) => {
     };
     
     try {
-        let response: AxiosResponse<any, any> = await axios.get(url, options);
+        const response: AxiosResponse = await axios.get(url, options);
         if (response.status !== 200) {
             return null;
         }
@@ -29,7 +29,7 @@ const retrieveData = async (url: string) => {
 
 export const retrieveMovie = async (movieId: string | undefined) => {
     try {
-        let res: string | null = await retrieveData(getMoviePath(movieId ? movieId : ""));
+        const res = await retrieveData(getMoviePath(movieId ? movieId : ""));
         if (res !== null) {
             const resObj = JSON.parse(res);
             return new Movie(
@@ -71,7 +71,7 @@ export const retrieveMovie = async (movieId: string | undefined) => {
 
 export const retrieveMovies = async (url: string): Promise<Movie[] | null> => {
     try {
-        let res: string | null = await retrieveData(url);
+        const res: string | null = await retrieveData(url);
         if (res !== null) {
             const moviesArray = JSON.parse(res).results;
             const movieDetails = await Promise.all(
@@ -96,7 +96,7 @@ export const retrievePopularMovieTitles = async (): Promise<string[]> => {
     }
 };
 
-const retrieveVideos = (res: Object): Video[] => {
+const retrieveVideos = (res: object): Video[] => {
     if (res && Array.isArray(res)) {
         const videos: Video[] = [];
         res.map((videoObj) => {
@@ -126,7 +126,7 @@ export const retrieveMovieTrailers = async (movieId: string | undefined): Promis
     try {
         if (!movieId) return [];
         const videoObjects = JSON.parse(<string>await retrieveData(getMovieTrailersPath(movieId))) ?? [];
-        // @ts-ignore
+        // @ts-expect-error
         return videoObjects.map((videoObj) => new Video(
             videoObj[Video.objMap.iso6391],
             videoObj[Video.objMap.iso31661],
@@ -145,7 +145,7 @@ export const retrieveMovieTrailers = async (movieId: string | undefined): Promis
     }
 };
 
-const retrieveImages = (res: Object): Image[] => {
+const retrieveImages = (res: object): Image[] => {
     if (res && Array.isArray(res)) {
         const images: Image[] = [];
         res.map((imageObj) => {
@@ -168,24 +168,24 @@ const retrieveImages = (res: Object): Image[] => {
     }
 };
 
-const retrieveAllImages = (res: Object) => {
+const retrieveAllImages = (res: object) => {
     const images: Images = {
         backdrops: [],
         logos: [],
         posters: []
     };
-    // @ts-ignore
+    // @ts-expect-error
     images.backdrops = retrieveImages(res["backdrops"]);
-    // @ts-ignore
+    // @ts-expect-error
     images.logos = retrieveImages(res["logos"]);
-    // @ts-ignore
+    // @ts-expect-error
     images.posters = retrieveImages(res["posters"]);
     return images;
 };
 
 export const retrieveCredits = async (movieId: string) => {
     try {
-        let res: string | null = await retrieveData(getMovieCastPath(movieId));
+        const res: string | null = await retrieveData(getMovieCastPath(movieId));
         if (res) {
             const credits: CastMember[] = [];
             const resObj = JSON.parse(res)["cast"];
