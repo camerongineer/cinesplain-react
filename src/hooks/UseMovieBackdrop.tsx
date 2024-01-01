@@ -1,7 +1,10 @@
-import Movie from "../models/movie";
-import { useEffect, useState } from "react";
-import { getImagePath } from "../utils/retrievalUtils";
+import {
+    useEffect,
+    useState
+} from "react";
 import { BACKDROP_SIZE } from "../constants/ImageSizes";
+import Movie from "../models/movie";
+import { getImagePath } from "../utils/retrievalUtils";
 
 const useMovieBackdrop = (movie: Movie | null, imageSize: string = BACKDROP_SIZE.MAX): [string, boolean] => {
     const [backgroundImage, setBackgroundImage] = useState<string>("");
@@ -18,13 +21,13 @@ const useMovieBackdrop = (movie: Movie | null, imageSize: string = BACKDROP_SIZE
         } else {
             setBackgroundImageLoading(false);
         }
-    }, [backgroundImage]);
+    }, [backgroundImage, movie]);
     
     useEffect(() => {
         if (movie && movie.backdropPath) {
             setBackgroundImage(getImagePath(movie.backdropPath, imageSize));
         }
-    }, [movie]);
+    }, [movie, imageSize]);
     return [backgroundImage, backgroundImageLoading];
 };
 

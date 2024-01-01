@@ -1,4 +1,7 @@
-import { useEffect, useState } from "react";
+import {
+    useEffect,
+    useState
+} from "react";
 import Movie from "../models/movie";
 
 const useRandomMovie = (movies: Movie[], interval: number, requireBackdrop: boolean = false) => {
@@ -12,7 +15,7 @@ const useRandomMovie = (movies: Movie[], interval: number, requireBackdrop: bool
             setRandomMovieIndex(Math.floor(Math.random() * filteredMovies.length));
             setInitialRender(false);
         }
-    }, [initialRender, movies]);
+    }, [initialRender, movies, filteredMovies.length]);
     
     useEffect(() => {
         if (filteredMovies.length) {
@@ -27,7 +30,7 @@ const useRandomMovie = (movies: Movie[], interval: number, requireBackdrop: bool
                 clearInterval(timer);
             };
         }
-    }, [movies, interval]);
+    }, [movies, interval, filteredMovies.length]);
     
     return filteredMovies[randomMovieIndex];
 };

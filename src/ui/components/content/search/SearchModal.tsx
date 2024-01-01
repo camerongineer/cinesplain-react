@@ -77,7 +77,7 @@ const SearchModal: React.FC<SearchModalProps> = ({
                 clearTimeout(searchTimer);
             }
         };
-    }, [searchQuery]);
+    }, [searchQuery, searchTimer]);
     
     return (
         <>
