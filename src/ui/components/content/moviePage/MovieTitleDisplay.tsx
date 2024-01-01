@@ -15,12 +15,17 @@ import RuntimeDisplay from "../common/RuntimeDisplay";
 import TitleDisplay from "../common/TitleDisplay";
 import MovieCard from "./MovieCard";
 
-const StyledGrid = styled(Grid)`
-    width: 100%;
-    padding: 5% 0;
-    transition: ${props => `opacity ${props.theme.transitions.duration.short}ms ease-in-out`};
-    color: ${props => props.theme.palette.getContrastText("rgba(0, 0, 0, 0.4)")};
-`;
+const StyledGrid = styled(Grid)(({ theme }) => ({
+    width: "100%",
+    padding: "5% 0",
+    transition: `opacity ${theme.transitions.duration.short}ms ease-in-out`,
+    color: theme.palette.getContrastText("rgba(0, 0, 0, 0.4)"),
+    minHeight: "100lvh",
+    [theme.breakpoints.up("sm")]: {
+        minHeight: "auto",
+        height: "auto"
+    }
+}));
 
 interface MovieTitleDisplayProps {
     movie: Movie | null;
@@ -41,11 +46,6 @@ const MovieTitleDisplay: React.FC<MovieTitleDisplayProps> = ({ movie }) => {
         <StyledGrid
             container
             padding={2}
-            minHeight="60vh"
-            height={{
-                xs: "95dvh",
-                sm: "auto"
-            }}
             sx={backgroundStyle}
         >
             <Grid
@@ -65,13 +65,13 @@ const MovieTitleDisplay: React.FC<MovieTitleDisplayProps> = ({ movie }) => {
                         height: "100%",
                         alignItems: "center",
                         justifyContent: "center"
-                    }}>
+                    }}
+                >
                     <MovieCard
                         sx={{
                             height: "auto",
                             width: "auto",
-                            maxHeight: "100%",
-                            maxWidth: 265,
+                            maxWidth: "min(265px, 75%)",
                             minWidth: 120
                         }}
                         movie={movie}
