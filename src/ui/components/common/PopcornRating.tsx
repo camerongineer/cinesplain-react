@@ -1,10 +1,10 @@
+import popcornRating from "@assets/popcorn_rating.png";
 import {
     Box,
     styled
 } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import React from "react";
-import popcornRating from "../../images/popcorn_rating.png";
 
 const RatingCircle = styled(Box)`
     display: flex;

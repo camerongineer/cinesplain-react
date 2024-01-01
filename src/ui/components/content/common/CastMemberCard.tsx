@@ -1,3 +1,5 @@
+import femaleSilhouette from "@assets/female_silhouette.png";
+import maleSilhouette from "@assets/male_silhouette.png";
 import {
     Card,
     CardMedia,
@@ -11,8 +13,6 @@ import React, { useState } from "react";
 import { PROFILE_SIZE } from "../../../../constants/ImageSizes";
 import CastMember from "../../../../models/castMember";
 import { getImagePath } from "../../../../utils/retrievalUtils";
-import femaleSilhouette from "../../../images/female_silhouette.png";
-import maleSilhouette from "../../../images/male_silhouette.png";
 
 const StyledCard = styled(Card)`
     height: fit-content;

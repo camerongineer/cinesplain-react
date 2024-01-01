@@ -1,3 +1,5 @@
+import downIcon from "@assets/cs_logo_down.png";
+import upIcon from "@assets/cs_logo_up.png";
 import {
     Box,
     BoxProps
@@ -7,8 +9,6 @@ import React, {
     useState
 } from "react";
 import { useNavigation } from "react-router-dom";
-import downIcon from "../../images/cs_logo_down.png";
-import upIcon from "../../images/cs_logo_up.png";
 
 interface CSLoadingIconProps extends BoxProps {
     loadRotationMilliseconds?: number;

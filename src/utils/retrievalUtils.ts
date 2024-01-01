@@ -5,6 +5,8 @@ import Image, { Images } from "../models/Image";
 import Movie from "../models/movie";
 import Video from "../models/video";
 
+const BASE_URL = import.meta.env.VITE_CINESPLAIN_API_URL;
+
 const retrieveData = async (url: string) => {
     const options = {
         method: "GET",
@@ -221,22 +223,23 @@ export const retrieveCredits = async (movieId: string) => {
 export const getImagePath = (relativePath: string, imageSize: string) =>
     `${SECURE_BASE_IMAGE_URL}${imageSize}${relativePath}`;
 
-export const getMoviePath = (movieId: string) => `${process.env.REACT_APP_CINESPLAIN_API_URL}/movie/${movieId}`;
-export const getMovieTrailersPath = (movieId: string) => `${process.env.REACT_APP_CINESPLAIN_API_URL}/movie/${movieId}/trailers`;
+export const getMoviePath = (movieId: string) => `${BASE_URL}/movie/${movieId}`;
+export const getMovieTrailersPath = (movieId: string) => `${BASE_URL}/movie/${movieId}/trailers`;
 
 export const getYouTubeTrailerPath = (videoKey: string) => `https://www.youtube.com/embed/${videoKey}`;
 export const getImdbPath = (imdbId: string) => `https://www.imdb.com/title/${imdbId}`;
 
 export const getMoviesSearchPath = (
     searchQuery: string,
-    page: number) => `${process.env.REACT_APP_CINESPLAIN_API_URL}/movies/search?query=${searchQuery}&page=${page}`;
-export const getPopularMoviesPath = (page: number) => `${process.env.REACT_APP_CINESPLAIN_API_URL}/movies/discover?page=${page}`;
-export const getTop200MovieTitlesPath = () => `${process.env.REACT_APP_CINESPLAIN_API_URL}/movies/top_200_titles`;
-export const getNowPlayingMoviesPath = () => `${process.env.REACT_APP_CINESPLAIN_API_URL}/movies/now_playing`;
-export const getUpcomingMoviesPath = () => `${process.env.REACT_APP_CINESPLAIN_API_URL}/movies/upcoming`;
-export const getClassicMoviesPath = () => `${process.env.REACT_APP_CINESPLAIN_API_URL}/movies/classics`;
-export const getMostLovedMoviesPath = () => `${process.env.REACT_APP_CINESPLAIN_API_URL}/movies/most_loved`;
-export const getMostHatedMoviesPath = () => `${process.env.REACT_APP_CINESPLAIN_API_URL}/movies/most_hated`;
-export const getMovieCastPath = (movieId: string) => `${process.env.REACT_APP_CINESPLAIN_API_URL}/movie/${movieId}/credits`;
-export const getSimilarMoviesPath = (movieId: string) => `${process.env.REACT_APP_CINESPLAIN_API_URL}/movie/${movieId}/similar`;
-export const getMovieRecommendationsPath = (movieId: string) => `${process.env.REACT_APP_CINESPLAIN_API_URL}/movie/${movieId}/recommendations`;
+    page: number
+) => `${BASE_URL}/movies/search?query=${searchQuery}&page=${page}`;
+export const getPopularMoviesPath = (page: number) => `${BASE_URL}/movies/discover?page=${page}`;
+export const getTop200MovieTitlesPath = () => `${BASE_URL}/movies/top_200_titles`;
+export const getNowPlayingMoviesPath = () => `${BASE_URL}/movies/now_playing`;
+export const getUpcomingMoviesPath = () => `${BASE_URL}/movies/upcoming`;
+export const getClassicMoviesPath = () => `${BASE_URL}/movies/classics`;
+export const getMostLovedMoviesPath = () => `${BASE_URL}/movies/most_loved`;
+export const getMostHatedMoviesPath = () => `${BASE_URL}/movies/most_hated`;
+export const getMovieCastPath = (movieId: string) => `${BASE_URL}/movie/${movieId}/credits`;
+export const getSimilarMoviesPath = (movieId: string) => `${BASE_URL}/movie/${movieId}/similar`;
+export const getMovieRecommendationsPath = (movieId: string) => `${BASE_URL}/movie/${movieId}/recommendations`;
