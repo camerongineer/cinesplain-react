@@ -1,6 +1,10 @@
-import React, { ReactNode } from "react";
-import { Box, Stack, Typography } from "@mui/material";
+import {
+    Box,
+    Stack,
+    Typography
+} from "@mui/material";
 import { SxProps } from "@mui/system";
+import React, { ReactNode } from "react";
 
 interface OverlaidImageBoxProps {
     overlayColor: string,
@@ -39,34 +43,38 @@ const OverlaidImageBox: React.FC<OverlaidImageBoxProps> = ({
         backgroundPosition: "center",
         alt: imageAlt,
         filter: `grayscale(${imageGrayScalePercentage}%)`,
-        zIndex: 0,
         borderRadius: borderRadius
     };
     
     return (
         <Stack
             position="relative"
-            sx={sx}>
+            sx={sx}
+        >
             <Stack
                 className="full"
                 position="absolute"
-                style={colorOverlayStyle}/>
+                style={colorOverlayStyle}
+            />
             <Stack
                 className="full"
                 position="absolute"
-                style={backgroundImageStyle}/>
+                style={backgroundImageStyle}
+            />
             <Box
                 display="block"
                 position="absolute"
                 width="100%"
                 textAlign="right"
-                bottom={0}>
+                bottom={0}
+            >
                 <Typography
                     variant="overline"
                     color="white"
                     fontSize="x-small"
                     fontWeight="bolder"
-                    pr={2}>
+                    pr={2}
+                >
                     {bottomLabelText}
                 </Typography>
             </Box>

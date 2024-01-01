@@ -1,9 +1,9 @@
 import axios, { AxiosResponse } from "axios";
-import Movie from "../models/movie";
-import Video from "../models/video";
+import { SECURE_BASE_IMAGE_URL } from "../constants/ImageSizes";
 import CastMember from "../models/castMember";
 import Image, { Images } from "../models/Image";
-import { SECURE_BASE_IMAGE_URL } from "../constants/ImageSizes";
+import Movie from "../models/movie";
+import Video from "../models/video";
 
 const retrieveData = async (url: string) => {
     const options = {
@@ -238,3 +238,5 @@ export const getClassicMoviesPath = () => `${process.env.REACT_APP_CINESPLAIN_AP
 export const getMostLovedMoviesPath = () => `${process.env.REACT_APP_CINESPLAIN_API_URL}/movies/most_loved`;
 export const getMostHatedMoviesPath = () => `${process.env.REACT_APP_CINESPLAIN_API_URL}/movies/most_hated`;
 export const getMovieCastPath = (movieId: string) => `${process.env.REACT_APP_CINESPLAIN_API_URL}/movie/${movieId}/credits`;
+export const getSimilarMoviesPath = (movieId: string) => `${process.env.REACT_APP_CINESPLAIN_API_URL}/movie/${movieId}/similar`;
+export const getMovieRecommendationsPath = (movieId: string) => `${process.env.REACT_APP_CINESPLAIN_API_URL}/movie/${movieId}/recommendations`;

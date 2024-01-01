@@ -1,32 +1,13 @@
 import {
-    ImageList,
-    styled,
     Typography,
     useTheme
 } from "@mui/material";
 import React from "react";
-import { Link } from "react-router-dom";
 import useMovieBackdrop from "../../../../hooks/UseMovieBackdrop";
 import useRandomMovie from "../../../../hooks/UseRandomMovie";
 import Movie from "../../../../models/movie";
-import OuterCarousel from "../../common/OuterCarousel";
 import OverlaidImageBox from "../../common/OverlaidImageBox";
-import RecentMoviesItem from "./RecentMoviesItem";
-
-const StyledImageList = styled(ImageList)`
-    display: flex;
-    flex-direction: row;
-    overflow-x: scroll;
-    margin: 10px;
-    background-size: cover;
-    background-position: center;
-    scroll-snap-type: x mandatory;
-    scroll-behavior: smooth;
-
-    &::-webkit-scrollbar {
-        display: none;
-    }
-`;
+import BackdropImageListRow from "../common/BackdropImageListRow";
 
 interface RecentMoviesRowProps {
     movies: Movie[];
@@ -38,10 +19,22 @@ const RecentMoviesRow: React.FC<RecentMoviesRowProps> = ({ movies }) => {
     const theme = useTheme();
     
     const backdropStyle = {
-        alignItems: "end",
+        alignItems: "center",
+        justifyContent: "end",
         width: "100%",
         opacity: movieBackdropLoading ? 0 : 1,
-        transition: `opacity ${theme.transitions.duration.short}ms ease-in-out`
+        transition: `opacity ${theme.transitions.duration.short}ms ease-in-out`,
+        paddingTop: "clamp(200px, 28vh, 500px)",
+        justifySelf: "end"
+    };
+    
+    const cardStyle = {
+        width: {
+            xs: theme.breakpoints.values.sm / 2,
+            md: theme.breakpoints.values.lg / 2.6,
+            lg: theme.breakpoints.values.xl / 3.7,
+            xl: theme.breakpoints.values.xl / 3.1
+        }
     };
     
     return (
@@ -59,24 +52,16 @@ const RecentMoviesRow: React.FC<RecentMoviesRowProps> = ({ movies }) => {
                 width="fit-content"
                 color={theme.palette.getContrastText(theme.palette.common.black)}
                 fontWeight="bolder"
-                paddingTop="20%"
-                zIndex={2}
+                alignSelf="end"
+                zIndex={1}
                 mr={3}
             >
                 Now In Theaters
             </Typography>
-            <OuterCarousel sx={{ paddingBottom: "20px" }}>
-                <StyledImageList gap={20}>
-                    {movies.map(movie => (
-                        <Link
-                            to={`/movies/${movie.movieId}`}
-                            key={movie.movieId}
-                        >
-                            <RecentMoviesItem movie={movie}/>
-                        </Link>
-                    ))}
-                </StyledImageList>
-            </OuterCarousel>
+            <BackdropImageListRow
+                movies={movies}
+                cardStyle={cardStyle}
+            />
         </OverlaidImageBox>
     );
 };

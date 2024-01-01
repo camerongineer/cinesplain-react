@@ -1,10 +1,10 @@
+import {
+    Grid,
+    Stack
+} from "@mui/material";
+import { purple } from "@mui/material/colors";
 import React from "react";
 import { useRouteLoaderData } from "react-router-dom";
-import { Grid, Stack } from "@mui/material";
-import RecentMoviesRow from "./RecentMoviesRow";
-import RatingList from "./RatingList";
-import { purple } from "@mui/material/colors";
-import Hero from "./Hero";
 import Movie from "../../../../models/movie";
 import {
     getClassicMoviesPath,
@@ -14,6 +14,9 @@ import {
     getUpcomingMoviesPath,
     retrieveMovies
 } from "../../../../utils/retrievalUtils";
+import Hero from "./Hero";
+import RatingList from "./RatingList";
+import RecentMoviesRow from "./RecentMoviesRow";
 
 const homePageLoader = async () => {
     const recentMovies = await retrieveMovies(getNowPlayingMoviesPath()) ?? [];
@@ -48,7 +51,7 @@ const HomePage: React.FC = () => {
     } = useRouteLoaderData("root") as LoaderData;
     
     return (
-        <Stack className="full center">
+        <Stack className="full">
             <RecentMoviesRow movies={recentMovies.filter(movie => movie.backdropPath)}/>
             <Hero/>
             <Grid
