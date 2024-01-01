@@ -3,6 +3,7 @@ import {
     styled
 } from "@mui/material";
 import React from "react";
+import { Link } from "react-router-dom";
 import CastMember from "../../../../models/castMember";
 import OuterCarousel from "../../common/OuterCarousel";
 import CastMemberCard from "./CastMemberCard";
@@ -35,17 +36,21 @@ const CastMemberRow: React.FC<CastMemberRowProps> = ({
                     <StyledStack>
                         {castMembers.map(
                             castMember =>
-                                <CastMemberCard
+                                <Link
+                                    to={`/person/${castMember.castMemberId}`}
                                     key={castMember.castMemberId}
-                                    sx={{
-                                        minWidth: {
-                                            xs: "40vw",
-                                            sm: "28vw",
-                                            md: "156px"
-                                        }
-                                    }}
-                                    castMember={castMember}
-                                />)}
+                                >
+                                    <CastMemberCard
+                                        sx={{
+                                            minWidth: {
+                                                xs: "40vw",
+                                                sm: "28vw",
+                                                md: "156px"
+                                            }
+                                        }}
+                                        castMember={castMember}
+                                    />
+                                </Link>)}
                     </StyledStack>
                 </OuterCarousel>}
         </>
