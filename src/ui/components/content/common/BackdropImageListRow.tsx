@@ -1,42 +1,52 @@
 import {
-    ImageList,
+    Stack,
     styled
 } from "@mui/material";
+import { SxProps } from "@mui/system";
 import React from "react";
 import { Link } from "react-router-dom";
 import Movie from "../../../../models/movie";
 import OuterCarousel from "../../common/OuterCarousel";
 import BackdropImageListItem from "./BackdropImageListItem";
 
-const StyledImageList = styled(ImageList)`
-    display: flex;
+const StyledStack = styled(Stack)`
     flex-direction: row;
-    overflow-x: scroll;
-    margin: 10px;
-    background-size: cover;
-    background-position: center;
-    scroll-snap-type: x mandatory;
-    scroll-behavior: smooth;
+    align-items: center;
+    max-width: 100%;
+    gap: 1em;
 `;
 
 interface BackdropImageListRowProps {
     movies: Movie[];
+    cardStyle?: SxProps;
 }
 
 const BackdropImageListRow: React.FC<BackdropImageListRowProps> = ({
-    movies
+    movies,
+    cardStyle
 }) => (
-    <OuterCarousel paddingY={1}>
-        <StyledImageList gap={20}>
+    <OuterCarousel
+        padding={2}
+        sx={{
+            scrollSnapType: "x mandatory",
+            scrollBehavior: "smooth",
+            overflow: "auto",
+            width: "99%"
+        }}
+    >
+        <StyledStack>
             {movies.map(movie => (
                 <Link
                     to={`/movies/${movie.movieId}`}
                     key={movie.movieId}
                 >
-                    <BackdropImageListItem movie={movie}/>
+                    <BackdropImageListItem
+                        movie={movie}
+                        cardStyle={cardStyle}
+                    />
                 </Link>
             ))}
-        </StyledImageList>
+        </StyledStack>
     </OuterCarousel>
 );
 
