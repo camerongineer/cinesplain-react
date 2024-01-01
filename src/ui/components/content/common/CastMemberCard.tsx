@@ -18,7 +18,7 @@ const StyledCard = styled(Card)`
     height: fit-content;
     min-width: 200px;
     margin: 5px;
-    transition: opacity ${props => props.theme.transitions.duration.complex}ms ease-in-out;
+    transition: opacity ${props => props.theme.transitions.duration.standard}ms ease-in-out;
     cursor: pointer;
     user-select: none;
 `;
