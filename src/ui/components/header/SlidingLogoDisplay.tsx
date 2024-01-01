@@ -1,9 +1,9 @@
+import csLogoText from "@assets/cs_logo_text.png";
 import {
     Box,
     styled
 } from "@mui/material";
 import React from "react";
-import csLogoText from "../../images/cs_logo_text.png";
 import CSLoadingIcon from "../common/CSLoadingIcon";
 
 const SlidingLogo = styled(Box)`

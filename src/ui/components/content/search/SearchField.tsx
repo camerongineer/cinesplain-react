@@ -1,7 +1,14 @@
-import React, { ChangeEvent, SyntheticEvent } from "react";
-import { Autocomplete, styled, TextField } from "@mui/material";
-import { SxProps } from "@mui/system";
+import {
+    Autocomplete,
+    styled,
+    TextField
+} from "@mui/material";
 import { Theme } from "@mui/material/styles";
+import { SxProps } from "@mui/system";
+import React, {
+    ChangeEvent,
+    SyntheticEvent
+} from "react";
 
 const StyledTextField = styled(TextField)`
     fieldset {
@@ -31,7 +38,8 @@ const SearchField: React.FC<SearchFieldProps> = ({
 }) => {
     const handleQuerySubmit = (
         event: SyntheticEvent<Element, Event>,
-        value: string | null) => {
+        value: string | null
+    ) => {
         event.preventDefault();
         onQuerySubmit(value || "");
     };
@@ -48,7 +56,7 @@ const SearchField: React.FC<SearchFieldProps> = ({
                 id={formId}
                 component="form"
                 onChange={onQueryChange}
-                onSubmit={event => event.preventDefault()}
+                onSubmit={(event: { preventDefault: () => void; }) => event.preventDefault()}
                 placeholder={labelText}
                 sx={sx}
                 variant="outlined"

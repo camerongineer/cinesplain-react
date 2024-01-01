@@ -1,3 +1,4 @@
+import imdb from "@assets/imdb_logo.svg";
 import {
     Box,
     Paper,
@@ -8,7 +9,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Movie from "../../../../models/movie";
 import { getImdbPath } from "../../../../utils/retrievalUtils";
-import imdb from "../../../images/imdb_logo.svg";
 import CurrencyDisplay from "../common/CurrencyDisplay";
 import ReleaseDateDisplay from "../common/ReleaseDateDisplay";
 import RuntimeDisplay from "../common/RuntimeDisplay";

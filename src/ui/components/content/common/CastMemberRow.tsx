@@ -20,10 +20,11 @@ const StyledStack = styled(Stack)`
 
 interface CastMemberRowProps {
     castMembers: CastMember[];
-    movieId: string | undefined;
 }
 
-const CastMemberRow: React.FC<CastMemberRowProps> = ({ castMembers, movieId }) => {
+const CastMemberRow: React.FC<CastMemberRowProps> = ({
+    castMembers
+}) => {
     return (
         <>
             {castMembers.length > 0 &&

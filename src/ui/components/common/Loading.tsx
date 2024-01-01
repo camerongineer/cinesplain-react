@@ -1,8 +1,9 @@
+import csLogoText from "@assets/cs_logo_text.png";
+import upIcon from "@assets/cs_logo_up.png";
 import {
     Stack,
     styled
 } from "@mui/material";
-import React from "react";
 
 const StyledStack = styled(Stack)`
     position: absolute;
@@ -41,8 +42,8 @@ const StyledLogo = styled("img")`
 const Loading = () => {
     return (
         <StyledStack className="full center">
-            <StyledIcon src={require("../../images/cs_logo_up.png")} alt={"spinning icon"}/>
-            <StyledLogo src={require("../../images/cs_logo_text.png")} alt={"CineSplain logo"}/>
+            <StyledIcon src={upIcon} alt="spinning icon"/>
+            <StyledLogo src={csLogoText} alt={"CineSplain logo"}/>
         </StyledStack>
     );
 };
