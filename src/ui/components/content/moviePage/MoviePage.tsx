@@ -15,6 +15,7 @@ import {
     retrieveMovieTrailers
 } from "../../../../utils/retrievalUtils";
 import CastMemberRow from "../common/CastMemberRow";
+import MovieRecommendations from "./MovieRecommendations";
 import MovieSideBar from "./MovieSideBar";
 import MovieTitleDisplay from "./MovieTitleDisplay";
 import TrailerDisplay from "./TrailerDisplay";
@@ -32,24 +33,28 @@ const moviePageLoader = async (movieId: string | undefined) => {
     }
     const movieTrailers = await retrieveMovieTrailers(movieId);
     const similarMovies = await retrieveMovies(getSimilarMoviesPath(movieId ?? ""));
-    const recommendedMovies = await retrieveMovies(getMovieRecommendationsPath(movieId ?? ""));
+    const recommendations = await retrieveMovies(getMovieRecommendationsPath(movieId ?? ""));
     const trailer = movieTrailers.length > 0 ? movieTrailers[0] : null;
-    return { movie, trailer, similarMovies, recommendedMovies };
+    return { movie, trailer, similarMovies, recommendations };
 };
 
 interface LoaderData {
     movie: Movie;
     trailer: Video;
+    similarMovies: Movie[];
+    recommendations: Movie[];
 }
 
 const MoviePage: React.FC = () => {
-    const { movie: movie, trailer: trailer } = useLoaderData() as LoaderData;
+    const { movie, trailer, recommendations } = useLoaderData() as LoaderData;
+    const filteredRecommendedMovies = recommendations.filter(movie => movie.backdropPath);
     
     return (
         <>
             {movie && <StyledMoviePage
                 className="full"
-                key={movie.movieId}>
+                key={movie.movieId}
+            >
                 <MovieTitleDisplay
                     key={movie.movieId}
                     movie={movie}
@@ -65,13 +70,15 @@ const MoviePage: React.FC = () => {
                     }}
                     alignItems="center"
                     justifyContent="space-evenly"
-                    padding={1}>
+                    padding={1}
+                >
                     <TrailerDisplay
                         movie={movie}
                         trailer={trailer}
                     />
                     <MovieSideBar movie={movie}/>
                 </Stack>
+                {recommendations.length > 0 && <MovieRecommendations recommendedMovies={filteredRecommendedMovies}/>}
             </StyledMoviePage>}
         </>
     );
