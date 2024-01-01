@@ -59,10 +59,7 @@ const MoviePage: React.FC = () => {
                     key={movie.movieId}
                     movie={movie}
                 />
-                {movie.credits.length > 0 && <CastMemberRow
-                    castMembers={movie.credits}
-                    movieId={movie.movieId}
-                />}
+                {movie.credits.length > 0 && <CastMemberRow castMembers={movie.credits}/>}
                 <Stack
                     flexDirection={{
                         xs: "column",
