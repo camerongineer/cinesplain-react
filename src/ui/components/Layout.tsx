@@ -37,6 +37,8 @@ const Layout: React.FC = () => {
     useScrollToTop();
     const getLoadingStyle = () => {
         return {
+            minHeight: "100vh",
+            alignItems: "center",
             background:
                 navigation.state === "loading"
                     ? `linear-gradient(${degrees}deg,
@@ -48,7 +50,10 @@ const Layout: React.FC = () => {
         };
     };
     return (
-        <Stack className="full center" style={getLoadingStyle()}>
+        <Stack
+            className="full"
+            style={getLoadingStyle()}
+        >
             <Header/>
             <StyledStack>
                 <Outlet/>
