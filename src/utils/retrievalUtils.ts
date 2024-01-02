@@ -4,6 +4,7 @@ import CastMember from "../models/castMember";
 import Image, { Images } from "../models/Image";
 import Movie from "../models/movie";
 import Video from "../models/video";
+import Person from "../types/person.ts";
 
 const BASE_URL = import.meta.env.VITE_CINESPLAIN_API_URL;
 
@@ -14,17 +15,8 @@ const retrieveData = async (url: string) => {
             accept: "application/json"
         }
     };
-    
-    try {
-        const response: AxiosResponse = await axios.get(url, options);
-        if (response.status !== 200) {
-            return null;
-        }
-        return JSON.stringify(response.data);
-    } catch (error) {
-        console.error(error);
-        return null;
-    }
+    const response: AxiosResponse = await axios.get(url, options);
+    return JSON.stringify(response.data);
 };
 
 export const retrieveMovie = async (movieId: string | undefined) => {
@@ -94,6 +86,10 @@ export const retrievePopularMovieTitles = async (): Promise<string[]> => {
         console.error(error);
         return [];
     }
+};
+
+export const retrievePerson = async (personId: string | undefined): Promise<Person> => {
+    return JSON.parse(await retrieveData(getPersonPath(personId)));
 };
 
 const retrieveVideos = (res: object): Video[] => {
@@ -243,3 +239,4 @@ export const getMostHatedMoviesPath = () => `${BASE_URL}/movies/most_hated`;
 export const getMovieCastPath = (movieId: string) => `${BASE_URL}/movie/${movieId}/credits`;
 export const getSimilarMoviesPath = (movieId: string) => `${BASE_URL}/movie/${movieId}/similar`;
 export const getMovieRecommendationsPath = (movieId: string) => `${BASE_URL}/movie/${movieId}/recommendations`;
+export const getPersonPath = (personId: string | undefined) => `${BASE_URL}/person/${personId}`;
