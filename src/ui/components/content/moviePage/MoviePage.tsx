@@ -30,6 +30,8 @@ const moviePageLoader = async (movieId: string | undefined) => {
     if (movie) {
         const credits = await retrieveCredits(movie.movieId);
         movie.credits = credits ? credits : [];
+    } else {
+        throw new Error("This page doesn't not exist.");
     }
     const movieTrailers = await retrieveMovieTrailers(movieId);
     const similarMovies = await retrieveMovies(getSimilarMoviesPath(movieId ?? ""));
