@@ -1,10 +1,16 @@
 import React from "react";
-import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from "react-router-dom";
+import {
+    createBrowserRouter,
+    createRoutesFromElements,
+    Route,
+    RouterProvider
+} from "react-router-dom";
+import Loading from "./common/Loading";
 import HomePage, { homePageLoader } from "./content/homePage/HomePage";
 import MoviePage, { moviePageLoader } from "./content/moviePage/MoviePage";
-import Layout from "./Layout";
-import Loading from "./common/Loading";
+import PersonPage, { personPageLoader } from "./content/personPage/PersonPage.tsx";
 import { headerLoader } from "./header/Header";
+import Layout from "./Layout";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -24,6 +30,11 @@ const router = createBrowserRouter(
                 path="movies/:movieId"
                 element={<MoviePage/>}
                 loader={async ({ params }) => await moviePageLoader(params.movieId)}
+            />
+            <Route
+                path="person/:personId"
+                element={<PersonPage/>}
+                loader={async ({ params }) => await personPageLoader(params.personId)}
             />
         </Route>
     )
