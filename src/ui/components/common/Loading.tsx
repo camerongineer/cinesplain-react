@@ -11,6 +11,16 @@ import {
     useState
 } from "react";
 
+const preloadImages = (images: string[]) => {
+    images.forEach(image => {
+        new Image().src = image;
+    });
+};
+
+const imagesToPreload = [upIcon, downIcon, csLogoText];
+
+preloadImages(imagesToPreload);
+
 const StyledStack = styled(Stack)`
     position: absolute;
     left: 50%;
