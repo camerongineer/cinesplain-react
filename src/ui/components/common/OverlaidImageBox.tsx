@@ -20,7 +20,7 @@ interface OverlaidImageBoxProps {
 
 const OverlaidImageBox: React.FC<OverlaidImageBoxProps> = ({
     overlayColor,
-    overlayOpacity = .5,
+    overlayOpacity = .35,
     backgroundImageUrl,
     imageGrayScalePercentage = 100,
     imageAlt,
