@@ -57,8 +57,16 @@ const HomePage: React.FC = () => {
     
     return (
         <Stack className="full">
-            <RecentMoviesRow movies={recentMovies.filter(movie => movie.backdropPath)}/>
-            <Hero/>
+            <Stack
+                className="full"
+                minHeight={{
+                    xs: "calc(100dvh - 70px)",
+                    md: "80vh"
+                }}
+            >
+                <RecentMoviesRow movies={recentMovies.filter(movie => movie.backdropPath)}/>
+                <Hero/>
+            </Stack>
             <Grid
                 container
                 className="full"
