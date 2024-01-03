@@ -22,7 +22,7 @@ const OverlaidImageBox: React.FC<OverlaidImageBoxProps> = ({
     overlayColor,
     overlayOpacity = .35,
     backgroundImageUrl,
-    imageGrayScalePercentage = 100,
+    imageGrayScalePercentage = 80,
     imageAlt,
     borderRadius = "0px",
     bottomLabelText = "",
