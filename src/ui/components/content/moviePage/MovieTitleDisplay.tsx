@@ -3,7 +3,8 @@ import {
     Grid,
     Rating,
     styled,
-    Typography
+    Typography,
+    useTheme
 } from "@mui/material";
 import React from "react";
 import useMovieBackdrop from "../../../../hooks/UseMovieBackdrop";
@@ -15,37 +16,37 @@ import RuntimeDisplay from "../common/RuntimeDisplay";
 import TitleDisplay from "../common/TitleDisplay";
 import MovieCard from "./MovieCard";
 
-const StyledGrid = styled(Grid)(({ theme }) => ({
-    width: "100%",
-    padding: "5% 0",
-    transition: `opacity ${theme.transitions.duration.short}ms ease-in-out`,
-    color: theme.palette.getContrastText("rgba(0, 0, 0, 0.4)"),
-    minHeight: "100lvh",
-    [theme.breakpoints.up("sm")]: {
-        minHeight: "auto",
-        height: "auto"
-    }
-}));
+const StyledGrid = styled(Grid)`
+    width: 100%;
+    padding: 5% 0;
+    transition: opacity ${props => props.theme.transitions.duration.short}ms ease-in-out;
+`;
 
 interface MovieTitleDisplayProps {
     movie: Movie | null;
 }
 
 const MovieTitleDisplay: React.FC<MovieTitleDisplayProps> = ({ movie }) => {
+    const theme = useTheme();
     const [movieBackdrop, movieBackdropLoading] = useMovieBackdrop(movie);
     
     const backgroundStyle = {
         background: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.7)), url(${movieBackdrop})`,
         backgroundSize: "cover",
         backgroundPosition: "top left",
-        opacity: !movieBackdropLoading || !movie?.posterPath ? 1 : 0
+        color: theme.palette.getContrastText("rgba(0, 0, 0, 0.4)"),
+        opacity: !movieBackdropLoading || !movie?.posterPath ? 1 : 0,
+        minHeight: "calc(100dvh - 70px)",
+        [theme.breakpoints.up("sm")]: {
+            minHeight: movie?.posterPath || movie?.backdropPath ? "600px" : "400px",
+            height: movie?.posterPath ? "50vh" : "auto"
+        }
     };
     
     return (
         movie &&
         <StyledGrid
             container
-            padding={2}
             sx={backgroundStyle}
         >
             <Grid
@@ -53,7 +54,7 @@ const MovieTitleDisplay: React.FC<MovieTitleDisplayProps> = ({ movie }) => {
                 xs={0}
                 sm={1}
             />
-            <Grid
+            {movie?.posterPath && <Grid
                 item
                 xs={12}
                 sm={4}
@@ -80,7 +81,7 @@ const MovieTitleDisplay: React.FC<MovieTitleDisplayProps> = ({ movie }) => {
                         isExpandable={false}
                     />
                 </Box>
-            </Grid>
+            </Grid>}
             <Grid
                 item
                 xs={0}
@@ -89,7 +90,7 @@ const MovieTitleDisplay: React.FC<MovieTitleDisplayProps> = ({ movie }) => {
             <Grid
                 item
                 xs={12}
-                sm={5}
+                sm={movie?.posterPath ? 5 : 12}
                 p={{
                     xs: 3,
                     sm: 0
