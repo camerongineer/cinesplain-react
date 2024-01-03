@@ -2,7 +2,12 @@ import {
     Grid,
     Stack
 } from "@mui/material";
-import { purple } from "@mui/material/colors";
+import {
+    blue,
+    pink,
+    purple,
+    red
+} from "@mui/material/colors";
 import React from "react";
 import { useRouteLoaderData } from "react-router-dom";
 import Movie from "../../../../models/movie";
@@ -69,7 +74,7 @@ const HomePage: React.FC = () => {
                 >
                     <RatingList
                         movies={upcomingMovies.slice(0, 10)}
-                        backgroundOverlayColor={"#B5179E"}
+                        backgroundOverlayColor={blue["900"]}
                         backdropInterval={25000}
                         labelText="Upcoming"
                     />
@@ -81,8 +86,8 @@ const HomePage: React.FC = () => {
                     padding={1}
                 >
                     <RatingList
-                        movies={lovedMovies.slice(0, 10)}
-                        backgroundOverlayColor={"#F72585"}
+                        movies={lovedMovies.slice(0, 8)}
+                        backgroundOverlayColor={pink["900"]}
                         backdropInterval={27500}
                         labelText="Most Loved"
                     />
@@ -90,12 +95,12 @@ const HomePage: React.FC = () => {
                 <Grid
                     item
                     xs={12}
-                    sm={8}
+                    md={8}
                     padding={1}
                 >
                     <RatingList
-                        movies={hatedMovies.slice(0, 10)}
-                        backgroundOverlayColor={purple["800"]}
+                        movies={hatedMovies.slice(0, 8)}
+                        backgroundOverlayColor={red["900"]}
                         backdropInterval={40000}
                         labelText="Most Hated"
                     />
@@ -103,11 +108,12 @@ const HomePage: React.FC = () => {
                 <Grid
                     item
                     xs={12}
+                    md={4}
                     padding={1}
                 >
                     <RatingList
-                        movies={classicMovies}
-                        backgroundOverlayColor={"#4CC9F0"}
+                        movies={classicMovies.slice(0, 12)}
+                        backgroundOverlayColor={purple["900"]}
                         backdropInterval={22000}
                         labelText="Classics"
                     />

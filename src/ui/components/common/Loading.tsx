@@ -14,8 +14,8 @@ const StyledStack = styled(Stack)`
 `;
 
 const StyledIcon = styled("img")`
-    width: 25%;
-    animation: spin 2000ms linear infinite;
+    width: 35%;
+    animation: spin 2500ms linear infinite;
     @keyframes spin {
         from {
             transform: rotate(0deg);
@@ -27,16 +27,8 @@ const StyledIcon = styled("img")`
 `;
 
 const StyledLogo = styled("img")`
-    width: 40%;
-    padding-top: 20px;
-    @keyframes spin {
-        from {
-            transform: rotate(0deg);
-        }
-        to {
-            transform: rotate(360deg);
-        }
-    }
+    width: 50%;
+    padding-top: 50px;
 `;
 
 const Loading = () => {
