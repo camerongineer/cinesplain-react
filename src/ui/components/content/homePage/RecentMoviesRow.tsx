@@ -19,12 +19,12 @@ const RecentMoviesRow: React.FC<RecentMoviesRowProps> = ({ movies }) => {
     const theme = useTheme();
     
     const backdropStyle = {
+        flex: 4,
         alignItems: "center",
         justifyContent: "end",
         width: "100%",
         opacity: movieBackdropLoading ? 0 : 1,
         transition: `opacity ${theme.transitions.duration.short}ms ease-in-out`,
-        paddingTop: "clamp(200px, 28vh, 500px)",
         justifySelf: "end"
     };
     

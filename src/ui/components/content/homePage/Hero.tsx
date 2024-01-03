@@ -9,6 +9,7 @@ import React from "react";
 import CSLoadingIcon from "../../common/CSLoadingIcon";
 
 const StyledStack = styled(Stack)`
+    flex: 1;
     width: 100%;
     justify-content: center;
     align-items: center;
@@ -23,11 +24,17 @@ const StyledStack = styled(Stack)`
 const Hero: React.FC = () => {
     
     return (
-        <StyledStack direction={{ xs: "column", sm: "row" }}>
+        <StyledStack direction={{
+            xs: "column",
+            sm: "row"
+        }}>
             <Stack>
                 <CSLoadingIcon
                     loadRotationMilliseconds={1250}
-                    width={{ xs: 100, sm: 150 }}
+                    width={{
+                        xs: 100,
+                        sm: 150
+                    }}
                 />
             </Stack>
             <Stack
