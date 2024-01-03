@@ -1,4 +1,6 @@
+import CSLogoText from "@assets/cs_logo_text.png";
 import {
+    Box,
     Stack,
     styled,
     Typography
@@ -13,7 +15,7 @@ const StyledStack = styled(Stack)`
     text-align: center;
     padding: 10px;
     gap: 1em;
-    margin: 2em 0 1em;
+    margin: 2em 0 0;
     user-select: none;
     overflow-x: clip;
 `;
@@ -21,21 +23,28 @@ const StyledStack = styled(Stack)`
 const Hero: React.FC = () => {
     
     return (
-        <StyledStack direction="row">
+        <StyledStack direction={{ xs: "column", sm: "row" }}>
             <Stack>
                 <CSLoadingIcon
                     loadRotationMilliseconds={1250}
-                    width={{ xs: 75, sm: 100, md: 125 }}
+                    width={{ xs: 100, sm: 150 }}
                 />
             </Stack>
-            <Stack>
+            <Stack
+                alignItems="center"
+                maxWidth={"80%"}
+            >
+                <Box
+                    component="img"
+                    src={CSLogoText}
+                    alt="CineSplain"
+                    maxWidth="100%"
+                    maxHeight="75px"
+                />
                 <Typography
-                    component="h1"
-                    variant="h3"
+                    variant="h6"
+                    pt={1}
                 >
-                    CineSplain
-                </Typography>
-                <Typography variant="h6">
                     Your home for all-things cinema
                 </Typography>
                 <Typography variant="subtitle2">
