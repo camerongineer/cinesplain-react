@@ -72,7 +72,7 @@ const MovieTitleDisplay: React.FC<MovieTitleDisplayProps> = ({ movie }) => {
                         sx={{
                             height: "auto",
                             width: "auto",
-                            maxWidth: "min(265px, 75%)",
+                            maxWidth: "min(240px, 75%)",
                             minWidth: 120
                         }}
                         movie={movie}
@@ -103,7 +103,6 @@ const MovieTitleDisplay: React.FC<MovieTitleDisplayProps> = ({ movie }) => {
                 {movie.images.logos.length > 0 && <LogoDisplay images={movie.images}/>}
                 {movie.images.logos.length === 0 && <TitleDisplay title={movie.movieTitle}/>}
                 <Box
-                    sx={{ mb: 1 }}
                     display="flex"
                     flexDirection="row"
                 >
