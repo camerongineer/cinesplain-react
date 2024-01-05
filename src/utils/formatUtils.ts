@@ -24,12 +24,12 @@ export const getFormattedRuntime = (runtimeMinutes: number) => {
 
 export const getFormattedMovieLinkId = (movie: Movie) => {
     const formattedMovieTitle = formatLinkString(movie.title).substring(0, 75);
-    return `${movie.id}_${formattedMovieTitle}`;
+    return `${movie.id}-${formattedMovieTitle}`;
 };
 
 export const getFormattedPersonLinkId = (person: Person) => {
     const formattedPersonName = formatLinkString(person.name).substring(0, 75);
-    return `${person.id}_${formattedPersonName}`;
+    return `${person.id}-${formattedPersonName}`;
 };
 
 const formatLinkString = (input: string): string => {
