@@ -88,7 +88,7 @@ const Loading = () => {
             className="full center"
             style={getLoadingStyle()}
         >
-            <StyledIcon alt="spinning icon"/>
+            <StyledIcon alt="Splaining icon"/>
             <StyledLogo
                 src={csLogoText}
                 alt="CineSplain logo"
