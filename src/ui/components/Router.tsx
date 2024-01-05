@@ -29,12 +29,12 @@ const router = createBrowserRouter(
             <Route
                 path="movies/:movieId"
                 element={<MoviePage/>}
-                loader={async ({ params }) => await moviePageLoader(params.movieId)}
+                loader={async ({ params }) => await moviePageLoader(params.movieId ?? "")}
             />
             <Route
                 path="person/:personId"
                 element={<PersonPage/>}
-                loader={async ({ params }) => await personPageLoader(params.personId)}
+                loader={async ({ params }) => await personPageLoader(params.personId ?? "")}
             />
         </Route>
     )

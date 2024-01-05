@@ -1,11 +1,11 @@
 import {
     Stack,
-    styled,
-    Typography
+    styled
 } from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
-import Movie from "../../../../models/movie";
+import Movie from "../../../../types/movie.ts";
+import { getFormattedMovieLinkId } from "../../../../utils/formatUtils.ts";
 import OuterCarousel from "../../common/OuterCarousel";
 import MovieCard from "../moviePage/MovieCard";
 
@@ -28,12 +28,10 @@ const StyledStack = styled(Stack)`
 
 interface MovieSearchRowProps {
     movies: Movie[];
-    invalidQueryPrompt: boolean;
 }
 
 const MovieSearchRow: React.FC<MovieSearchRowProps> = ({
     movies,
-    invalidQueryPrompt
 }) => {
     return (
         <>
@@ -51,11 +49,11 @@ const MovieSearchRow: React.FC<MovieSearchRowProps> = ({
                     {movies.length > 0 && movies.slice(0, 20).map(movie => {
                         return (
                             <Link
-                                key={movie.movieId}
-                                to={`/movies/${movie.movieId}`}
+                                key={movie.id}
+                                to={`/movies/${getFormattedMovieLinkId(movie)}`}
                             >
                                 <MovieCard
-                                    key={movie.movieId}
+                                    key={movie.id}
                                     movie={movie}
                                     posterSize="w342"
                                     sx={{
@@ -73,10 +71,6 @@ const MovieSearchRow: React.FC<MovieSearchRowProps> = ({
                                 />
                             </Link>);
                     })}
-                    {invalidQueryPrompt && movies.length === 0 &&
-                        <Typography variant={"h2"}>
-                            No movie data available.
-                        </Typography>}
                 </StyledStack>
             </OuterCarousel>}
         </>

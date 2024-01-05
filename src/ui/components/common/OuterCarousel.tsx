@@ -29,7 +29,10 @@ interface OuterCarouselProps extends StackProps {
     children: ReactNode;
 }
 
-const OuterCarousel: React.FC<OuterCarouselProps> = ({ children, ...props }) => (
+const OuterCarousel: React.FC<OuterCarouselProps> = ({
+    children,
+    ...props
+}) => (
     <StyledStack
         className={"full center"}
         {...props}

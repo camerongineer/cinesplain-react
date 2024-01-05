@@ -14,7 +14,7 @@ const StyledStack = styled(Stack)`
     padding: 1em;
 `;
 
-const personPageLoader = async (personId: string | undefined): Promise<Person> => {
+const personPageLoader = async (personId: string): Promise<Person | null> => {
     return await retrievePerson(personId);
 };
 
@@ -23,7 +23,7 @@ const PersonPage: React.FC = () => {
     
     return (
         <StyledStack className="full center">
-            <Stack
+            {person && <Stack
                 direction={{
                     xs: "column",
                     sm: "row"
@@ -64,7 +64,7 @@ const PersonPage: React.FC = () => {
                     <ProfileCard person={person}/>
                 
                 </Stack>
-            </Stack>
+            </Stack>}
         </StyledStack>
     );
 };

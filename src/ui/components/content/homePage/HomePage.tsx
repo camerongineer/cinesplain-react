@@ -10,7 +10,7 @@ import {
 } from "@mui/material/colors";
 import React from "react";
 import { useRouteLoaderData } from "react-router-dom";
-import Movie from "../../../../models/movie";
+import Movie from "../../../../types/movie.ts";
 import {
     getClassicMoviesPath,
     getMostHatedMoviesPath,

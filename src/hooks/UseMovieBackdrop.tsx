@@ -3,10 +3,10 @@ import {
     useState
 } from "react";
 import { BACKDROP_SIZE } from "../constants/ImageSizes";
-import Movie from "../models/movie";
+import Movie from "../types/movie.ts";
 import { getImagePath } from "../utils/retrievalUtils";
 
-const useMovieBackdrop = (movie: Movie | null, imageSize: string = BACKDROP_SIZE.MAX): [string, boolean] => {
+const useMovieBackdrop = (movie: Movie, imageSize: string = BACKDROP_SIZE.MAX): [string, boolean] => {
     const [backgroundImage, setBackgroundImage] = useState<string>("");
     const [backgroundImageLoading, setBackgroundImageLoading] = useState<boolean>(true);
     
@@ -16,7 +16,7 @@ const useMovieBackdrop = (movie: Movie | null, imageSize: string = BACKDROP_SIZE
             const backgroundImageUrl = backgroundImage;
             const backgroundImg = new Image();
             backgroundImg.src = backgroundImageUrl;
-            backgroundImg.alt = `${movie?.movieTitle} backdrop`;
+            backgroundImg.alt = `${movie.title} backdrop`;
             backgroundImg.onload = () => setBackgroundImageLoading(false);
         } else {
             setBackgroundImageLoading(false);

@@ -5,8 +5,9 @@ import {
     styled
 } from "@mui/material";
 import React from "react";
-import Movie from "../../../../models/movie";
-import Video from "../../../../models/video";
+import Movie from "../../../../types/movie.ts";
+import Video from "../../../../types/video.ts";
+
 import { getYouTubeTrailerPath } from "../../../../utils/retrievalUtils";
 
 const StyledPaper = styled(Paper)`
@@ -41,8 +42,8 @@ const TrailerDisplay: React.FC<TrailerCardProps> = ({
                         border={0}
                         style={{ aspectRatio: "16/9" }}
                         allow=""
-                        src={getYouTubeTrailerPath(trailer.videoKey)}
-                        title={`${movie.movieTitle} trailer`}
+                        src={getYouTubeTrailerPath(trailer.key)}
+                        title={`${movie.title} trailer`}
                         allowFullScreen
                     />
                 </StyledPaper>

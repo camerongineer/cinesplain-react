@@ -1,60 +1,26 @@
 import axios, { AxiosResponse } from "axios";
 import { SECURE_BASE_IMAGE_URL } from "../constants/ImageSizes";
-import CastMember from "../models/castMember";
-import Image, { Images } from "../models/Image";
-import Movie from "../models/movie";
-import Video from "../models/video";
+import Credits from "../types/credits.ts";
+import Movie from "../types/movie.ts";
 import Person from "../types/person.ts";
+import Video from "../types/video.ts";
 
 const BASE_URL = import.meta.env.VITE_CINESPLAIN_API_URL;
 
-const retrieveData = async (url: string) => {
+const retrieveData = async (url: string): Promise<AxiosResponse> => {
     const options = {
         method: "GET",
         headers: {
             accept: "application/json"
         }
     };
-    const response: AxiosResponse = await axios.get(url, options);
-    return JSON.stringify(response.data);
+    return (await axios.get(url, options)).data;
 };
 
-export const retrieveMovie = async (movieId: string | undefined) => {
+export const retrieveMovie = async (movieId: string): Promise<Movie | null> => {
     try {
-        const res = await retrieveData(getMoviePath(movieId ? movieId : ""));
-        if (res !== null) {
-            const resObj = JSON.parse(res);
-            return new Movie(
-                resObj[Movie.objMap.adult],
-                resObj[Movie.objMap.backdropPath],
-                resObj[Movie.objMap.belongsToCollection],
-                resObj[Movie.objMap.budget],
-                resObj[Movie.objMap.genres],
-                retrieveAllImages(resObj[Movie.objMap.images]),
-                resObj[Movie.objMap.imdbId],
-                resObj[Movie.objMap.movieId],
-                resObj[Movie.objMap.movieTitle],
-                resObj[Movie.objMap.originalLanguage],
-                resObj[Movie.objMap.originalTitle],
-                resObj[Movie.objMap.overview],
-                resObj[Movie.objMap.popularity],
-                resObj[Movie.objMap.posterPath],
-                resObj[Movie.objMap.productionCompanies],
-                resObj[Movie.objMap.productionCountries],
-                resObj[Movie.objMap.releaseDate],
-                resObj[Movie.objMap.revenue],
-                resObj[Movie.objMap.runtime],
-                resObj[Movie.objMap.spokenLanguages],
-                resObj[Movie.objMap.status],
-                resObj[Movie.objMap.tagline],
-                resObj[Movie.objMap.video],
-                retrieveVideos(resObj[Movie.objMap.videos]["results"]),
-                resObj[Movie.objMap.voteAverage],
-                resObj[Movie.objMap.voteCount]
-            );
-        } else {
-            return res;
-        }
+        const res = await retrieveData(getMoviePath(movieId));
+        return res.data.results;
     } catch (error) {
         console.error(error);
         return null;
@@ -63,153 +29,48 @@ export const retrieveMovie = async (movieId: string | undefined) => {
 
 export const retrieveMovies = async (url: string): Promise<Movie[] | null> => {
     try {
-        const res: string | null = await retrieveData(url);
-        if (res !== null) {
-            const moviesArray = JSON.parse(res).results;
-            const movieDetails = await Promise.all(
-                moviesArray.map((resObj: any) => retrieveMovie(resObj[Movie.objMap.movieId]))
-            );
-            return movieDetails.filter((movie) => movie !== null);
-        } else {
-            return null;
-        }
+        const res = await retrieveData(url);
+        return res.data.results;
     } catch (error) {
         console.error(error);
         return null;
     }
 };
 
-export const retrievePopularMovieTitles = async (): Promise<string[]> => {
+export const retrievePopularMovieTitles = async (): Promise<string[] | null> => {
     try {
-        return JSON.parse(<string>await retrieveData(getTop200MovieTitlesPath())) ?? [];
+        const res = await retrieveData(getTop200MovieTitlesPath());
+        return res.data.results;
     } catch (error) {
         console.error(error);
         return [];
     }
 };
 
-export const retrievePerson = async (personId: string | undefined): Promise<Person> => {
-    return JSON.parse(await retrieveData(getPersonPath(personId)));
-};
-
-const retrieveVideos = (res: object): Video[] => {
-    if (res && Array.isArray(res)) {
-        const videos: Video[] = [];
-        res.map((videoObj) => {
-            if (videoObj) {
-                const video = new Video(
-                    videoObj[Video.objMap.iso6391],
-                    videoObj[Video.objMap.iso31661],
-                    videoObj[Video.objMap.videoName],
-                    videoObj[Video.objMap.videoKey],
-                    videoObj[Video.objMap.publishedAt],
-                    videoObj[Video.objMap.site],
-                    videoObj[Video.objMap.size],
-                    videoObj[Video.objMap.videoType],
-                    videoObj[Video.objMap.official],
-                    videoObj[Video.objMap.videoId]
-                );
-                if (video) videos.push(video);
-            }
-        });
-        return videos;
-    } else {
-        return [];
-    }
-};
-
-export const retrieveMovieTrailers = async (movieId: string | undefined): Promise<Video[]> => {
+export const retrievePerson = async (personId: string): Promise<Person | null> => {
     try {
-        if (!movieId) return [];
-        const videoObjects = JSON.parse(<string>await retrieveData(getMovieTrailersPath(movieId))) ?? [];
-        // @ts-expect-error
-        return videoObjects.map((videoObj) => new Video(
-            videoObj[Video.objMap.iso6391],
-            videoObj[Video.objMap.iso31661],
-            videoObj[Video.objMap.videoName],
-            videoObj[Video.objMap.videoKey],
-            videoObj[Video.objMap.publishedAt],
-            videoObj[Video.objMap.site],
-            videoObj[Video.objMap.size],
-            videoObj[Video.objMap.videoType],
-            videoObj[Video.objMap.official],
-            videoObj[Video.objMap.videoId]
-        ));
+        const res = await retrieveData(getPersonPath(personId));
+        return res.data.results;
     } catch (error) {
         console.error(error);
-        return [];
+        return null;
     }
 };
 
-const retrieveImages = (res: object): Image[] => {
-    if (res && Array.isArray(res)) {
-        const images: Image[] = [];
-        res.map((imageObj) => {
-            if (imageObj) {
-                const image = new Image(
-                    imageObj[Image.objMap.aspectRatio],
-                    imageObj[Image.objMap.height],
-                    imageObj[Image.objMap.iso6391],
-                    imageObj[Image.objMap.filePath],
-                    imageObj[Image.objMap.voteAverage],
-                    imageObj[Image.objMap.voteCount],
-                    imageObj[Image.objMap.width]
-                );
-                if (image) images.push(image);
-            }
-        });
-        return images;
-    } else {
-        return [];
-    }
-};
-
-const retrieveAllImages = (res: object) => {
-    const images: Images = {
-        backdrops: [],
-        logos: [],
-        posters: []
-    };
-    // @ts-expect-error
-    images.backdrops = retrieveImages(res["backdrops"]);
-    // @ts-expect-error
-    images.logos = retrieveImages(res["logos"]);
-    // @ts-expect-error
-    images.posters = retrieveImages(res["posters"]);
-    return images;
-};
-
-export const retrieveCredits = async (movieId: string) => {
+export const retrieveMovieTrailers = async (movieId: string): Promise<Video[] | null> => {
     try {
-        const res: string | null = await retrieveData(getMovieCastPath(movieId));
-        if (res) {
-            const credits: CastMember[] = [];
-            const resObj = JSON.parse(res)["cast"];
-            if (resObj && Array.isArray(resObj)) {
-                resObj.map((creditObj) => {
-                    if (creditObj) {
-                        const castMember = new CastMember(
-                            creditObj[CastMember.objMap.castMemberId],
-                            creditObj[CastMember.objMap.castMemberName],
-                            creditObj[CastMember.objMap.adult],
-                            creditObj[CastMember.objMap.gender],
-                            creditObj[CastMember.objMap.knownForDepartment],
-                            creditObj[CastMember.objMap.originalName],
-                            creditObj[CastMember.objMap.popularity],
-                            creditObj[CastMember.objMap.profilePath],
-                            creditObj[CastMember.objMap.castId],
-                            creditObj[CastMember.objMap.character],
-                            creditObj[CastMember.objMap.creditId],
-                            creditObj[CastMember.objMap.order]
-                        );
-                        if (castMember) credits.push(castMember);
-                    }
-                });
-            }
-            return credits;
-        } else {
-            return [];
-        }
+        const res = await retrieveData(getMovieTrailersPath(movieId));
+        return res.data.results;
+    } catch (error) {
+        console.error(error);
+        return null;
+    }
+};
+
+export const retrieveCredits = async (movieId: string): Promise<Credits | null> => {
+    try {
+        const res = await retrieveData(getMovieCastPath(movieId));
+        return res.data.results;
     } catch (error) {
         console.error(error);
         return null;

@@ -1,8 +1,8 @@
-import React from "react";
-import { SxProps } from "@mui/system";
-import { Theme } from "@mui/material/styles";
-import { getFormattedRuntime } from "../../../../utils/formatUtils";
 import { Typography } from "@mui/material";
+import { Theme } from "@mui/material/styles";
+import { SxProps } from "@mui/system";
+import React from "react";
+import { getFormattedRuntime } from "../../../../utils/formatUtils";
 
 interface RuntimeDisplayProps {
     runtime: number;
@@ -10,10 +10,16 @@ interface RuntimeDisplayProps {
     sx?: SxProps<Theme>;
 }
 
-const RuntimeDisplay: React.FC<RuntimeDisplayProps> = ({ runtime, includeLabel, sx }) => (
+const RuntimeDisplay: React.FC<RuntimeDisplayProps> = ({
+    runtime,
+    includeLabel,
+    sx
+}) => (
     <>
-        <Typography sx={sx}
-                    variant={"body1"}>
+        <Typography
+            variant="body1"
+            sx={sx}
+        >
             {includeLabel && <b>Runtime:&nbsp;</b>}
             {runtime > 0 ? getFormattedRuntime(runtime) : "Unknown"}
         </Typography>

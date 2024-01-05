@@ -5,7 +5,8 @@ import {
 import { SxProps } from "@mui/system";
 import React from "react";
 import { Link } from "react-router-dom";
-import Movie from "../../../../models/movie";
+import Movie from "../../../../types/movie.ts";
+import { getFormattedMovieLinkId } from "../../../../utils/formatUtils.ts";
 import OuterCarousel from "../../common/OuterCarousel";
 import BackdropImageListItem from "./BackdropImageListItem";
 
@@ -37,8 +38,8 @@ const BackdropImageListRow: React.FC<BackdropImageListRowProps> = ({
         <StyledStack>
             {movies.map(movie => (
                 <Link
-                    to={`/movies/${movie.movieId}`}
-                    key={movie.movieId}
+                    key={movie.id}
+                    to={`/movies/${getFormattedMovieLinkId(movie)}`}
                 >
                     <BackdropImageListItem
                         movie={movie}

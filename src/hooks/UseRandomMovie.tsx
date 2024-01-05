@@ -2,7 +2,7 @@ import {
     useEffect,
     useState
 } from "react";
-import Movie from "../models/movie";
+import Movie from "../types/movie.ts";
 
 const useRandomMovie = (movies: Movie[], interval: number, requireBackdrop: boolean = false) => {
     const [randomMovieIndex, setRandomMovieIndex] = useState(0);

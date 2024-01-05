@@ -9,7 +9,7 @@ import {
 import { SxProps } from "@mui/system";
 import React, { useState } from "react";
 import { BACKDROP_SIZE } from "../../../../constants/ImageSizes";
-import Movie from "../../../../models/movie";
+import Movie from "../../../../types/movie.ts";
 import { getFormattedDisplayedDate } from "../../../../utils/formatUtils";
 import { getImagePath } from "../../../../utils/retrievalUtils";
 
@@ -56,12 +56,12 @@ const BackdropImageListItem: React.FC<BackdropImageListItemProps> = ({
                 <CardMedia
                     component="img"
                     image={getImagePath(movie.backdropPath, BACKDROP_SIZE.MD_W780)}
-                    alt={movie.movieTitle}
+                    alt={movie.title}
                     style={{ objectPosition: "50% 15%" }}
                     onLoad={() => setLoading(false)}
                 />
                 <ImageListItemBar
-                    title={movie.movieTitle}
+                    title={movie.title}
                     subtitle={getFormattedDisplayedDate(movie.releaseDate)}
                     position="bottom"
                 />

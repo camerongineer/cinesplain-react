@@ -1,21 +1,21 @@
 type CastMember = {
     adult: boolean;
-    backdrop_path: string | null;
-    genre_ids: number[];
+    backdropPath: string | null;
+    genreIds: number[];
     id: number;
-    original_language: string;
-    original_title: string;
+    originalLanguage: string;
+    originalTitle: string;
     overview: string;
     popularity: number;
-    poster_path: string | null;
-    release_date: string;
+    posterPath: string | null;
+    releaseDate: string;
     title: string;
     video: boolean;
-    vote_average: number;
-    vote_count: number;
+    voteAverage: number;
+    voteCount: number;
     character: string;
-    credit_id: string;
+    creditId: string;
     order: number;
-}
+};
 
 export default CastMember;

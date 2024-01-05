@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import React from "react";
 import useMovieBackdrop from "../../../../hooks/UseMovieBackdrop";
-import Movie from "../../../../models/movie";
+import Movie from "../../../../types/movie.ts";
 import GenreDisplay from "../common/GenreDisplay";
 import LogoDisplay from "../common/LogoDisplay";
 import ReleaseDateDisplay from "../common/ReleaseDateDisplay";
@@ -23,7 +23,7 @@ const StyledGrid = styled(Grid)`
 `;
 
 interface MovieTitleDisplayProps {
-    movie: Movie | null;
+    movie: Movie;
 }
 
 const MovieTitleDisplay: React.FC<MovieTitleDisplayProps> = ({ movie }) => {
@@ -44,7 +44,6 @@ const MovieTitleDisplay: React.FC<MovieTitleDisplayProps> = ({ movie }) => {
     };
     
     return (
-        movie &&
         <StyledGrid
             container
             sx={backgroundStyle}
@@ -54,7 +53,7 @@ const MovieTitleDisplay: React.FC<MovieTitleDisplayProps> = ({ movie }) => {
                 xs={0}
                 sm={1}
             />
-            {movie?.posterPath && <Grid
+            {movie.posterPath && <Grid
                 item
                 xs={12}
                 sm={4}
@@ -100,14 +99,14 @@ const MovieTitleDisplay: React.FC<MovieTitleDisplayProps> = ({ movie }) => {
                 alignItems="center"
                 justifyContent="center"
             >
-                {movie.images.logos.length > 0 && <LogoDisplay images={movie.images}/>}
-                {movie.images.logos.length === 0 && <TitleDisplay title={movie.movieTitle}/>}
+                {movie.images.logos && movie.images.logos.length > 0 && <LogoDisplay logos={movie.images.logos}/>}
+                {!movie.images.logos || movie.images.logos.length === 0 && <TitleDisplay title={movie.title}/>}
                 <Box
                     display="flex"
                     flexDirection="row"
                 >
                     {movie.releaseDate && <ReleaseDateDisplay releaseDate={movie.releaseDate}/>}
-                    {movie.runtime > 0 &&
+                    {movie.runtime && movie.runtime > 0 &&
                         <>
                             <Typography>&nbsp;&nbsp;•&nbsp;&nbsp;</Typography>
                             <RuntimeDisplay runtime={movie.runtime}/>
@@ -124,7 +123,7 @@ const MovieTitleDisplay: React.FC<MovieTitleDisplayProps> = ({ movie }) => {
                         />
                     </>
                 }
-                <GenreDisplay genres={movie.genres}/>
+                {movie.genres && <GenreDisplay genres={movie.genres}/>}
             </Grid>
             <Grid
                 item

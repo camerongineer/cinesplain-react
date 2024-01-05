@@ -26,8 +26,8 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
                 component="img"
                 loading="lazy"
                 image={
-                    person.profile_path
-                        ? getImagePath(person.profile_path, PROFILE_SIZE.LG_H632)
+                    person.profilePath
+                        ? getImagePath(person.profilePath, PROFILE_SIZE.LG_H632)
                         : altSilhouette
                 }
                 alt={person.name}

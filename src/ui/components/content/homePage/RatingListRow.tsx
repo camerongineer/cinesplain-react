@@ -8,7 +8,7 @@ import {
 import { grey } from "@mui/material/colors";
 import React from "react";
 import { Link as RouterLink } from "react-router-dom";
-import Movie from "../../../../models/movie";
+import Movie from "../../../../types/movie.ts";
 import PopcornRating from "../../common/PopcornRating";
 
 const StyledTableRow = styled(TableRow)`
@@ -47,7 +47,7 @@ const RatingListRow: React.FC<RatingListRowProps> = ({
                             }
                         }}
                     >
-                        {movie.movieTitle}
+                        {movie.title}
                     </MuiLink>
                 </RouterLink>
             </TableCell>

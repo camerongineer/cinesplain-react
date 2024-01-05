@@ -1,4 +1,4 @@
-type CrewMember = {
+type Credit = {
     adult: boolean;
     gender: number;
     id: number;
@@ -7,9 +7,10 @@ type CrewMember = {
     originalName: string;
     popularity: number;
     profilePath: string | null;
+    castId: number;
+    character: string;
     creditId: string;
-    department: string;
-    job: string;
+    order: number;
 };
 
-export default CrewMember;
+export default Credit;

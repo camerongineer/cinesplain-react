@@ -1,29 +1,29 @@
-import Image from "../models/Image.ts";
-import castMember from "./castMember";
-import crewMember from "./crewMember";
+import CastMember from "./castMember.ts";
+import CrewMember from "./crewMember.ts";
+import Image from "./image.ts";
 
 type Person = {
     adult: boolean;
-    also_known_as: string[];
+    alsoKnownAs: string[];
     biography: string;
     birthday: string;
     deathday: string | null;
     gender: number;
     homepage: string | null;
     id: number;
-    imdb_id: string;
-    known_for_department: string;
+    imdbId: string;
+    knownForDepartment: string;
     name: string;
-    place_of_birth: string | null;
+    placeOfBirth: string | null;
     popularity: number;
-    profile_path: string | null;
+    profilePath: string | null;
     images: {
-        profiles: Image[]
+        profiles: Image[] | null;
     };
-    movie_credits: {
-        cast: castMember[]
-        crew: crewMember[]
+    movieCredits: {
+        cast: CastMember[] | null;
+        crew: CrewMember[] | null;
     };
-}
+};
 
 export default Person;

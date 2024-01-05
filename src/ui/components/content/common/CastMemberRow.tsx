@@ -4,7 +4,10 @@ import {
 } from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
-import CastMember from "../../../../models/castMember";
+import Credit from "../../../../types/credit.ts";
+import Person from "../../../../types/person.ts";
+import { getFormattedPersonLinkId } from "../../../../utils/formatUtils.ts";
+
 import OuterCarousel from "../../common/OuterCarousel";
 import CastMemberCard from "./CastMemberCard";
 
@@ -20,7 +23,7 @@ const StyledStack = styled(Stack)`
 `;
 
 interface CastMemberRowProps {
-    castMembers: CastMember[];
+    castMembers: Credit[];
 }
 
 const CastMemberRow: React.FC<CastMemberRowProps> = ({
@@ -37,8 +40,8 @@ const CastMemberRow: React.FC<CastMemberRowProps> = ({
                         {castMembers.map(
                             castMember =>
                                 <Link
-                                    to={`/person/${castMember.castMemberId}`}
-                                    key={castMember.castMemberId}
+                                    to={`/person/${getFormattedPersonLinkId(castMember as unknown as Person)}`}
+                                    key={castMember.id}
                                 >
                                     <CastMemberCard
                                         sx={{

@@ -1,9 +1,19 @@
+import {
+    Box,
+    Card,
+    CardContent,
+    CardHeader,
+    CardMedia,
+    CardProps,
+    Rating,
+    styled,
+    Typography
+} from "@mui/material";
 import React, { useState } from "react";
-import { Box, Card, CardContent, CardHeader, CardMedia, CardProps, Rating, styled, Typography } from "@mui/material";
-import Movie from "../../../../models/movie";
+import { POSTER_SIZE } from "../../../../constants/ImageSizes";
+import Movie from "../../../../types/movie.ts";
 import { getFormattedDisplayedDate } from "../../../../utils/formatUtils";
 import { getImagePath } from "../../../../utils/retrievalUtils";
-import { POSTER_SIZE } from "../../../../constants/ImageSizes";
 
 const StyledCard = styled(Card)`
     position: relative;
@@ -81,7 +91,7 @@ const MovieCard: React.FC<MovieCardProps> = ({
                         overflow: "hidden"
                     }}>
                     <CardHeader
-                        title={<Typography variant={"h6"}>{movie.movieTitle}</Typography>}
+                        title={<Typography variant={"h6"}>{movie.title}</Typography>}
                         subheader={
                             <>
                                 {movie.releaseDate &&
