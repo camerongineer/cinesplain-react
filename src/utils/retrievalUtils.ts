@@ -5,7 +5,7 @@ import Movie from "../types/movie.ts";
 import Person from "../types/person.ts";
 import Video from "../types/video.ts";
 
-const BASE_URL = import.meta.env.VITE_CINESPLAIN_API_URL;
+const BASE_URL = "/api/tmdb";
 
 const retrieveData = async (url: string): Promise<AxiosResponse> => {
     const options = {
