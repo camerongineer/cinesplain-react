@@ -8,5 +8,14 @@ export default defineConfig(
             alias: {
                 "@assets": "/src/assets"
             }
+        },
+        server: {
+            proxy: {
+                "/api/tmdb": {
+                    target: "http://localhost:5002",
+                    changeOrigin: true,
+                    rewrite: (path) => path.replace(/^\/api\/tmdb/, "")
+                }
+            }
         }
     });
