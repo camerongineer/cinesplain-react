@@ -31,6 +31,9 @@ jobs:
       - name: Set Environment Variable
         run: echo "VITE_CINESPLAIN_API_URL=${{ secrets.VITE_CINESPLAIN_API_URL }}" >> $GITHUB_ENV
         
+      - name: Set TMDB_API_KEY
+        run: echo "TMDB_API_KEY=${{ secrets.TMDB_API_KEY }}" >> $GITHUB_ENV
+        
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
