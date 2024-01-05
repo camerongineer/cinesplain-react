@@ -6,6 +6,7 @@ import {
     RouterProvider
 } from "react-router-dom";
 import Loading from "./common/Loading";
+import NotFound from "./common/NotFound.tsx";
 import HomePage, { homePageLoader } from "./content/homePage/HomePage";
 import MoviePage, { moviePageLoader } from "./content/moviePage/MoviePage";
 import PersonPage, { personPageLoader } from "./content/personPage/PersonPage.tsx";
@@ -21,7 +22,9 @@ const router = createBrowserRouter(
                 const headerData = await headerLoader();
                 const homePageData = await homePageLoader();
                 return { headerData, ...homePageData };
-            }}>
+            }}
+            errorElement={<NotFound/>}
+        >
             <Route
                 index
                 element={<HomePage/>}
