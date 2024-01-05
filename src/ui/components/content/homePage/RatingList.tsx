@@ -12,7 +12,8 @@ import React from "react";
 import { BACKDROP_SIZE } from "../../../../constants/ImageSizes";
 import useMovieBackdrop from "../../../../hooks/UseMovieBackdrop";
 import useRandomMovie from "../../../../hooks/UseRandomMovie";
-import Movie from "../../../../models/movie";
+import Movie from "../../../../types/movie.ts";
+import { getFormattedMovieLinkId } from "../../../../utils/formatUtils.ts";
 import OverlaidImageBox from "../../common/OverlaidImageBox";
 import ListLabel from "./ListLabel";
 import RatingListRow from "./RatingListRow";
@@ -62,7 +63,7 @@ const RatingList: React.FC<RatingListProps> = ({
                     imageAlt={`${labelText} backdrop`}
                     overlayColor={backgroundOverlayColor}
                     borderRadius="10px"
-                    bottomLabelText={randomMovie.movieTitle}
+                    bottomLabelText={randomMovie.title}
                 >
                     <TableContainer
                         className="center"
@@ -88,9 +89,9 @@ const RatingList: React.FC<RatingListProps> = ({
                                 {movies.map(
                                     movie =>
                                         <RatingListRow
-                                            key={movie.movieId}
+                                            key={movie.id}
                                             movie={movie}
-                                            link={`/movies/${movie.movieId}`}
+                                            link={`/movies/${getFormattedMovieLinkId(movie)}`}
                                         />
                                 )}
                             </TableBody>

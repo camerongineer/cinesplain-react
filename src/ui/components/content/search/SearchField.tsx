@@ -64,7 +64,6 @@ const SearchField: React.FC<SearchFieldProps> = ({
                 autoFocus
             />}
         />
-    
     );
 };
 

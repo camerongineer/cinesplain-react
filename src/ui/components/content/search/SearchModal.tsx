@@ -8,7 +8,7 @@ import React, {
     useEffect,
     useState
 } from "react";
-import Movie from "../../../../models/movie";
+import Movie from "../../../../types/movie.ts";
 import {
     getMoviesSearchPath,
     retrieveMovies
@@ -39,45 +39,50 @@ const SearchModal: React.FC<SearchModalProps> = ({
 }) => {
     const [searchQuery, setSearchQuery] = useState<string>("");
     const [movies, setMovies] = useState<Movie[]>([]);
-    const [invalidQueryPrompt, setInvalidQueryPrompt] = useState<boolean>(false);
-    const [searchTimer, setSearchTimer] = useState<NodeJS.Timeout | null>(null);
     
     const handleMovieSubmit = (query: string) => {
         setSearchQuery(query);
-        setInvalidQueryPrompt(false);
     };
     
     const handleQueryChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         event.preventDefault();
         setSearchQuery(event.target.value);
-        setInvalidQueryPrompt(false);
     };
     
     useEffect(() => {
-        if (searchTimer) {
-            clearTimeout(searchTimer);
-        }
+        let isMounted = true;
+        let timeoutId: NodeJS.Timeout | null = null;
         
-        setSearchTimer(setTimeout(() => {
-            if (!searchQuery) {
-                setMovies([]);
-            } else {
-                retrieveMovies(getMoviesSearchPath(searchQuery, 1)).then(newMovies => {
-                    setMovies(newMovies ? newMovies : []);
-                    if (newMovies?.length === 0) setInvalidQueryPrompt(true);
-                }).catch(error => {
-                    console.error(error);
-                    setMovies([]);
-                });
-            }
-        }, 300));
-        
-        return () => {
-            if (searchTimer) {
-                clearTimeout(searchTimer);
+        const loadQueriedMovies = async () => {
+            const queriedMovies = await retrieveMovies(getMoviesSearchPath(searchQuery, 1));
+            if (isMounted) {
+                setMovies(queriedMovies ?? []);
             }
         };
-    }, [searchQuery, searchTimer]);
+        
+        const delayedSearch = () => {
+            if (timeoutId) {
+                clearTimeout(timeoutId);
+            }
+            
+            timeoutId = setTimeout(() => {
+                if (!searchQuery) {
+                    setMovies([]);
+                } else {
+                    loadQueriedMovies();
+                }
+            }, 500);
+        };
+        
+        delayedSearch();
+        
+        return () => {
+            if (timeoutId) {
+                clearTimeout(timeoutId);
+            }
+            isMounted = false;
+        };
+    }, [searchQuery]);
     
     return (
         <>
@@ -97,10 +102,7 @@ const SearchModal: React.FC<SearchModalProps> = ({
                         />
                     </StyledSearchBox>
                     <Box onClick={onModalEvent}>
-                        <MovieSearchRow
-                            movies={movies}
-                            invalidQueryPrompt={invalidQueryPrompt}
-                        />
+                        <MovieSearchRow movies={movies}/>
                     </Box>
                 </>
             </Modal>

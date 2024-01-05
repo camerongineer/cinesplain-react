@@ -1,6 +1,9 @@
-import { Grid, IconButton } from "@mui/material";
-import React from "react";
 import SearchIcon from "@mui/icons-material/Search";
+import {
+    Grid,
+    IconButton
+} from "@mui/material";
+import React from "react";
 import { Link } from "react-router-dom";
 import SlidingLogoDisplay from "./SlidingLogoDisplay";
 
@@ -16,12 +19,14 @@ const NavBar: React.FC<NavBarProps> = ({
     return (
         <Grid
             container
-            spacing={1}>
+            spacing={1}
+        >
             <Grid
                 item
                 xs={4}
                 sm={4}
-                lg={2}>
+                lg={2}
+            >
                 <Link to="/">
                     <SlidingLogoDisplay animateLogo={animateLogo}/>
                 </Link>
@@ -41,7 +46,8 @@ const NavBar: React.FC<NavBarProps> = ({
                 item
                 xs={1}
                 display="flex"
-                justifyContent="end">
+                justifyContent="end"
+            >
                 <IconButton
                     sx={{ marginLeft: "auto" }}
                     onClick={onSearchButtonClicked}

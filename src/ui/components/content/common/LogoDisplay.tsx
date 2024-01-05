@@ -6,15 +6,18 @@ import { Theme } from "@mui/material/styles";
 import { SxProps } from "@mui/system";
 import React from "react";
 import { LOGO_SIZE } from "../../../../constants/ImageSizes";
-import { Images } from "../../../../models/Image";
+import Image from "../../../../types/image.ts";
 import { getImagePath } from "../../../../utils/retrievalUtils";
 
 interface LogoDisplayProps {
-    images: Images;
+    logos: Image[];
     sx?: SxProps<Theme>;
 }
 
-const LogoDisplay: React.FC<LogoDisplayProps> = ({ images, sx }) => {
+const LogoDisplay: React.FC<LogoDisplayProps> = ({
+    logos,
+    sx
+}) => {
     const theme = useTheme();
     return (
         <Box
@@ -44,7 +47,7 @@ const LogoDisplay: React.FC<LogoDisplayProps> = ({ images, sx }) => {
                 ...sx,
                 objectFit: "contain"
             }}
-            src={getImagePath(images.logos[0].filePath, LOGO_SIZE.LG_W500)}
+            src={getImagePath(logos[0].filePath, LOGO_SIZE.LG_W500)}
             alt="logo"
         />
     );

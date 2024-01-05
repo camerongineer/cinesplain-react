@@ -11,7 +11,9 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import Movie from "../../../../types/movie.ts";
 import Person from "../../../../types/person.ts";
+import { getFormattedMovieLinkId } from "../../../../utils/formatUtils.ts";
 
 interface CreditsListProps {
     person: Person;
@@ -43,11 +45,16 @@ const CreditsList: React.FC<CreditsListProps> = ({
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {person.movie_credits.cast.map((castMemberCredit, index) => (
+                    {person.movieCredits.cast && person.movieCredits.cast.map((castMemberCredit, index) => (
                         <TableRow
                             component={Link}
-                            to={`/movies/${castMemberCredit.id}`}
-                            key={castMemberCredit.credit_id}
+                            to={`/movies/${getFormattedMovieLinkId(
+                                {
+                                    title: castMemberCredit.originalTitle,
+                                    id: castMemberCredit.id
+                                } as unknown as Movie)}`
+                            }
+                            key={castMemberCredit.id}
                             onMouseEnter={() => setHoveredIndex(index)}
                             onMouseLeave={() => setHoveredIndex(null)}
                             sx={{
@@ -63,7 +70,7 @@ const CreditsList: React.FC<CreditsListProps> = ({
                                     variant="subtitle2"
                                     fontWeight="bold"
                                 >
-                                    {castMemberCredit.release_date}
+                                    {castMemberCredit.releaseDate}
                                 </Typography>
                             </TableCell>
                             <TableCell align="right">

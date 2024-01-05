@@ -7,7 +7,7 @@ import {
 } from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
-import Movie from "../../../../models/movie";
+import Movie from "../../../../types/movie.ts";
 import { getImdbPath } from "../../../../utils/retrievalUtils";
 import CurrencyDisplay from "../common/CurrencyDisplay";
 import ReleaseDateDisplay from "../common/ReleaseDateDisplay";
@@ -28,7 +28,9 @@ interface MovieSideBarProps {
     movie: Movie;
 }
 
-const MovieSideBar: React.FC<MovieSideBarProps> = ({ movie }) => (
+const MovieSideBar: React.FC<MovieSideBarProps> = ({
+    movie
+}) => (
     <Stack
         flex={{
             md: 1,
@@ -39,28 +41,28 @@ const MovieSideBar: React.FC<MovieSideBarProps> = ({ movie }) => (
         marginX={1}
     >
         <StyledPaper elevation={5}>
-            <TaglineDisplay tagline={movie.tagline}/>
+            {movie.tagline && <TaglineDisplay tagline={movie.tagline}/>}
             <SplainationDisplay overview={movie.overview}/>
             <Stack
                 alignItems="center"
                 spacing={1}
             >
-                <RuntimeDisplay
+                {movie.runtime && <RuntimeDisplay
                     runtime={movie.runtime}
                     includeLabel={true}
-                />
+                />}
                 <ReleaseDateDisplay
                     releaseDate={movie.releaseDate}
                     includeLabel={true}
                 />
-                <CurrencyDisplay
+                {movie.budget !== null && <CurrencyDisplay
                     labelText="Budget"
                     currencyAmount={movie.budget}
-                />
-                <CurrencyDisplay
+                />}
+                {movie.revenue !== null && <CurrencyDisplay
                     labelText="Revenue"
                     currencyAmount={movie.revenue}
-                />
+                />}
                 <Stack flexDirection="row">
                     {movie.imdbId &&
                         <Link to={getImdbPath(movie.imdbId)}>

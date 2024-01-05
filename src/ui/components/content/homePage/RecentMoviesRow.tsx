@@ -5,7 +5,7 @@ import {
 import React from "react";
 import useMovieBackdrop from "../../../../hooks/UseMovieBackdrop";
 import useRandomMovie from "../../../../hooks/UseRandomMovie";
-import Movie from "../../../../models/movie";
+import Movie from "../../../../types/movie.ts";
 import OverlaidImageBox from "../../common/OverlaidImageBox";
 import BackdropImageListRow from "../common/BackdropImageListRow";
 
@@ -13,7 +13,9 @@ interface RecentMoviesRowProps {
     movies: Movie[];
 }
 
-const RecentMoviesRow: React.FC<RecentMoviesRowProps> = ({ movies }) => {
+const RecentMoviesRow: React.FC<RecentMoviesRowProps> = ({
+    movies
+}) => {
     const randomMovie = useRandomMovie(movies, 20000);
     const [movieBackdrop, movieBackdropLoading] = useMovieBackdrop(randomMovie);
     const theme = useTheme();
@@ -41,11 +43,11 @@ const RecentMoviesRow: React.FC<RecentMoviesRowProps> = ({ movies }) => {
         <OverlaidImageBox
             sx={backdropStyle}
             backgroundImageUrl={movieBackdrop}
-            imageAlt={`${randomMovie?.movieTitle} backdrop`}
+            imageAlt={`${randomMovie.title} backdrop`}
             imageGrayScalePercentage={75}
             overlayColor={"#000000"}
             borderRadius="0"
-            bottomLabelText={randomMovie.movieTitle}
+            bottomLabelText={randomMovie.title}
         >
             <Typography
                 variant="h5"

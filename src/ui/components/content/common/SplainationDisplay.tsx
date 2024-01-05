@@ -16,7 +16,9 @@ interface SplainationDisplayProps {
     overview: string;
 }
 
-const SplainationDisplay: React.FC<SplainationDisplayProps> = ({ overview }) => (
+const SplainationDisplay: React.FC<SplainationDisplayProps> = ({
+    overview
+}) => (
     <>
         <StyledBox className="full center">
             <CSLoadingIcon height={30}/>

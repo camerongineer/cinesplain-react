@@ -1,8 +1,8 @@
-import React from "react";
-import { SxProps } from "@mui/system";
-import { Theme } from "@mui/material/styles";
-import { getFormattedCurrencyAmount } from "../../../../utils/formatUtils";
 import { Typography } from "@mui/material";
+import { Theme } from "@mui/material/styles";
+import { SxProps } from "@mui/system";
+import React from "react";
+import { getFormattedCurrencyAmount } from "../../../../utils/formatUtils";
 
 interface CurrencyDisplayProps {
     labelText: string;
@@ -10,12 +10,17 @@ interface CurrencyDisplayProps {
     sx?: SxProps<Theme>;
 }
 
-const CurrencyDisplay: React.FC<CurrencyDisplayProps> = ({ labelText, currencyAmount, sx }) => (
+const CurrencyDisplay: React.FC<CurrencyDisplayProps> = ({
+    labelText,
+    currencyAmount,
+    sx
+}) => (
     <>
-        <Typography variant={"body1"}
-                            sx={sx}>
-            <b>{labelText}:</b>&nbsp;{
-            currencyAmount > 0 ? getFormattedCurrencyAmount(currencyAmount) : "Unknown"}
+        <Typography
+            variant="body1"
+            sx={sx}
+        >
+            <b>{labelText}:</b>&nbsp;{currencyAmount > 0 ? getFormattedCurrencyAmount(currencyAmount) : "Unknown"}
         </Typography>
     </>
 );

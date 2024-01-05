@@ -84,9 +84,15 @@ const Loading = () => {
     };
     
     return (
-        <StyledStack className="full center" style={getLoadingStyle()}>
+        <StyledStack
+            className="full center"
+            style={getLoadingStyle()}
+        >
             <StyledIcon alt="spinning icon"/>
-            <StyledLogo src={csLogoText} alt={"CineSplain logo"}/>
+            <StyledLogo
+                src={csLogoText}
+                alt="CineSplain logo"
+            />
         </StyledStack>
     );
 };

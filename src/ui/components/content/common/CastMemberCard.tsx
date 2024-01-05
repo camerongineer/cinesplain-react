@@ -11,7 +11,7 @@ import {
 import { SxProps } from "@mui/system";
 import React, { useState } from "react";
 import { PROFILE_SIZE } from "../../../../constants/ImageSizes";
-import CastMember from "../../../../models/castMember";
+import Credit from "../../../../types/credit.ts";
 import { getImagePath } from "../../../../utils/retrievalUtils";
 
 const StyledCard = styled(Card)`
@@ -24,7 +24,7 @@ const StyledCard = styled(Card)`
 `;
 
 interface CastMemberCardProps {
-    castMember: CastMember;
+    castMember: Credit;
     sx?: SxProps;
 }
 
@@ -54,7 +54,7 @@ const CastMemberCard: React.FC<CastMemberCardProps> = ({ castMember, sx }) => {
                     image={castMember.profilePath
                         ? getImagePath(castMember.profilePath, PROFILE_SIZE.MD_W185)
                         : altSilhouette}
-                    alt={castMember.castMemberName}
+                    alt={castMember.name}
                     height={210}
                     style={{ objectPosition: "50% 15%" }}
                     onLoad={() => setLoading(false)}
@@ -68,12 +68,12 @@ const CastMemberCard: React.FC<CastMemberCardProps> = ({ castMember, sx }) => {
                             >
                                 "<strong>{castMember.character}</strong>"
                             </Typography>}
-                        subtitle={castMember.castMemberName &&
+                        subtitle={
                             <Typography
                                 variant="body2"
                                 whiteSpace="pre-wrap"
                             >
-                                {castMember.castMemberName}
+                                {castMember.name}
                             </Typography>}
                     />}
             </ImageListItem>

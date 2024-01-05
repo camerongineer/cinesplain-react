@@ -6,7 +6,7 @@ import {
     useTheme
 } from "@mui/material";
 import React from "react";
-import Movie from "../../../../models/movie";
+import Movie from "../../../../types/movie.ts";
 import CSLoadingIcon from "../../common/CSLoadingIcon";
 import BackdropImageListRow from "../common/BackdropImageListRow";
 
