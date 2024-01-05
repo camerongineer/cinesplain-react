@@ -1,5 +1,6 @@
-import femaleSilhouette from "@assets/female_silhouette.png";
-import maleSilhouette from "@assets/male_silhouette.png";
+import femaleSilhouette from "@assets/silhouette_female.png";
+import maleSilhouette from "@assets/silhouette_male.png";
+import neutralSilhouette from "@assets/silhouette_neutral.png";
 import {
     Card,
     CardMedia
@@ -16,7 +17,11 @@ interface ProfileCardProps {
 const ProfileCard: React.FC<ProfileCardProps> = ({
     person
 }) => {
-    const altSilhouette = person.gender === 1 ? femaleSilhouette : maleSilhouette;
+    const altSilhouette = person.gender === 1
+        ? femaleSilhouette : person.gender === 2
+            ? maleSilhouette
+            : neutralSilhouette;
+    
     return (
         <Card sx={{
             width: 280,

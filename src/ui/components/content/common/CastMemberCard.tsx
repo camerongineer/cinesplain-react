@@ -1,5 +1,6 @@
-import femaleSilhouette from "@assets/female_silhouette.png";
-import maleSilhouette from "@assets/male_silhouette.png";
+import femaleSilhouette from "@assets/silhouette_female.png";
+import maleSilhouette from "@assets/silhouette_male.png";
+import neutralSilhouette from "@assets/silhouette_neutral.png";
 import {
     Card,
     CardMedia,
@@ -28,11 +29,17 @@ interface CastMemberCardProps {
     sx?: SxProps;
 }
 
-const CastMemberCard: React.FC<CastMemberCardProps> = ({ castMember, sx }) => {
+const CastMemberCard: React.FC<CastMemberCardProps> = ({
+    castMember,
+    sx
+}) => {
     const [isHovered, setIsHovered] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(true);
     
-    const altSilhouette = castMember.gender === 1 ? femaleSilhouette : maleSilhouette;
+    const altSilhouette = castMember.gender === 1
+        ? femaleSilhouette : castMember.gender === 2
+            ? maleSilhouette
+            : neutralSilhouette;
     
     const handleViewDetails = () => setIsHovered(true);
     const handleCloseDetails = () => setIsHovered(false);
