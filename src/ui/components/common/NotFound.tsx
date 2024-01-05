@@ -33,7 +33,7 @@ const StyledStack = styled(Stack)`
 `;
 
 const StyledIcon = styled("img")`
-    width: 35%;
+    width: 40%;
     animation: alternateIcon 1500ms linear infinite, wobble 4000ms infinite alternate;
 
     @keyframes alternateIcon {
@@ -56,12 +56,12 @@ const StyledIcon = styled("img")`
 `;
 
 const NotFound = () => {
-    const [degrees, setDegrees] = useState(45);
+    const [degrees, setDegrees] = useState(0);
     const theme = useTheme();
     
     useEffect(() => {
         const intervalId = setInterval(() => {
-            setDegrees((prevDegrees) => (prevDegrees + 1) % 360);
+            setDegrees((prevDegrees) => (prevDegrees - 1) % 360);
         }, 10);
         
         return () => clearInterval(intervalId);
@@ -72,11 +72,11 @@ const NotFound = () => {
             minHeight: "100vh",
             alignItems: "center",
             background: `linear-gradient(${degrees}deg,
-                  ${alpha(theme.palette.error.main, .8)},
-                  ${alpha(theme.palette.error.main, .45)},
-                  ${alpha(theme.palette.error.main, .25)},
-                  ${alpha(theme.palette.error.main, .45)},
-                  ${alpha(theme.palette.error.main, .8)}),
+                  ${alpha(theme.palette.error.main, .9)},
+                  ${alpha(theme.palette.error.main, .55)},
+                  ${alpha(theme.palette.error.main, .35)},
+                  ${alpha(theme.palette.error.main, .55)},
+                  ${alpha(theme.palette.error.main, .9)}),
                   ${theme.palette.background.default}`
         };
     };
@@ -88,7 +88,8 @@ const NotFound = () => {
         >
             <StyledIcon alt="error icon"/>
             <Typography
-                variant="h1"
+                variant="h2"
+                textAlign="center"
                 mb={1}
             >
                 You don't belong here.
