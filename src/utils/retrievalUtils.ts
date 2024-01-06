@@ -84,7 +84,8 @@ export const getMoviePath = (movieId: string) => `${BASE_URL}/movie/${movieId}`;
 export const getMovieTrailersPath = (movieId: string) => `${BASE_URL}/movie/${movieId}/trailers`;
 
 export const getYouTubeTrailerPath = (videoKey: string) => `https://www.youtube.com/embed/${videoKey}`;
-export const getImdbPath = (imdbId: string) => `https://www.imdb.com/title/${imdbId}`;
+export const getImdbMoviePath = (imdbId: string) => `https://www.imdb.com/title/${imdbId}`;
+export const getImdbPersonPath = (imdbId: string) => `https://www.imdb.com/name/${imdbId}`;
 
 export const getMoviesSearchPath = (
     searchQuery: string,

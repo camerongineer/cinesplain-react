@@ -7,8 +7,12 @@ import {
     useTheme
 } from "@mui/material";
 import React from "react";
+import { Link } from "react-router-dom";
 import useMovieBackdrop from "../../../../hooks/UseMovieBackdrop";
+import CrewMember from "../../../../types/crewMember.ts";
 import Movie from "../../../../types/movie.ts";
+import Person from "../../../../types/person.ts";
+import { getFormattedPersonLinkId } from "../../../../utils/formatUtils.ts";
 import GenreDisplay from "../common/GenreDisplay";
 import LogoDisplay from "../common/LogoDisplay";
 import ReleaseDateDisplay from "../common/ReleaseDateDisplay";
@@ -24,9 +28,13 @@ const StyledGrid = styled(Grid)`
 
 interface MovieTitleDisplayProps {
     movie: Movie;
+    director: CrewMember | undefined;
 }
 
-const MovieTitleDisplay: React.FC<MovieTitleDisplayProps> = ({ movie }) => {
+const MovieTitleDisplay: React.FC<MovieTitleDisplayProps> = ({
+    movie,
+    director
+}) => {
     const theme = useTheme();
     const [movieBackdrop, movieBackdropLoading] = useMovieBackdrop(movie);
     
@@ -89,7 +97,7 @@ const MovieTitleDisplay: React.FC<MovieTitleDisplayProps> = ({ movie }) => {
             <Grid
                 item
                 xs={12}
-                sm={movie?.posterPath ? 5 : 12}
+                sm={movie.posterPath ? 5 : 12}
                 p={{
                     xs: 3,
                     sm: 0
@@ -104,6 +112,7 @@ const MovieTitleDisplay: React.FC<MovieTitleDisplayProps> = ({ movie }) => {
                 <Box
                     display="flex"
                     flexDirection="row"
+                    padding={.75}
                 >
                     {movie.releaseDate && <ReleaseDateDisplay releaseDate={movie.releaseDate}/>}
                     {movie.runtime && movie.runtime > 0 &&
@@ -112,7 +121,15 @@ const MovieTitleDisplay: React.FC<MovieTitleDisplayProps> = ({ movie }) => {
                             <RuntimeDisplay runtime={movie.runtime}/>
                         </>}
                 </Box>
-                {movie.voteCount >= 20 &&
+                {director && <Typography
+                    component={Link}
+                    to={`/person/${getFormattedPersonLinkId(director as unknown as Person)}`}
+                    p={.75}
+                    color={theme => theme.palette.getContrastText("rgba(0, 0, 0, 0.4)")}
+                >
+                    <strong>Directed&nbsp;By:&nbsp;</strong>{director.name}
+                </Typography>}
+                {movie.voteCount >= 20 && movie.voteAverage > 0 &&
                     <>
                         <Rating
                             name="read-only"

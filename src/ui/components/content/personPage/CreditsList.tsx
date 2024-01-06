@@ -1,4 +1,5 @@
 import {
+    Box,
     Paper,
     Stack,
     Table,
@@ -11,9 +12,11 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { POSTER_SIZE } from "../../../../constants/ImageSizes.ts";
 import Movie from "../../../../types/movie.ts";
 import Person from "../../../../types/person.ts";
 import { getFormattedMovieLinkId } from "../../../../utils/formatUtils.ts";
+import { getImagePath } from "../../../../utils/retrievalUtils.ts";
 
 interface CreditsListProps {
     person: Person;
@@ -23,6 +26,10 @@ const CreditsList: React.FC<CreditsListProps> = ({
     person
 }) => {
     const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+    const sortedMovieCredits = person.movieCredits.cast
+        ? person.movieCredits.cast.sort((a, b) => new Date(b.releaseDate).getTime() - new Date(a.releaseDate).getTime())
+        : [];
+    
     return (
         <TableContainer
             component={Paper}
@@ -45,8 +52,9 @@ const CreditsList: React.FC<CreditsListProps> = ({
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {person.movieCredits.cast && person.movieCredits.cast.map((castMemberCredit, index) => (
+                    {sortedMovieCredits.map((castMemberCredit, index) => (
                         <TableRow
+                            key={castMemberCredit.id}
                             component={Link}
                             to={`/movies/${getFormattedMovieLinkId(
                                 {
@@ -54,7 +62,6 @@ const CreditsList: React.FC<CreditsListProps> = ({
                                     id: castMemberCredit.id
                                 } as unknown as Movie)}`
                             }
-                            key={castMemberCredit.id}
                             onMouseEnter={() => setHoveredIndex(index)}
                             onMouseLeave={() => setHoveredIndex(null)}
                             sx={{
@@ -66,27 +73,39 @@ const CreditsList: React.FC<CreditsListProps> = ({
                                 component="th"
                                 scope="row"
                             >
-                                <Typography
+                                {castMemberCredit.releaseDate && <Typography
                                     variant="subtitle2"
                                     fontWeight="bold"
                                 >
-                                    {castMemberCredit.releaseDate}
-                                </Typography>
+                                    {new Date(castMemberCredit.releaseDate).getFullYear()}
+                                </Typography>}
                             </TableCell>
                             <TableCell align="right">
-                                <Stack>
-                                    <Typography
-                                        variant="subtitle2"
-                                        fontWeight="bold"
-                                    >
-                                        {castMemberCredit.title}
-                                    </Typography>
-                                    {castMemberCredit.character && <Typography
-                                        variant="subtitle2"
-                                        fontSize="small"
-                                    >
-                                        as {castMemberCredit.character}
-                                    </Typography>}
+                                <Stack
+                                    direction="row"
+                                    justifyContent="end"
+                                    alignItems="center"
+                                    spacing={2}
+                                >
+                                    <Stack>
+                                        <Typography
+                                            variant="subtitle2"
+                                            fontWeight="bold"
+                                        >
+                                            {castMemberCredit.title}
+                                        </Typography>
+                                        {castMemberCredit.character && <Typography
+                                            variant="subtitle2"
+                                            fontSize="small"
+                                        >
+                                            as {castMemberCredit.character}
+                                        </Typography>}
+                                    </Stack>
+                                    {castMemberCredit.posterPath && <Box
+                                        component="img"
+                                        src={getImagePath(castMemberCredit.posterPath, POSTER_SIZE.XXXS_W92)}
+                                        width={45}
+                                    />}
                                 </Stack>
                             </TableCell>
                         

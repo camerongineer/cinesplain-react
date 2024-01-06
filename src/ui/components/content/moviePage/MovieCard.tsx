@@ -113,13 +113,14 @@ const MovieCard: React.FC<MovieCardProps> = ({
                             
                         }
                     />
-                    <CardContent>
+                    {movie.overview && <CardContent>
                         <Typography
                             variant="body2"
-                            color="text.secondary">
+                            color="text.secondary"
+                        >
                             {`${movie.overview.substring(0, 200)}${movie.overview.length > 200 ? "..." : ""}`}
                         </Typography>
-                    </CardContent>
+                    </CardContent>}
                 </Box>
             }
         </StyledCard>

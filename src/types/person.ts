@@ -6,7 +6,7 @@ type Person = {
     adult: boolean;
     alsoKnownAs: string[];
     biography: string;
-    birthday: string;
+    birthday: string | null;
     deathday: string | null;
     gender: number;
     homepage: string | null;

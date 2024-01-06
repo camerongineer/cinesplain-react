@@ -1,13 +1,16 @@
 import {
     Stack,
     styled,
-    Typography
+    Typography,
+    useMediaQuery,
+    useTheme
 } from "@mui/material";
 import React from "react";
 import { useLoaderData } from "react-router-dom";
 import Person from "../../../../types/person.ts";
 import { retrievePerson } from "../../../../utils/retrievalUtils.ts";
 import CreditsList from "./CreditsList.tsx";
+import PersonSideBar from "./PersonSideBar.tsx";
 import ProfileCard from "./ProfileCard.tsx";
 
 const StyledStack = styled(Stack)`
@@ -20,6 +23,8 @@ const personPageLoader = async (personId: string): Promise<Person | null> => {
 
 const PersonPage: React.FC = () => {
     const person = useLoaderData() as Person;
+    const theme = useTheme();
+    const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
     
     return (
         <StyledStack className="full center">
@@ -32,10 +37,16 @@ const PersonPage: React.FC = () => {
             >
                 <Stack
                     minHeight="100%"
-                    alignItems={{ xs: "center", sm: "end" }}
-                    textAlign={{ xs: "center", sm: "right" }}
+                    alignItems={{
+                        xs: "center",
+                        sm: "end"
+                    }}
+                    textAlign={{
+                        xs: "center",
+                        sm: "right"
+                    }}
                     padding={2}
-                    spacing={1}
+                    spacing={2}
                 >
                     <Typography
                         component="h1"
@@ -44,6 +55,23 @@ const PersonPage: React.FC = () => {
                     >
                         {person.name}
                     </Typography>
+                    {person.alsoKnownAs.length > 0 &&
+                        <Stack>
+                            <Typography
+                                variant="h5"
+                            >
+                                Also known as
+                            </Typography>
+                            {person.alsoKnownAs.map((name, index) => {
+                                return <Typography
+                                    key={`${name}${index}`}
+                                    variant="subtitle1"
+                                >
+                                    {name}
+                                </Typography>;
+                            })}
+                        </Stack>}
+                    {isSmallScreen && <PersonSideBar person={person}/>}
                     <Typography
                         component="p"
                         variant="body1"
@@ -54,7 +82,10 @@ const PersonPage: React.FC = () => {
                     <CreditsList person={person}/>
                 </Stack>
                 <Stack
-                    alignItems={{ xs: "center", sm: "right" }}
+                    alignItems={{
+                        xs: "center",
+                        sm: "right"
+                    }}
                     spacing={2}
                     padding={1}
                     order={{
@@ -62,11 +93,10 @@ const PersonPage: React.FC = () => {
                     }}
                 >
                     <ProfileCard person={person}/>
-                
+                    {!isSmallScreen && <PersonSideBar person={person}/>}
                 </Stack>
             </Stack>}
-        </StyledStack>
-    );
+        </StyledStack>);
 };
 
 export { personPageLoader };
