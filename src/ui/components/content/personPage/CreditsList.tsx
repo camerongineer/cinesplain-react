@@ -23,6 +23,10 @@ const CreditsList: React.FC<CreditsListProps> = ({
     person
 }) => {
     const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+    const sortedMovieCredits = person.movieCredits.cast
+        ? person.movieCredits.cast.sort((a, b) => new Date(b.releaseDate).getTime() - new Date(a.releaseDate).getTime())
+        : [];
+    
     return (
         <TableContainer
             component={Paper}
@@ -45,7 +49,7 @@ const CreditsList: React.FC<CreditsListProps> = ({
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {person.movieCredits.cast && person.movieCredits.cast.map((castMemberCredit, index) => (
+                    {sortedMovieCredits.map((castMemberCredit, index) => (
                         <TableRow
                             component={Link}
                             to={`/movies/${getFormattedMovieLinkId(
@@ -66,12 +70,12 @@ const CreditsList: React.FC<CreditsListProps> = ({
                                 component="th"
                                 scope="row"
                             >
-                                <Typography
+                                {castMemberCredit.releaseDate && <Typography
                                     variant="subtitle2"
                                     fontWeight="bold"
                                 >
-                                    {castMemberCredit.releaseDate}
-                                </Typography>
+                                    {new Date(castMemberCredit.releaseDate).getFullYear()}
+                                </Typography>}
                             </TableCell>
                             <TableCell align="right">
                                 <Stack>
