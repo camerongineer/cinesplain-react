@@ -7,6 +7,7 @@ import {
 } from "@mui/material";
 import React from "react";
 import { useLoaderData } from "react-router-dom";
+import CastMember from "../../../../types/castMember.ts";
 import Person from "../../../../types/person.ts";
 import { retrievePerson } from "../../../../utils/retrievalUtils.ts";
 import CreditsList from "./CreditsList.tsx";
@@ -17,12 +18,26 @@ const StyledStack = styled(Stack)`
     padding: 1em;
 `;
 
-const personPageLoader = async (personId: string): Promise<Person | null> => {
-    return await retrievePerson(personId);
+interface LoaderData {
+    person: Person,
+    sortedMovieCredits: CastMember[]
+}
+
+const personPageLoader = async (personId: string): Promise<LoaderData | null> => {
+    const person = await retrievePerson(personId);
+    if (!person) return null;
+    const movieCredits = person.movieCredits.cast?.filter(movie => movie.releaseDate) ?? [];
+    const sortedMovieCredits: CastMember[] = movieCredits.sort((a, b) => {
+        if (a.releaseDate && b.releaseDate) {
+            return a.releaseDate < b.releaseDate ? 1 : -1;
+        }
+        return 0;
+    });
+    return { person, sortedMovieCredits } as LoaderData;
 };
 
 const PersonPage: React.FC = () => {
-    const person = useLoaderData() as Person;
+    const { person, sortedMovieCredits } = useLoaderData() as LoaderData;
     const theme = useTheme();
     const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
     
@@ -79,7 +94,7 @@ const PersonPage: React.FC = () => {
                     >
                         {person.biography}
                     </Typography>
-                    <CreditsList person={person}/>
+                    <CreditsList sortedMovieCredits={sortedMovieCredits}/>
                 </Stack>
                 <Stack
                     alignItems={{
