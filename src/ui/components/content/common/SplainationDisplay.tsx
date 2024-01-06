@@ -21,7 +21,10 @@ const SplainationDisplay: React.FC<SplainationDisplayProps> = ({
 }) => (
     <>
         <StyledBox className="full center">
-            <CSLoadingIcon height={30}/>
+            <CSLoadingIcon
+                height={30}
+                loadRotationMilliseconds={750}
+            />
             <Typography
                 variant="h6"
                 fontWeight="bold"
@@ -32,7 +35,7 @@ const SplainationDisplay: React.FC<SplainationDisplayProps> = ({
         </StyledBox>
         <Typography
             variant="body1"
-            pb={5}
+            pb={2}
         >
             {overview}
         </Typography>
