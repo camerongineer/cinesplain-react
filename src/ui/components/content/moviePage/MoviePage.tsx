@@ -34,8 +34,9 @@ const moviePageLoader = async (movieId: string) => {
     const credits = await retrieveCredits(movieId);
     const movieTrailers = await retrieveMovieTrailers(movieId);
     const similarMovies = await retrieveMovies(getSimilarMoviesPath(movieId));
-    const recommendations = await retrieveMovies(getMovieRecommendationsPath(movieId));
     const trailer = movieTrailers && movieTrailers.length > 0 ? movieTrailers[0] : null;
+    let recommendations = await retrieveMovies(getMovieRecommendationsPath(movieId));
+    recommendations = recommendations?.filter(movie => movie.backdropPath) ?? null;
     return { movie, credits, trailer, similarMovies, recommendations };
 };
 
@@ -49,7 +50,6 @@ interface LoaderData {
 
 const MoviePage: React.FC = () => {
     const { movie, credits, trailer, recommendations } = useLoaderData() as LoaderData;
-    const filteredRecommendedMovies = recommendations.filter(movie => movie.backdropPath);
     return (
         <>
             {movie && <StyledMoviePage
@@ -77,7 +77,7 @@ const MoviePage: React.FC = () => {
                     />
                     <MovieSideBar movie={movie}/>
                 </Stack>
-                {recommendations.length > 0 && <MovieRecommendations recommendedMovies={filteredRecommendedMovies}/>}
+                {recommendations.length > 0 && <MovieRecommendations recommendedMovies={recommendations}/>}
             </StyledMoviePage>}
         </>
     );
