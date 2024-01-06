@@ -50,7 +50,6 @@ interface LoaderData {
 const MoviePage: React.FC = () => {
     const { movie, credits, trailer, recommendations } = useLoaderData() as LoaderData;
     const filteredRecommendedMovies = recommendations.filter(movie => movie.backdropPath);
-    
     return (
         <>
             {movie && <StyledMoviePage
@@ -60,6 +59,7 @@ const MoviePage: React.FC = () => {
                 <MovieTitleDisplay
                     key={movie.id}
                     movie={movie}
+                    director={undefined}
                 />
                 {credits && credits.cast.length > 0 && <CastMemberRow castMembers={credits.cast}/>}
                 <Stack
