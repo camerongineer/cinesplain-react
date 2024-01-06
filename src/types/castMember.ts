@@ -8,7 +8,7 @@ type CastMember = {
     overview: string;
     popularity: number;
     posterPath: string | null;
-    releaseDate: string;
+    releaseDate: string | null;
     title: string;
     video: boolean;
     voteAverage: number;

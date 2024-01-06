@@ -10,25 +10,21 @@ import {
     TableRow,
     Typography
 } from "@mui/material";
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { POSTER_SIZE } from "../../../../constants/ImageSizes.ts";
+import CastMember from "../../../../types/castMember.ts";
 import Movie from "../../../../types/movie.ts";
-import Person from "../../../../types/person.ts";
 import { getFormattedMovieLinkId } from "../../../../utils/formatUtils.ts";
 import { getImagePath } from "../../../../utils/retrievalUtils.ts";
 
 interface CreditsListProps {
-    person: Person;
+    sortedMovieCredits: CastMember[];
 }
 
 const CreditsList: React.FC<CreditsListProps> = ({
-    person
+    sortedMovieCredits
 }) => {
-    const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-    const sortedMovieCredits = person.movieCredits.cast
-        ? person.movieCredits.cast.sort((a, b) => new Date(b.releaseDate).getTime() - new Date(a.releaseDate).getTime())
-        : [];
     
     return (
         <TableContainer
@@ -52,7 +48,7 @@ const CreditsList: React.FC<CreditsListProps> = ({
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {sortedMovieCredits.map((castMemberCredit, index) => (
+                    {sortedMovieCredits.map(castMemberCredit => (
                         <TableRow
                             key={castMemberCredit.id}
                             component={Link}
@@ -62,10 +58,10 @@ const CreditsList: React.FC<CreditsListProps> = ({
                                     id: castMemberCredit.id
                                 } as unknown as Movie)}`
                             }
-                            onMouseEnter={() => setHoveredIndex(index)}
-                            onMouseLeave={() => setHoveredIndex(null)}
                             sx={{
-                                backgroundColor: hoveredIndex === index ? "#f0f0f0" : "transparent",
+                                "&:hover": {
+                                    backgroundColor: "#f0f0f0"
+                                },
                                 "&:last-child td, &:last-child th": { border: 0 }
                             }}
                         >
@@ -73,12 +69,14 @@ const CreditsList: React.FC<CreditsListProps> = ({
                                 component="th"
                                 scope="row"
                             >
-                                {castMemberCredit.releaseDate && <Typography
+                                <Typography
                                     variant="subtitle2"
                                     fontWeight="bold"
                                 >
-                                    {new Date(castMemberCredit.releaseDate).getFullYear()}
-                                </Typography>}
+                                    {castMemberCredit.releaseDate
+                                        ? new Date(castMemberCredit.releaseDate).getFullYear()
+                                        : "Upcoming"}
+                                </Typography>
                             </TableCell>
                             <TableCell align="right">
                                 <Stack
@@ -108,7 +106,6 @@ const CreditsList: React.FC<CreditsListProps> = ({
                                     />}
                                 </Stack>
                             </TableCell>
-                        
                         </TableRow>
                     ))}
                 </TableBody>
