@@ -24,12 +24,12 @@ type Movie = {
     mediaType: string;
     originalLanguage: string;
     originalTitle: string;
-    overview: string;
+    overview: string | null;
     popularity: number;
     posterPath: string | null;
     productionCompanies: ProductionCompany[] | null;
     productionCountries: ProductionCountry[] | null;
-    releaseDate: string;
+    releaseDate: string | null;
     revenue: number | null;
     runtime: number | null;
     spokenLanguages: SpokenLanguage[] | null;
