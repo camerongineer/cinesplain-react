@@ -55,18 +55,22 @@ const PersonPage: React.FC = () => {
                     >
                         {person.name}
                     </Typography>
-                    {person.alsoKnownAs.length > 0 && <Typography
-                        variant="h5"
-                    >
-                        Also known as {person.alsoKnownAs.map((name, index) => {
-                        return <Typography
-                            key={`${name}${index}`}
-                            variant="subtitle1"
-                        >
-                            {name}
-                        </Typography>;
-                    })}
-                    </Typography>}
+                    {person.alsoKnownAs.length > 0 &&
+                        <Stack>
+                            <Typography
+                                variant="h5"
+                            >
+                                Also known as
+                            </Typography>
+                            {person.alsoKnownAs.map((name, index) => {
+                                return <Typography
+                                    key={`${name}${index}`}
+                                    variant="subtitle1"
+                                >
+                                    {name}
+                                </Typography>;
+                            })}
+                        </Stack>}
                     {isSmallScreen && <PersonSideBar person={person}/>}
                     <Typography
                         component="p"
