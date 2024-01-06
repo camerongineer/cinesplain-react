@@ -8,7 +8,7 @@ import {
 import React from "react";
 import { Link } from "react-router-dom";
 import Movie from "../../../../types/movie.ts";
-import { getImdbPath } from "../../../../utils/retrievalUtils";
+import { getImdbMoviePath } from "../../../../utils/retrievalUtils";
 import CurrencyDisplay from "../common/CurrencyDisplay";
 import ReleaseDateDisplay from "../common/ReleaseDateDisplay";
 import RuntimeDisplay from "../common/RuntimeDisplay";
@@ -65,7 +65,11 @@ const MovieSideBar: React.FC<MovieSideBarProps> = ({
                 />}
                 <Stack flexDirection="row">
                     {movie.imdbId &&
-                        <Link to={getImdbPath(movie.imdbId)}>
+                        <Link
+                            to={getImdbMoviePath(movie.imdbId)}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
                             <Box
                                 component="img"
                                 height="25px"
