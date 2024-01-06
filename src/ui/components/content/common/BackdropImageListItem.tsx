@@ -62,7 +62,7 @@ const BackdropImageListItem: React.FC<BackdropImageListItemProps> = ({
                 />
                 <ImageListItemBar
                     title={movie.title}
-                    subtitle={getFormattedDisplayedDate(movie.releaseDate)}
+                    subtitle={movie.releaseDate ? getFormattedDisplayedDate(movie.releaseDate) : ""}
                     position="bottom"
                 />
             </StyledImageListItem>
