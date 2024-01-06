@@ -1,12 +1,16 @@
 import imdb from "@assets/imdb_logo.svg";
 import {
     Box,
+    Link as MuiLink,
     Paper,
     Stack,
     styled
 } from "@mui/material";
 import React from "react";
-import { Link } from "react-router-dom";
+import {
+    Link as RouterLink,
+    Link
+} from "react-router-dom";
 import Movie from "../../../../types/movie.ts";
 import { getImdbMoviePath } from "../../../../utils/retrievalUtils";
 import CurrencyDisplay from "../common/CurrencyDisplay";
@@ -42,7 +46,7 @@ const MovieSideBar: React.FC<MovieSideBarProps> = ({
     >
         <StyledPaper elevation={5}>
             {movie.tagline && <TaglineDisplay tagline={movie.tagline}/>}
-            <SplainationDisplay overview={movie.overview}/>
+            {movie.overview && <SplainationDisplay overview={movie.overview}/>}
             <Stack
                 alignItems="center"
                 spacing={1}
@@ -51,19 +55,37 @@ const MovieSideBar: React.FC<MovieSideBarProps> = ({
                     runtime={movie.runtime}
                     includeLabel={true}
                 />}
-                <ReleaseDateDisplay
+                {movie.releaseDate && <ReleaseDateDisplay
                     releaseDate={movie.releaseDate}
                     includeLabel={true}
-                />
+                />}
                 {movie.budget !== null && <CurrencyDisplay
                     labelText="Budget"
                     currencyAmount={movie.budget}
                 />}
-                {movie.revenue !== null && <CurrencyDisplay
+                {movie.revenue && <CurrencyDisplay
                     labelText="Revenue"
                     currencyAmount={movie.revenue}
                 />}
-                <Stack flexDirection="row">
+                <Stack
+                    flexDirection="row"
+                    justifyContent="space-evenly"
+                    alignItems="center"
+                    width="100%"
+                >
+                    {movie.homepage && <RouterLink
+                        to={movie.homepage}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <MuiLink
+                            variant="overline"
+                            fontSize="large"
+                            fontWeight="bolder"
+                        >
+                            Webpage
+                        </MuiLink>
+                    </RouterLink>}
                     {movie.imdbId &&
                         <Link
                             to={getImdbMoviePath(movie.imdbId)}
@@ -75,6 +97,7 @@ const MovieSideBar: React.FC<MovieSideBarProps> = ({
                                 height="25px"
                                 src={imdb as unknown as string}
                                 alt="Link to IMDB"
+                                mt={.75}
                             />
                         </Link>}
                 </Stack>
