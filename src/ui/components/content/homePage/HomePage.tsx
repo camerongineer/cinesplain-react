@@ -8,34 +8,28 @@ import {
     purple,
     red
 } from "@mui/material/colors";
+import {
+    QueryClient,
+    useQuery
+} from "@tanstack/react-query";
 import React from "react";
-import { useRouteLoaderData } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
 import Movie from "../../../../types/movie.ts";
 import {
-    getClassicMoviesPath,
-    getMostHatedMoviesPath,
-    getMostLovedMoviesPath,
-    getNowPlayingMoviesPath,
-    getUpcomingMoviesPath,
+    getHomePageMoviesListsPath,
     retrieveMovies
 } from "../../../../utils/retrievalUtils";
 import Hero from "./Hero";
 import RatingList from "./RatingList";
 import RecentMoviesRow from "./RecentMoviesRow";
 
-const homePageLoader = async () => {
-    const recentMovies = await retrieveMovies(getNowPlayingMoviesPath()) ?? [];
-    const lovedMovies = await retrieveMovies(getMostLovedMoviesPath()) ?? [];
-    const hatedMovies = await retrieveMovies(getMostHatedMoviesPath()) ?? [];
-    const classicMovies = await retrieveMovies(getClassicMoviesPath()) ?? [];
-    const upcomingMovies = await retrieveMovies(getUpcomingMoviesPath()) ?? [];
-    return {
-        recentMovies,
-        lovedMovies,
-        hatedMovies,
-        classicMovies,
-        upcomingMovies
-    };
+const homePageQuery = () => ({
+    queryKey: ["homePage"],
+    queryFn: async () => await retrieveMovies(getHomePageMoviesListsPath())
+});
+
+const homePageLoader = (queryClient: QueryClient) => async () => {
+    return queryClient.getQueryData(homePageQuery().queryKey) ?? (await queryClient.fetchQuery(homePageQuery()));
 };
 
 interface LoaderData {
@@ -47,13 +41,9 @@ interface LoaderData {
 }
 
 const HomePage: React.FC = () => {
-    const {
-        recentMovies,
-        lovedMovies,
-        hatedMovies,
-        classicMovies,
-        upcomingMovies
-    } = useRouteLoaderData("root") as LoaderData;
+    const initialData = useLoaderData() as Awaited<ReturnType<ReturnType<typeof homePageLoader>>>;
+    const { data } = useQuery({ ...homePageQuery(), initialData });
+    const { recentMovies, lovedMovies, hatedMovies, classicMovies, upcomingMovies } = data as LoaderData;
     
     return (
         <Stack className="full">
@@ -64,7 +54,7 @@ const HomePage: React.FC = () => {
                     md: "80vh"
                 }}
             >
-                <RecentMoviesRow movies={recentMovies.filter(movie => movie.backdropPath)}/>
+                <RecentMoviesRow movies={recentMovies}/>
                 <Hero/>
             </Stack>
             <Grid

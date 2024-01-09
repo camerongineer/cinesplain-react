@@ -2,8 +2,16 @@ import {
     Stack,
     styled
 } from "@mui/material";
+import {
+    QueryClient,
+    useQuery
+} from "@tanstack/react-query";
 import React from "react";
-import { useLoaderData } from "react-router-dom";
+import {
+    Params,
+    useLoaderData,
+    useParams
+} from "react-router-dom";
 import Credits from "../../../../types/credits.ts";
 import Movie from "../../../../types/movie.ts";
 import Video from "../../../../types/video.ts";
@@ -16,6 +24,7 @@ import {
     retrieveMovieTrailers
 } from "../../../../utils/retrievalUtils";
 import CastMemberRow from "../common/CastMemberRow";
+import { personPageLoader } from "../personPage/PersonPage.tsx";
 import MovieRecommendations from "./MovieRecommendations";
 import MovieSideBar from "./MovieSideBar";
 import MovieTitleDisplay from "./MovieTitleDisplay";
@@ -26,30 +35,42 @@ const StyledMoviePage = styled(Stack)`
     text-align: center;
 `;
 
-const moviePageLoader = async (movieId: string) => {
-    const movie = await retrieveMovie(movieId);
-    if (!movie) {
-        throw new Error("This page doesn't not exist.");
+const moviePageQuery = (movieId: string | undefined) => ({
+    queryKey: ["moviePage", movieId],
+    queryFn: async (): Promise<LoaderData | null> => {
+        const movie = await retrieveMovie(movieId ?? "");
+        if (!movie) {
+            throw new Error("This page doesn't not exist.");
+        }
+        const credits = await retrieveCredits(movieId ?? "");
+        const movieTrailers = await retrieveMovieTrailers(movieId ?? "");
+        const similarMovies = await retrieveMovies(getSimilarMoviesPath(movieId ?? ""));
+        const trailer = movieTrailers && movieTrailers.length > 0 ? movieTrailers[0] : null;
+        let recommendations = await retrieveMovies(getMovieRecommendationsPath(movieId ?? ""));
+        recommendations = recommendations?.filter((movie: { backdropPath: string; }) => movie.backdropPath) ?? null;
+        return { movie, credits, trailer, similarMovies, recommendations };
     }
-    const credits = await retrieveCredits(movieId);
-    const movieTrailers = await retrieveMovieTrailers(movieId);
-    const similarMovies = await retrieveMovies(getSimilarMoviesPath(movieId));
-    const trailer = movieTrailers && movieTrailers.length > 0 ? movieTrailers[0] : null;
-    let recommendations = await retrieveMovies(getMovieRecommendationsPath(movieId));
-    recommendations = recommendations?.filter(movie => movie.backdropPath) ?? null;
-    return { movie, credits, trailer, similarMovies, recommendations };
+});
+
+const moviePageLoader = (queryClient: QueryClient) => async ({ params }: { params: Params }) => {
+    const movieId = params.movieId;
+    return queryClient.getQueryData(moviePageQuery(movieId).queryKey) ??
+        await queryClient.fetchQuery(moviePageQuery(movieId));
 };
 
 interface LoaderData {
     movie: Movie;
-    credits: Credits;
-    trailer: Video;
+    credits: Credits | null;
+    trailer: Video | null;
     similarMovies: Movie[];
     recommendations: Movie[];
 }
 
 const MoviePage: React.FC = () => {
-    const { movie, credits, trailer, recommendations } = useLoaderData() as LoaderData;
+    const initialData = useLoaderData() as Awaited<ReturnType<ReturnType<typeof personPageLoader>>>;
+    const params = useParams();
+    const { data } = useQuery({ ...moviePageQuery(params.movieId), initialData });
+    const { movie, credits, trailer, recommendations } = data as LoaderData;
     return (
         <>
             {movie && <StyledMoviePage
@@ -61,7 +82,7 @@ const MoviePage: React.FC = () => {
                     movie={movie}
                     director={undefined}
                 />
-                {credits && credits.cast.length > 0 && <CastMemberRow castMembers={credits.cast}/>}
+                {credits && !!credits.cast.length && <CastMemberRow castMembers={credits.cast}/>}
                 <Stack
                     flexDirection={{
                         xs: "column",
@@ -71,13 +92,13 @@ const MoviePage: React.FC = () => {
                     justifyContent="space-evenly"
                     padding={1}
                 >
-                    <TrailerDisplay
+                    {trailer && <TrailerDisplay
                         movie={movie}
                         trailer={trailer}
-                    />
+                    />}
                     <MovieSideBar movie={movie}/>
                 </Stack>
-                {recommendations.length > 0 && <MovieRecommendations recommendedMovies={recommendations}/>}
+                {!!recommendations.length && <MovieRecommendations recommendedMovies={recommendations}/>}
             </StyledMoviePage>}
         </>
     );
