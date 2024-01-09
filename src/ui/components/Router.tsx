@@ -14,7 +14,6 @@ import NotFound from "./common/NotFound.tsx";
 import HomePage, { homePageLoader } from "./content/homePage/HomePage";
 import MoviePage, { moviePageLoader } from "./content/moviePage/MoviePage";
 import PersonPage, { personPageLoader } from "./content/personPage/PersonPage.tsx";
-import ReportPage, { reportPageLoader } from "./content/reportPage/ReportPage.tsx";
 import { headerLoader } from "./header/Header";
 import Layout from "./Layout";
 
@@ -49,30 +48,6 @@ const router = createBrowserRouter(
                 path="person/:personId"
                 element={<PersonPage/>}
                 loader={personPageLoader(queryClient)}
-            />
-            <Route
-                path="report"
-                element={<ReportPage/>}
-                loader={reportPageLoader}
-                action={async ({ request, params }) => {
-                    switch (request.method) {
-                        case "POST": {
-                            let formData = await request.formData();
-                            let username = formData.get("username");
-                            let title = formData.get("title");
-                            let issue = formData.get("issue");
-                            setTimeout(() => {
-                            }, 2000);
-                            return null;
-                        }
-                        case "DELETE": {
-                            return null;
-                        }
-                        default: {
-                            throw new Response("", { status: 405 });
-                        }
-                    }
-                }}
             />
         </Route>
     )
