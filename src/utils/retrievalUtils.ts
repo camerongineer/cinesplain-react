@@ -27,7 +27,7 @@ export const retrieveMovie = async (movieId: string): Promise<Movie | null> => {
     }
 };
 
-export const retrieveMovies = async (url: string): Promise<Movie[] | null> => {
+export const retrieveMovies = async (url: string) => {
     try {
         const res = await retrieveData(url);
         return res.data.results;
@@ -92,6 +92,7 @@ export const getMoviesSearchPath = (
     page: number
 ) => `${BASE_URL}/movies/search?query=${searchQuery}&page=${page}`;
 export const getPopularMoviesPath = (page: number) => `${BASE_URL}/movies/discover?page=${page}`;
+export const getHomePageMoviesListsPath = () => `${BASE_URL}/movies/home_page_lists`;
 export const getTop200MovieTitlesPath = () => `${BASE_URL}/movies/top_200_titles`;
 export const getNowPlayingMoviesPath = () => `${BASE_URL}/movies/now_playing`;
 export const getUpcomingMoviesPath = () => `${BASE_URL}/movies/upcoming`;
