@@ -1,5 +1,5 @@
-import downIcon from "@assets/cs_logo_down.png";
-import upIcon from "@assets/cs_logo_up.png";
+import downIcon from "@assets/cinesplain_logo_down.svg";
+import upIcon from "@assets/cinesplain_logo_up.svg";
 import {
     Box,
     BoxProps

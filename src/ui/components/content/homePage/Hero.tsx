@@ -1,4 +1,4 @@
-import CSLogoText from "@assets/cs_logo_text.png";
+import CSLogoText from "@assets/cinesplain_text_logo.svg";
 import {
     Box,
     Stack,
