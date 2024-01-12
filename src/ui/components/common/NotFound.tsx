@@ -23,7 +23,8 @@ const StyledStack = styled(Stack)`
 `;
 
 const WobblingStack = styled(Stack)`
-    width: 100%;
+    width: clamp(200px, 50%, 500px);
+    max-height: 80%;
     align-items: center;
     animation: wobble 4000ms infinite alternate;
     @keyframes wobble {
@@ -34,16 +35,6 @@ const WobblingStack = styled(Stack)`
             transform: rotate(2deg);
         }
     }
-`;
-
-const StyledWagLeft = styled(WagLeft)`
-    width: clamp(200px, 75%, 500px);
-    height: auto;
-`;
-
-const StyledWagRight = styled(WagRight)`
-    width: clamp(200px, 75%, 500px);
-    height: auto;
 `;
 
 const NotFound = () => {
@@ -85,13 +76,13 @@ const NotFound = () => {
             className="full center"
             style={getErrorStyle()}
         >
+            <WobblingStack>
+                {waggingState ? <WagLeft/> : <WagRight/>}
+            </WobblingStack>
             <Stack
                 width="80%"
                 textAlign="center"
             >
-                <WobblingStack>
-                    {waggingState ? <StyledWagLeft/> : <StyledWagRight/>}
-                </WobblingStack>
                 <Typography
                     variant="h2"
                     textAlign="center"
