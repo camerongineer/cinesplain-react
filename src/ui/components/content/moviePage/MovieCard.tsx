@@ -5,7 +5,7 @@ import {
     CardHeader,
     CardMedia,
     CardProps,
-    Rating,
+    Stack,
     styled,
     Typography
 } from "@mui/material";
@@ -14,6 +14,7 @@ import { POSTER_SIZE } from "../../../../constants/ImageSizes";
 import Movie from "../../../../types/movie.ts";
 import { getFormattedDisplayedDate } from "../../../../utils/formatUtils";
 import { getImagePath } from "../../../../utils/retrievalUtils";
+import PopcornRating from "../../common/PopcornRating.tsx";
 
 const StyledCard = styled(Card)`
     position: relative;
@@ -89,29 +90,34 @@ const MovieCard: React.FC<MovieCardProps> = ({
                             ? "auto"
                             : "0",
                         overflow: "hidden"
-                    }}>
+                    }}
+                >
                     <CardHeader
-                        title={<Typography variant={"h6"}>{movie.title}</Typography>}
-                        subheader={
-                            <>
-                                {movie.releaseDate &&
-                                    <Typography>
-                                        {getFormattedDisplayedDate(movie.releaseDate)}
-                                    </Typography>}
-                                {movie.voteAverage > 0 &&
-                                    <>
-                                        <Rating
-                                            style={{ marginTop: 4 }}
-                                            precision={0.5}
-                                            size="small"
-                                            value={movie.voteAverage / 2}
-                                            readOnly
+                        title={
+                            <Stack
+                                direction="row"
+                                justifyContent="space-between"
+                            >
+                                <Stack>
+                                    <Typography variant="h6">{movie.title}</Typography>
+                                    {movie.releaseDate &&
+                                        <Typography>
+                                            {getFormattedDisplayedDate(movie.releaseDate)}
+                                        </Typography>}
+                                </Stack>
+                                {movie.voteCount > 5 && movie.voteAverage > 0 &&
+                                    <Stack
+                                        fontSize="smaller"
+                                        mr={.5}
+                                        mt={.5}
+                                    >
+                                        <PopcornRating
+                                            voteAverage={movie.voteAverage}
+                                            width="50px"
                                         />
-                                    </>
+                                    </Stack>
                                 }
-                            </>
-                            
-                        }
+                            </Stack>}
                     />
                     {movie.overview && <CardContent>
                         <Typography
