@@ -22,12 +22,12 @@ const RatingCircle = styled(Box)`
 
 interface CSRatingProps {
     voteAverage: number;
-    width: string;
+    width?: string;
 }
 
 const PopcornRating: React.FC<CSRatingProps> = ({
     voteAverage,
-    width
+    width = "45px"
 }) => {
     const displayedRating = Math.floor(voteAverage * 10);
     const ratingColor = displayedRating < 60 ?
@@ -35,7 +35,7 @@ const PopcornRating: React.FC<CSRatingProps> = ({
             "rgba(255,132,232,0.7)" : "rgba(76,67,212,0.7)";
     
     const popcornStyle = {
-        width: width ?? "45px",
+        width: width,
         fillcolor1: alpha(ratingColor, .75),
         fillcolor2: alpha(ratingColor, .6),
         fillcolor3: alpha(ratingColor, .75),
