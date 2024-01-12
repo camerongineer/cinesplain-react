@@ -1,6 +1,5 @@
-import CSLogoText from "@assets/cinesplain_text_logo.svg";
+import CSLogoText from "@assets/cinesplain_text_logo.svg?react";
 import {
-    Box,
     Stack,
     styled,
     Typography
@@ -14,7 +13,7 @@ const StyledStack = styled(Stack)`
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding: 10px;
+    padding: 1em;
     gap: 1em;
     margin: 2em 0 0;
     user-select: none;
@@ -28,26 +27,18 @@ const Hero: React.FC = () => {
             xs: "column",
             sm: "row"
         }}>
-            <Stack>
-                <CSLoadingIcon
-                    loadRotationMilliseconds={1250}
-                    width={{
-                        xs: 100,
-                        sm: 150
-                    }}
-                />
-            </Stack>
+            <CSLoadingIcon
+                width={{
+                    xs: 110,
+                    sm: 150
+                }}
+                loadRotationMilliseconds={1250}
+            />
             <Stack
                 alignItems="center"
-                maxWidth={"80%"}
+                width="clamp(220px, 50%, 500px)"
             >
-                <Box
-                    component="img"
-                    src={CSLogoText}
-                    alt="CineSplain"
-                    maxWidth="100%"
-                    maxHeight="75px"
-                />
+                <CSLogoText width="90%"/>
                 <Typography
                     variant="h6"
                     pt={1}
