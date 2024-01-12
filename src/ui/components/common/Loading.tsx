@@ -1,5 +1,5 @@
-import downIcon from "@assets/cinesplain_logo_down.svg";
-import upIcon from "@assets/cinesplain_logo_up.svg";
+import DownIcon from "@assets/cinesplain_logo_down.svg?react";
+import UpIcon from "@assets/cinesplain_logo_up.svg?react";
 import csLogoText from "@assets/cinesplain_text_logo.svg";
 import {
     Stack,
@@ -19,44 +19,53 @@ const StyledStack = styled(Stack)`
     overflow: hidden;
 `;
 
-const StyledIcon = styled("img")`
-    width: 35%;
-    animation: alternateIcon 750ms linear infinite, wobble 2500ms infinite alternate;
-
-    @keyframes alternateIcon {
-        0%, 25%, 100% {
-            content: url(${upIcon});
-        }
-        75% {
-            content: url(${downIcon});
-        }
-    }
-
+const WobblingStack = styled(Stack)`
+    width: 100%;
+    align-items: center;
+    animation: wobble 4000ms infinite alternate;
     @keyframes wobble {
         0%, 25% {
             transform: rotate(0deg);
         }
         100% {
-            transform: rotate(4deg);
+            transform: rotate(2deg);
         }
     }
 `;
 
 const StyledLogo = styled("img")`
-    width: 50%;
-    padding-top: 50px;
+    width: clamp(230px, 50%, 800px);
+    padding-top: 20px;
+`;
+
+const StyledDownIcon = styled(DownIcon)`
+    width: clamp(200px, 30%, 500px);
+    height: auto;
+`;
+
+const StyledUpIcon = styled(UpIcon)`
+    width: clamp(200px, 30%, 500px);
+    height: auto;
 `;
 
 const Loading = () => {
     const [degrees, setDegrees] = useState(0);
+    const [splainingState, setSplainingState] = useState(true);
     const theme = useTheme();
     
     useEffect(() => {
-        const intervalId = setInterval(() => {
-            setDegrees((prevDegrees) => (prevDegrees + 1) % 360);
+        const degreesIntervalId = setInterval(() => {
+            setDegrees((prevDegrees) => (prevDegrees - 1) % 360);
         }, 10);
         
-        return () => clearInterval(intervalId);
+        const waggingIntervalId = setInterval(() => {
+            setSplainingState((prevWagState) => !prevWagState);
+        }, 1250);
+        
+        return () => {
+            clearInterval(degreesIntervalId);
+            clearInterval(waggingIntervalId);
+        };
     }, []);
     
     const getLoadingStyle = () => {
@@ -78,7 +87,9 @@ const Loading = () => {
             className="full center"
             style={getLoadingStyle()}
         >
-            <StyledIcon alt="Splaining icon"/>
+            <WobblingStack>
+                {splainingState ? <StyledUpIcon/> : <StyledDownIcon/>}
+            </WobblingStack>
             <StyledLogo
                 src={csLogoText}
                 alt="CineSplain logo"

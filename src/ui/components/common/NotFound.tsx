@@ -1,5 +1,5 @@
-import wagLeft from "@assets/cinesplain_logo_wag_left.svg";
-import wagRight from "@assets/cinesplain_logo_wag_right.svg";
+import WagLeft from "@assets/cinesplain_logo_wag_left.svg?react";
+import WagRight from "@assets/cinesplain_logo_wag_right.svg?react";
 import {
     alpha,
     Link as MuiLink,
@@ -22,19 +22,10 @@ const StyledStack = styled(Stack)`
     overflow: hidden;
 `;
 
-const StyledIcon = styled("img")`
-    width: 40%;
-    animation: alternateIcon 1500ms linear infinite, wobble 4000ms infinite alternate;
-
-    @keyframes alternateIcon {
-        0%, 25%, 100% {
-            content: url(${wagLeft});
-        }
-        75% {
-            content: url(${wagRight});
-        }
-    }
-
+const WobblingStack = styled(Stack)`
+    width: 100%;
+    align-items: center;
+    animation: wobble 4000ms infinite alternate;
     @keyframes wobble {
         0%, 25% {
             transform: rotate(0deg);
@@ -45,16 +36,34 @@ const StyledIcon = styled("img")`
     }
 `;
 
+const StyledWagLeft = styled(WagLeft)`
+    width: clamp(200px, 75%, 500px);
+    height: auto;
+`;
+
+const StyledWagRight = styled(WagRight)`
+    width: clamp(200px, 75%, 500px);
+    height: auto;
+`;
+
 const NotFound = () => {
     const [degrees, setDegrees] = useState(0);
+    const [waggingState, setWaggingState] = useState(true);
     const theme = useTheme();
     
     useEffect(() => {
-        const intervalId = setInterval(() => {
+        const degreesIntervalId = setInterval(() => {
             setDegrees((prevDegrees) => (prevDegrees - 1) % 360);
         }, 10);
         
-        return () => clearInterval(intervalId);
+        const waggingIntervalId = setInterval(() => {
+            setWaggingState((prevWagState) => !prevWagState);
+        }, 1250);
+        
+        return () => {
+            clearInterval(degreesIntervalId);
+            clearInterval(waggingIntervalId);
+        };
     }, []);
     
     const getErrorStyle = () => {
@@ -76,19 +85,29 @@ const NotFound = () => {
             className="full center"
             style={getErrorStyle()}
         >
-            <StyledIcon alt="error icon"/>
-            <Typography
-                variant="h2"
+            <Stack
+                width="80%"
                 textAlign="center"
-                mb={1}
             >
-                You don't belong here.
-            </Typography>
-            <RouterLink to="/">
-                <MuiLink variant="h4">
-                    Click to go home
-                </MuiLink>
-            </RouterLink>
+                <WobblingStack>
+                    {waggingState ? <StyledWagLeft/> : <StyledWagRight/>}
+                </WobblingStack>
+                <Typography
+                    variant="h2"
+                    textAlign="center"
+                    mb={1}
+                >
+                    You don't belong here.
+                </Typography>
+                <RouterLink to="/">
+                    <MuiLink
+                        component="span"
+                        variant="h4"
+                    >
+                        Click to go home
+                    </MuiLink>
+                </RouterLink>
+            </Stack>
         </StyledStack>
     );
 };
