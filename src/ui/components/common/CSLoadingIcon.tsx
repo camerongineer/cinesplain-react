@@ -1,8 +1,9 @@
-import downIcon from "@assets/cinesplain_logo_down.svg";
-import upIcon from "@assets/cinesplain_logo_up.svg";
+import DownIcon from "@assets/cinesplain_logo_down.svg?react";
+import UpIcon from "@assets/cinesplain_logo_up.svg?react";
 import {
     Box,
-    BoxProps
+    BoxProps,
+    styled
 } from "@mui/material";
 import React, {
     useEffect,
@@ -13,6 +14,14 @@ import { useNavigation } from "react-router-dom";
 interface CSLoadingIconProps extends BoxProps {
     loadRotationMilliseconds?: number;
 }
+
+const StyledDownIcon = styled(DownIcon)`
+    height: 100%;
+`;
+
+const StyledUpIcon = styled(UpIcon)`
+    height: 100%;
+`;
 
 const CSLoadingIcon: React.FC<CSLoadingIconProps> = ({
     loadRotationMilliseconds = 600,
@@ -55,16 +64,13 @@ const CSLoadingIcon: React.FC<CSLoadingIconProps> = ({
         }
     };
     
-    const style = getAnimationStyle();
-    
     return (
         <Box
-            component="img"
-            src={navigation.state === "loading" && iconIndex === 1 ? downIcon : upIcon}
-            alt="CineSplain Icon"
-            sx={style}
+            sx={getAnimationStyle()}
             {...props}
-        />
+        >
+            {navigation.state === "loading" && iconIndex === 1 ? <StyledDownIcon/> : <StyledUpIcon/>}
+        </Box>
     );
 };
 
