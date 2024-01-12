@@ -4,11 +4,14 @@
     <defs>
         <style>
             .cls-1 {
-            fill: #fefefe;
+            fill: #fefefecc;
+            }
+            .cls-2 {
+            fill: #000000;
             }
 
             .cls-1, .cls-2 {
-            stroke-width: 0px;
+            stroke-width: 20px;
             }
         </style>
     </defs>

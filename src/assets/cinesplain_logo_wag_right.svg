@@ -4,7 +4,10 @@
     <defs>
         <style>
             .cls-1 {
-            fill: #fefefe;
+            fill: #fefefecc;
+            }
+            .cls-2 {
+            fill: #000000;
             }
 
             .cls-1, .cls-2 {
