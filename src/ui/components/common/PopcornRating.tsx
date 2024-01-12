@@ -1,4 +1,4 @@
-import popcornRating from "@assets/cinesplain_popcorn.svg";
+import CinesplainPopcorn from "@assets/cinesplain_popcorn.svg?react";
 import {
     Box,
     styled
@@ -19,6 +19,10 @@ const RatingCircle = styled(Box)`
     font-weight: bolder;
 `;
 
+const StyledCinesplainPopcorn = styled(CinesplainPopcorn)`
+    width: 45px;
+`;
+
 interface CSRatingProps {
     voteAverage: number;
 }
@@ -36,12 +40,7 @@ const PopcornRating: React.FC<CSRatingProps> = ({
             position="relative"
             width="fit-content"
         >
-            <Box component="img"
-                 position="relative"
-                 height={40}
-                 src={popcornRating}
-                 alt={displayedRating.toString()}
-            />
+            <StyledCinesplainPopcorn/>
             <RatingCircle
                 className="center"
                 bgcolor={ratingColor}
