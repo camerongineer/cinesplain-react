@@ -1,6 +1,6 @@
-import femaleSilhouette from "@assets/silhouette_female.png";
-import maleSilhouette from "@assets/silhouette_male.png";
-import neutralSilhouette from "@assets/silhouette_neutral.png";
+import femaleSilhouette from "@assets/silhouette_female.svg";
+import maleSilhouette from "@assets/silhouette_male.svg";
+import neutralSilhouette from "@assets/silhouette_neutral.svg";
 import {
     Card,
     CardMedia,

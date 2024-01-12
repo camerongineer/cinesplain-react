@@ -1,5 +1,5 @@
-import wagUp from "@assets/cs_logo_wag_1.png";
-import wagDown from "@assets/cs_logo_wag_2.png";
+import wagLeft from "@assets/cinesplain_logo_wag_left.svg";
+import wagRight from "@assets/cinesplain_logo_wag_right.svg";
 import {
     alpha,
     Link as MuiLink,
@@ -13,16 +13,6 @@ import {
     useState
 } from "react";
 import { Link as RouterLink } from "react-router-dom";
-
-const preloadImages = (images: string[]) => {
-    images.forEach(image => {
-        new Image().src = image;
-    });
-};
-
-const imagesToPreload = [wagUp, wagDown];
-
-preloadImages(imagesToPreload);
 
 const StyledStack = styled(Stack)`
     position: absolute;
@@ -38,10 +28,10 @@ const StyledIcon = styled("img")`
 
     @keyframes alternateIcon {
         0%, 25%, 100% {
-            content: url(${wagUp});
+            content: url(${wagLeft});
         }
         75% {
-            content: url(${wagDown});
+            content: url(${wagRight});
         }
     }
 

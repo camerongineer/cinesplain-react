@@ -1,6 +1,6 @@
-import downIcon from "@assets/cs_logo_down.png";
-import csLogoText from "@assets/cs_logo_text.png";
-import upIcon from "@assets/cs_logo_up.png";
+import downIcon from "@assets/cinesplain_logo_down.svg";
+import upIcon from "@assets/cinesplain_logo_up.svg";
+import csLogoText from "@assets/cinesplain_text_logo.svg";
 import {
     Stack,
     styled,
@@ -10,16 +10,6 @@ import {
     useEffect,
     useState
 } from "react";
-
-const preloadImages = (images: string[]) => {
-    images.forEach(image => {
-        new Image().src = image;
-    });
-};
-
-const imagesToPreload = [upIcon, downIcon, csLogoText];
-
-preloadImages(imagesToPreload);
 
 const StyledStack = styled(Stack)`
     position: absolute;

@@ -1,4 +1,4 @@
-import csLogoText from "@assets/cs_logo_text.png";
+import csLogoText from "@assets/cinesplain_text_logo.svg";
 import {
     Box,
     styled

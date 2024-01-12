@@ -1,4 +1,4 @@
-import popcornRating from "@assets/popcorn_rating.png";
+import popcornRating from "@assets/cinesplain_popcorn.svg";
 import {
     Box,
     styled
