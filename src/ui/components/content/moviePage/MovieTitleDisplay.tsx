@@ -1,7 +1,6 @@
 import {
     Box,
     Grid,
-    Rating,
     styled,
     Typography,
     useTheme
@@ -13,6 +12,7 @@ import CrewMember from "../../../../types/crewMember.ts";
 import Movie from "../../../../types/movie.ts";
 import Person from "../../../../types/person.ts";
 import { getFormattedPersonLinkId } from "../../../../utils/formatUtils.ts";
+import PopcornRating from "../../common/PopcornRating.tsx";
 import GenreDisplay from "../common/GenreDisplay";
 import LogoDisplay from "../common/LogoDisplay";
 import ReleaseDateDisplay from "../common/ReleaseDateDisplay";
@@ -129,14 +129,11 @@ const MovieTitleDisplay: React.FC<MovieTitleDisplayProps> = ({
                 >
                     <strong>Directed&nbsp;By:&nbsp;</strong>{director.name}
                 </Typography>}
-                {movie.voteCount >= 20 && movie.voteAverage > 0 &&
+                {movie.voteCount >= 10 &&
                     <>
-                        <Rating
-                            name="read-only"
-                            precision={0.5}
-                            size="medium"
-                            value={Math.max(movie.voteAverage / 2, 0.5)}
-                            readOnly
+                        <PopcornRating
+                            voteAverage={movie.voteAverage}
+                            width="45px"
                         />
                     </>
                 }
