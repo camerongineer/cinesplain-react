@@ -1,6 +1,6 @@
 import DownIcon from "@assets/cinesplain_logo_down.svg?react";
 import UpIcon from "@assets/cinesplain_logo_up.svg?react";
-import csLogoText from "@assets/cinesplain_text_logo.svg";
+import CsLogoText from "@assets/cinesplain_text_logo.svg?react";
 import {
     Stack,
     styled,
@@ -20,7 +20,8 @@ const StyledStack = styled(Stack)`
 `;
 
 const WobblingStack = styled(Stack)`
-    width: 100%;
+    width: clamp(200px, 50%, 500px);
+    max-height: 80%;
     align-items: center;
     animation: wobble 4000ms infinite alternate;
     @keyframes wobble {
@@ -33,19 +34,10 @@ const WobblingStack = styled(Stack)`
     }
 `;
 
-const StyledLogo = styled("img")`
-    width: clamp(230px, 50%, 800px);
-    padding-top: 20px;
-`;
-
-const StyledDownIcon = styled(DownIcon)`
-    width: clamp(200px, 30%, 500px);
-    height: auto;
-`;
-
-const StyledUpIcon = styled(UpIcon)`
-    width: clamp(200px, 30%, 500px);
-    height: auto;
+const StyledLogo = styled(CsLogoText)`
+    width: clamp(230px, 80%, 800px);
+    max-height: 20%;
+    padding-top: 10px;
 `;
 
 const Loading = () => {
@@ -88,12 +80,9 @@ const Loading = () => {
             style={getLoadingStyle()}
         >
             <WobblingStack>
-                {splainingState ? <StyledUpIcon/> : <StyledDownIcon/>}
+                {splainingState ? <UpIcon/> : <DownIcon/>}
             </WobblingStack>
-            <StyledLogo
-                src={csLogoText}
-                alt="CineSplain logo"
-            />
+            <StyledLogo/>
         </StyledStack>
     );
 };
