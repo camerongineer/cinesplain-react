@@ -1,10 +1,10 @@
 import {
-    alpha,
     Box,
     styled
 } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import React from "react";
+import { getCSRatingColor } from "../../../utils/ratingUtils.ts";
 import CSPopcorn from "./CSPopcorn.tsx";
 
 const RatingCircle = styled(Box)`
@@ -29,24 +29,17 @@ const PopcornRating: React.FC<CSRatingProps> = ({
     voteAverage,
     width = "45px"
 }) => {
-    const ratingColor = voteAverage < 60 ?
-        "rgba(236,122,39,0.7)" : voteAverage < 80 ?
-            "rgba(255,132,232,0.7)" : "rgba(76,67,212,0.7)";
-    
-    const popcornStyle = {
-        width: width,
-        fillcolor1: alpha(ratingColor, .75),
-        fillcolor2: alpha(ratingColor, .6),
-        fillcolor3: alpha(ratingColor, .75),
-        fillcolor4: alpha(ratingColor, .75)
-    };
+    const ratingColor = getCSRatingColor(voteAverage);
     
     return (
         <Box
             position="relative"
             width="fit-content"
         >
-            <CSPopcorn {...popcornStyle}/>
+            <CSPopcorn
+                width={width}
+                ratingColor={ratingColor}
+            />
             <RatingCircle
                 className="center"
                 bgcolor={ratingColor}
