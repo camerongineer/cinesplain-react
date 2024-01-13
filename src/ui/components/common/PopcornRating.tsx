@@ -29,9 +29,8 @@ const PopcornRating: React.FC<CSRatingProps> = ({
     voteAverage,
     width = "45px"
 }) => {
-    const displayedRating = Math.floor(voteAverage * 10);
-    const ratingColor = displayedRating < 60 ?
-        "rgba(236,122,39,0.7)" : displayedRating < 80 ?
+    const ratingColor = voteAverage < 60 ?
+        "rgba(236,122,39,0.7)" : voteAverage < 80 ?
             "rgba(255,132,232,0.7)" : "rgba(76,67,212,0.7)";
     
     const popcornStyle = {
@@ -52,7 +51,7 @@ const PopcornRating: React.FC<CSRatingProps> = ({
                 className="center"
                 bgcolor={ratingColor}
             >
-                {displayedRating}
+                {voteAverage}
             </RatingCircle>
         </Box>
     );
