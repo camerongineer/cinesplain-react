@@ -13,6 +13,7 @@ import {
 } from "react-router-dom";
 import Movie from "../../../../types/movie.ts";
 import { getImdbMoviePath } from "../../../../utils/retrievalUtils";
+import CSRatingDisplay from "../common/CSRatingDisplay.tsx";
 import CurrencyDisplay from "../common/CurrencyDisplay";
 import ReleaseDateDisplay from "../common/ReleaseDateDisplay";
 import RuntimeDisplay from "../common/RuntimeDisplay";
@@ -51,6 +52,7 @@ const MovieSideBar: React.FC<MovieSideBarProps> = ({
                 alignItems="center"
                 spacing={1}
             >
+                {movie.voteAverage && <CSRatingDisplay voteAverage={movie.voteAverage}/>}
                 {movie.runtime && <RuntimeDisplay
                     runtime={movie.runtime}
                     includeLabel={true}
