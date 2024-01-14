@@ -21,7 +21,7 @@ const RatingCircle = styled(Box)`
 `;
 
 interface CSRatingProps {
-    voteAverage: number;
+    voteAverage: number | null;
     width?: string;
 }
 
@@ -29,8 +29,8 @@ const PopcornRating: React.FC<CSRatingProps> = ({
     voteAverage,
     width = "45px"
 }) => {
+    if (!voteAverage) return null;
     const ratingColor = getCSRatingColor(voteAverage);
-    
     return (
         <Box
             position="relative"
