@@ -29,9 +29,10 @@ const TrailerDisplay: React.FC<TrailerCardProps> = ({
         <>
             {trailer && <Stack
                 className="full center"
+                pt={1}
                 flex={{
-                    md: 2,
-                    lg: 3
+                    md: 1,
+                    lg: 2
                 }}>
                 <StyledPaper>
                     <Box
