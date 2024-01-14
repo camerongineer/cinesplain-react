@@ -29,20 +29,16 @@ const StyledStack = styled(Stack)`
 const personPageQuery = (personId: string | undefined) => ({
     queryKey: ["personPage", personId],
     queryFn: async (): Promise<LoaderData | null> => {
-        try {
-            const person = await retrievePerson(personId ?? "");
-            if (!person) return null;
-            const movieCredits = person.movieCredits.cast?.filter(movie => movie.releaseDate) ?? [];
-            const sortedMovieCredits: CastMember[] = movieCredits.sort((a, b) => {
-                if (a.releaseDate && b.releaseDate) {
-                    return a.releaseDate < b.releaseDate ? 1 : -1;
-                }
-                return 0;
-            });
-            return { person, sortedMovieCredits };
-        } catch (error) {
-            throw error;
-        }
+        const person = await retrievePerson(personId ?? "");
+        if (!person) return null;
+        const movieCredits = person.movieCredits.cast?.filter(movie => movie.releaseDate) ?? [];
+        const sortedMovieCredits: CastMember[] = movieCredits.sort((a, b) => {
+            if (a.releaseDate && b.releaseDate) {
+                return a.releaseDate < b.releaseDate ? 1 : -1;
+            }
+            return 0;
+        });
+        return { person, sortedMovieCredits };
     }
 });
 
