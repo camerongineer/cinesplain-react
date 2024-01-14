@@ -13,7 +13,6 @@ import { getImagePath } from "../../../../utils/retrievalUtils.ts";
 
 const StyledCard = styled(Card)`
     width: 280px;
-    min-height: 420px;
     max-height: 632px;
     background: ${props => props.theme.palette.background.paper};
     transition: height 2s ease-in-out, opacity ${props => props.theme.transitions.duration.short}ms ease-in-out;
@@ -38,7 +37,8 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
     
     return (
         <StyledCard sx={{
-            opacity: imageLoaded || !person.profilePath ? 1 : 0
+            opacity: imageLoaded || !person.profilePath ? 1 : 0,
+            minHeight: imageLoaded || !person.profilePath ? "" : "420px"
         }}>
             <CardMedia
                 component="img"
@@ -50,6 +50,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
                 }
                 alt={person.name}
                 onLoad={handleImageLoad}
+                sx={{ height: "100%", objectFit: "cover" }}
             />
         </StyledCard>
     );
