@@ -15,9 +15,9 @@ import {
     useLoaderData,
     useParams
 } from "react-router-dom";
+import { retrievePerson } from "../../../../api/moviesApi.ts";
 import CastMember from "../../../../types/castMember.ts";
 import Person from "../../../../types/person.ts";
-import { retrievePerson } from "../../../../utils/retrievalUtils.ts";
 import CreditsList from "./CreditsList.tsx";
 import PersonSideBar from "./PersonSideBar.tsx";
 import ProfileCard from "./ProfileCard.tsx";

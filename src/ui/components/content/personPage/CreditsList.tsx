@@ -12,11 +12,11 @@ import {
 } from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
+import { getImagePath } from "../../../../api/moviesApi.ts";
 import { POSTER_SIZE } from "../../../../constants/ImageSizes.ts";
 import CastMember from "../../../../types/castMember.ts";
 import Movie from "../../../../types/movie.ts";
 import { getFormattedMovieLinkId } from "../../../../utils/formatUtils.ts";
-import { getImagePath } from "../../../../utils/retrievalUtils.ts";
 
 interface CreditsListProps {
     sortedMovieCredits: CastMember[];

@@ -10,10 +10,10 @@ import {
     Typography
 } from "@mui/material";
 import React, { useState } from "react";
+import { getImagePath } from "../../../../api/moviesApi.ts";
 import { POSTER_SIZE } from "../../../../constants/ImageSizes";
 import Movie from "../../../../types/movie.ts";
 import { getFormattedDisplayedDate } from "../../../../utils/formatUtils";
-import { getImagePath } from "../../../../utils/retrievalUtils";
 import PopcornRating from "../../common/PopcornRating.tsx";
 
 const StyledCard = styled(Card)`

@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from "axios";
-import { SECURE_BASE_IMAGE_URL } from "../constants/ImageSizes";
+import { SECURE_BASE_IMAGE_URL } from "../constants/ImageSizes.ts";
 import Credits from "../types/credits.ts";
 import Movie from "../types/movie.ts";
 import Person from "../types/person.ts";

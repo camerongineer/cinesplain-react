@@ -7,9 +7,9 @@ import {
     styled
 } from "@mui/material";
 import React, { useState } from "react";
+import { getImagePath } from "../../../../api/moviesApi.ts";
 import { PROFILE_SIZE } from "../../../../constants/ImageSizes.ts";
 import Person from "../../../../types/person.ts";
-import { getImagePath } from "../../../../utils/retrievalUtils.ts";
 
 const StyledCard = styled(Card)`
     width: 280px;

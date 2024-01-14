@@ -11,9 +11,9 @@ import {
 } from "@mui/material";
 import { SxProps } from "@mui/system";
 import React, { useState } from "react";
+import { getImagePath } from "../../../../api/moviesApi.ts";
 import { PROFILE_SIZE } from "../../../../constants/ImageSizes";
 import Credit from "../../../../types/credit.ts";
-import { getImagePath } from "../../../../utils/retrievalUtils";
 
 const StyledCard = styled(Card)`
     height: fit-content;
