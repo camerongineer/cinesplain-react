@@ -117,14 +117,20 @@ const MovieTitleDisplay: React.FC<MovieTitleDisplayProps> = ({
                     {movie.releaseDate && <ReleaseDateDisplay releaseDate={movie.releaseDate}/>}
                     {movie.runtime && movie.runtime > 0 &&
                         <>
-                            <Typography>&nbsp;&nbsp;•&nbsp;&nbsp;</Typography>
+                            {movie.releaseDate && <Typography>&nbsp;&nbsp;•&nbsp;&nbsp;</Typography>}
                             <RuntimeDisplay runtime={movie.runtime}/>
+                        </>}
+                    {movie.rated &&
+                        <>
+                            {movie.runtime && <Typography>&nbsp;&nbsp;•&nbsp;&nbsp;</Typography>}
+                            <Typography>{movie.rated}</Typography>
                         </>}
                 </Box>
                 {director && <Typography
                     component={Link}
                     to={`/person/${getFormattedPersonLinkId(director as unknown as Person)}`}
                     p={.75}
+                    paddingBottom={2}
                     color={theme => theme.palette.getContrastText("rgba(0, 0, 0, 0.4)")}
                 >
                     <strong>Directed&nbsp;By:&nbsp;</strong>{director.name}
