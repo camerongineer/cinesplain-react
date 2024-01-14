@@ -8,7 +8,7 @@ import {
 import React from "react";
 import { Link } from "react-router-dom";
 import useMovieBackdrop from "../../../../hooks/UseMovieBackdrop";
-import CrewMember from "../../../../types/crewMember.ts";
+import Credit from "../../../../types/credit.ts";
 import Movie from "../../../../types/movie.ts";
 import Person from "../../../../types/person.ts";
 import { getFormattedPersonLinkId } from "../../../../utils/formatUtils.ts";
@@ -28,7 +28,7 @@ const StyledGrid = styled(Grid)`
 
 interface MovieTitleDisplayProps {
     movie: Movie;
-    director: CrewMember | undefined;
+    director: Credit | undefined;
 }
 
 const MovieTitleDisplay: React.FC<MovieTitleDisplayProps> = ({
