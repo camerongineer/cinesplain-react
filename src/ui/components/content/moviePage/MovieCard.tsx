@@ -105,7 +105,7 @@ const MovieCard: React.FC<MovieCardProps> = ({
                                             {getFormattedDisplayedDate(movie.releaseDate)}
                                         </Typography>}
                                 </Stack>
-                                {movie.voteCount > 5 && movie.voteAverage > 0 &&
+                                {movie.voteCount > 5 && movie.voteAverage &&
                                     <Stack
                                         fontSize="smaller"
                                         mr={.5}
