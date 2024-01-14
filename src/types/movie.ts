@@ -48,7 +48,7 @@ type Movie = {
     videos: {
         results: Video[] | null
     };
-    voteAverage: number;
+    voteAverage: number | null;
     voteCount: number;
     writer: string | null;
 };
