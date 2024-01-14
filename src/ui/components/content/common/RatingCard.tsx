@@ -23,13 +23,16 @@ interface RatingCardProps {
 
 const RatingCard: React.FC<RatingCardProps> = ({
     movie
-}) => (
-    <StyledCard elevation={3}>
-        {movie.voteAverage && <CSRatingDisplay voteAverage={movie.voteAverage}/>}
-        {movie.rottenTomatoesScore && <RottenTomatoesDisplay rottenTomatoesScore={movie.rottenTomatoesScore}/>}
-        {movie.imdbRating && <ImdbRatingDisplay imdbRating={movie.imdbRating}/>}
-        {movie.metaScore && <MetascoreDisplay metaScore={movie.metaScore}/>}
-    </StyledCard>
-);
+}) => {
+    if (!movie.voteAverage && !movie.rottenTomatoesScore && !movie.imdbRating && !movie.metaScore) return null;
+    return (
+        <StyledCard elevation={3}>
+            {movie.voteAverage && <CSRatingDisplay voteAverage={movie.voteAverage}/>}
+            {movie.rottenTomatoesScore && <RottenTomatoesDisplay rottenTomatoesScore={movie.rottenTomatoesScore}/>}
+            {movie.imdbRating && <ImdbRatingDisplay imdbRating={movie.imdbRating}/>}
+            {movie.metaScore && <MetascoreDisplay metaScore={movie.metaScore}/>}
+        </StyledCard>
+    );
+};
 
 export default RatingCard;
