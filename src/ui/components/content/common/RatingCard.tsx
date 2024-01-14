@@ -15,7 +15,6 @@ const StyledCard = styled(Card)`
     align-items: center;
     padding: 1em 2em;
     background-color: #00000030;
-    border: solid 1px black;
 `;
 
 interface RatingCardProps {
@@ -25,7 +24,7 @@ interface RatingCardProps {
 const RatingCard: React.FC<RatingCardProps> = ({
     movie
 }) => (
-    <StyledCard>
+    <StyledCard elevation={3}>
         {movie.voteAverage && <CSRatingDisplay voteAverage={movie.voteAverage}/>}
         {movie.rottenTomatoesScore && <RottenTomatoesDisplay rottenTomatoesScore={movie.rottenTomatoesScore}/>}
         {movie.imdbRating && <ImdbRatingDisplay imdbRating={movie.imdbRating}/>}
