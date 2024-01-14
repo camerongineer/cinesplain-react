@@ -1,21 +1,11 @@
-import axios, { AxiosResponse } from "axios";
 import { SECURE_BASE_IMAGE_URL } from "../constants/ImageSizes.ts";
 import Credits from "../types/credits.ts";
 import Movie from "../types/movie.ts";
 import Person from "../types/person.ts";
 import Video from "../types/video.ts";
+import { retrieveData } from "./common.ts";
 
 const BASE_URL = import.meta.env.VITE_CINESPLAIN_API_URL;
-
-const retrieveData = async (url: string): Promise<AxiosResponse> => {
-    const options = {
-        method: "GET",
-        headers: {
-            accept: "application/json"
-        }
-    };
-    return (await axios.get(url, options)).data;
-};
 
 export const retrieveMovie = async (movieId: string): Promise<Movie | null> => {
     try {
