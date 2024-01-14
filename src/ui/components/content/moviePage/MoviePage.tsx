@@ -71,6 +71,8 @@ const MoviePage: React.FC = () => {
     const params = useParams();
     const { data } = useQuery({ ...moviePageQuery(params.movieId), initialData });
     const { movie, credits, trailer, recommendations } = data as LoaderData;
+    
+    const director = credits?.crew.find(crewMember => crewMember.name === movie.director);
     return (
         <>
             {movie && <StyledMoviePage
@@ -80,15 +82,17 @@ const MoviePage: React.FC = () => {
                 <MovieTitleDisplay
                     key={movie.id}
                     movie={movie}
-                    director={undefined}
+                    director={director}
                 />
                 {credits && !!credits.cast.length && <CastMemberRow castMembers={credits.cast}/>}
                 <Stack
                     flexDirection={{
-                        xs: "column",
-                        md: "row"
+                        lg: "row"
                     }}
-                    alignItems="center"
+                    alignItems={{
+                        xs: "center",
+                        lg: "start"
+                    }}
                     justifyContent="space-evenly"
                     padding={1}
                 >
