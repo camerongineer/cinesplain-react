@@ -28,8 +28,9 @@ const RottenTomatoesDisplay: React.FC<RottenTomatoesDisplayProps> = ({
             display="inline"
             variant="h6"
         >
-            {rottenTomatoesScore}
+            {rottenTomatoesScore}%
         </Typography>
+    
     </Stack>
 );
 
