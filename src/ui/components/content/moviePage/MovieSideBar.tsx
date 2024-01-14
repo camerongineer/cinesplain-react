@@ -13,12 +13,16 @@ import {
 } from "react-router-dom";
 import Movie from "../../../../types/movie.ts";
 import { getImdbMoviePath } from "../../../../utils/retrievalUtils";
+import AccoladesDisplay from "../common/AccoladesDisplay.tsx";
 import CurrencyDisplay from "../common/CurrencyDisplay";
+import DirectorDisplay from "../common/DirectorDisplay.tsx";
 import RatingCard from "../common/RatingCard.tsx";
 import ReleaseDateDisplay from "../common/ReleaseDateDisplay";
 import RuntimeDisplay from "../common/RuntimeDisplay";
 import SplainationDisplay from "../common/SplainationDisplay";
+import StarringDisplay from "../common/StarringDisplay.tsx";
 import TaglineDisplay from "../common/TaglineDisplay";
+import WritersDisplay from "../common/WritersDisplay.tsx";
 
 const StyledPaper = styled(Paper)`
     flex-direction: column;
@@ -52,7 +56,15 @@ const MovieSideBar: React.FC<MovieSideBarProps> = ({
                 alignItems="center"
                 spacing={1}
             >
-                <RatingCard movie={movie}/>
+                <Stack
+                    spacing={2}
+                    pb={2}
+                >
+                    {movie.director && <DirectorDisplay director={movie.director}/>}
+                    {movie.writer && <WritersDisplay writers={movie.writer}/>}
+                    {movie.actors && <StarringDisplay stars={movie.actors}/>}
+                    <RatingCard movie={movie}/>
+                </Stack>
                 {movie.runtime && <RuntimeDisplay
                     runtime={movie.runtime}
                     includeLabel={true}
@@ -69,6 +81,7 @@ const MovieSideBar: React.FC<MovieSideBarProps> = ({
                     labelText="Revenue"
                     currencyAmount={movie.revenue}
                 />}
+                {movie.awards && <AccoladesDisplay awards={movie.awards}/>}
                 <Stack
                     flexDirection="row"
                     justifyContent="space-evenly"
