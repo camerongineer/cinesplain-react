@@ -49,6 +49,7 @@ const PersonSideBar: React.FC<PersonSideBarProps> = ({
                 rel="noopener noreferrer"
             >
                 <MuiLink
+                    component="span"
                     variant="overline"
                     fontSize="large"
                     fontWeight="bolder"
