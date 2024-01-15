@@ -41,7 +41,7 @@ const CastMemberRow: React.FC<CastMemberRowProps> = ({
                             castMember =>
                                 <Link
                                     to={`/person/${getFormattedPersonLinkId(castMember as unknown as Person)}`}
-                                    key={castMember.id}
+                                    key={castMember.castId}
                                 >
                                     <CastMemberCard
                                         sx={{
