@@ -44,7 +44,7 @@ const CreditsList: React.FC<CreditsListProps> = ({
                 <TableBody>
                     {sortedMovieCredits.map(castMemberCredit => (
                         <CreditsListCastRow
-                            key={castMemberCredit.id}
+                            key={castMemberCredit.creditId}
                             castMemberCredit={castMemberCredit}
                         />
                     ))}
