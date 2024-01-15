@@ -94,6 +94,7 @@ const MovieSideBar: React.FC<MovieSideBarProps> = ({
                         rel="noopener noreferrer"
                     >
                         <MuiLink
+                            component="span"
                             variant="overline"
                             fontSize="large"
                             fontWeight="bolder"
