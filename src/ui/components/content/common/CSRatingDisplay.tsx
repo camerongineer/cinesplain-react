@@ -22,7 +22,7 @@ const CSRatingDisplay: React.FC<CSRatingDisplayProps> = ({
         <CSText height={15}/>
         <CSPopcorn
             width={"20px"}
-            ratingColor={getCSRatingColor(voteAverage)}
+            color={getCSRatingColor(voteAverage)}
         />
         <Typography
             display="inline"
