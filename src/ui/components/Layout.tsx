@@ -9,9 +9,9 @@ import React, {
 } from "react";
 import {
     Outlet,
+    ScrollRestoration,
     useNavigation
 } from "react-router-dom";
-import useScrollToTop from "../../hooks/UseScrollToTop";
 import Header from "./header/Header";
 
 const StyledStack = styled(Stack)`
@@ -34,7 +34,6 @@ const Layout: React.FC = () => {
         }
     }, [navigation.state]);
     
-    useScrollToTop();
     const getLoadingStyle = () => {
         return {
             minHeight: "100vh",
@@ -55,6 +54,7 @@ const Layout: React.FC = () => {
             style={getLoadingStyle()}
         >
             <Header/>
+            <ScrollRestoration/>
             <StyledStack>
                 <Outlet/>
             </StyledStack>
