@@ -5,7 +5,7 @@ import {
     TableRow,
     Typography
 } from "@mui/material";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { getImagePath } from "../../../../api/moviesApi.ts";
 import { POSTER_SIZE } from "../../../../constants/ImageSizes.ts";
 import CastMember from "../../../../types/castMember.ts";
@@ -17,22 +17,22 @@ const CreditsListCastRow = ({
 }: {
     castMemberCredit: CastMember
 }) => {
+    const navigate = useNavigate();
+    const onRowClick = () => navigate(`/movies/${getFormattedMovieLinkId({
+                                                                             title: castMemberCredit.originalTitle,
+                                                                             id: castMemberCredit.id
+                                                                         } as unknown as Movie)}`);
     
     return (
         <TableRow
-            component={Link}
-            to={`/movies/${getFormattedMovieLinkId(
-                {
-                    title: castMemberCredit.originalTitle,
-                    id: castMemberCredit.id
-                } as unknown as Movie)}`
-            }
             sx={{
+                cursor: "pointer",
                 "&:hover": {
                     backgroundColor: "#f0f0f0"
                 },
                 "&:last-child td, &:last-child th": { border: 0 }
             }}
+            onClick={onRowClick}
         >
             <TableCell
                 component="th"
