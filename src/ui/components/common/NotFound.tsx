@@ -49,7 +49,7 @@ const NotFound = () => {
         
         const waggingIntervalId = setInterval(() => {
             setWaggingState((prevWagState) => !prevWagState);
-        }, 1250);
+        }, 1000);
         
         return () => {
             clearInterval(degreesIntervalId);

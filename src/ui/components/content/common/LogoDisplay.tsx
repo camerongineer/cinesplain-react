@@ -5,9 +5,9 @@ import {
 import { Theme } from "@mui/material/styles";
 import { SxProps } from "@mui/system";
 import React from "react";
+import { getImagePath } from "../../../../api/moviesApi.ts";
 import { LOGO_SIZE } from "../../../../constants/ImageSizes";
 import Image from "../../../../types/image.ts";
-import { getImagePath } from "../../../../utils/retrievalUtils";
 
 interface LogoDisplayProps {
     logos: Image[];

@@ -10,9 +10,9 @@ import {
     Link,
     Link as RouterLink
 } from "react-router-dom";
+import { getImdbPersonPath } from "../../../../api/moviesApi.ts";
 import Person from "../../../../types/person.ts";
 import { getFormattedDisplayedDate } from "../../../../utils/formatUtils.ts";
-import { getImdbPersonPath } from "../../../../utils/retrievalUtils.ts";
 
 interface PersonSideBarProps {
     person: Person;
@@ -49,6 +49,7 @@ const PersonSideBar: React.FC<PersonSideBarProps> = ({
                 rel="noopener noreferrer"
             >
                 <MuiLink
+                    component="span"
                     variant="overline"
                     fontSize="large"
                     fontWeight="bolder"

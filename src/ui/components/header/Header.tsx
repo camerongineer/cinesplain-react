@@ -15,7 +15,7 @@ import { useRouteLoaderData } from "react-router-dom";
 import {
     getPopularMoviesPath,
     retrieveMovies
-} from "../../../utils/retrievalUtils";
+} from "../../../api/moviesApi.ts";
 import SearchModal from "../content/search/SearchModal";
 import NavBar from "./NavBar";
 

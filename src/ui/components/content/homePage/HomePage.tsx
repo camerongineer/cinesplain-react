@@ -14,11 +14,11 @@ import {
 } from "@tanstack/react-query";
 import React from "react";
 import { useLoaderData } from "react-router-dom";
-import Movie from "../../../../types/movie.ts";
 import {
     getHomePageMoviesListsPath,
     retrieveMovies
-} from "../../../../utils/retrievalUtils";
+} from "../../../../api/moviesApi.ts";
+import Movie from "../../../../types/movie.ts";
 import Hero from "./Hero";
 import RatingList from "./RatingList";
 import RecentMoviesRow from "./RecentMoviesRow";

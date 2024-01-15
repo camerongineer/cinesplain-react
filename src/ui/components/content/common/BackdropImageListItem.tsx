@@ -8,10 +8,10 @@ import {
 } from "@mui/material";
 import { SxProps } from "@mui/system";
 import React, { useState } from "react";
+import { getImagePath } from "../../../../api/moviesApi.ts";
 import { BACKDROP_SIZE } from "../../../../constants/ImageSizes";
 import Movie from "../../../../types/movie.ts";
 import { getFormattedDisplayedDate } from "../../../../utils/formatUtils";
-import { getImagePath } from "../../../../utils/retrievalUtils";
 
 const StyledCard = styled(Card)`
     min-width: 150px;

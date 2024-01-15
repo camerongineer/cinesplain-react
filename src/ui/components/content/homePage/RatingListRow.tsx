@@ -51,7 +51,7 @@ const RatingListRow: React.FC<RatingListRowProps> = ({
                     </MuiLink>
                 </RouterLink>
             </TableCell>
-            {movie.voteCount >= 20 &&
+            {movie.voteAverage &&
                 <TableCell
                     width={30}
                     sx={{ borderBottom: "none" }}

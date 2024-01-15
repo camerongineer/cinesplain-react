@@ -8,11 +8,11 @@ import React, {
     useEffect,
     useState
 } from "react";
-import Movie from "../../../../types/movie.ts";
 import {
     getMoviesSearchPath,
     retrieveMovies
-} from "../../../../utils/retrievalUtils";
+} from "../../../../api/moviesApi.ts";
+import Movie from "../../../../types/movie.ts";
 import MovieSearchRow from "./MovieSearchRow";
 import SearchField from "./SearchField";
 

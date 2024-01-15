@@ -11,8 +11,8 @@ import {
     Link as RouterLink,
     Link
 } from "react-router-dom";
+import { getImdbMoviePath } from "../../../../api/moviesApi.ts";
 import Movie from "../../../../types/movie.ts";
-import { getImdbMoviePath } from "../../../../utils/retrievalUtils";
 import AccoladesDisplay from "../common/AccoladesDisplay.tsx";
 import CurrencyDisplay from "../common/CurrencyDisplay";
 import DirectorDisplay from "../common/DirectorDisplay.tsx";
@@ -94,6 +94,7 @@ const MovieSideBar: React.FC<MovieSideBarProps> = ({
                         rel="noopener noreferrer"
                     >
                         <MuiLink
+                            component="span"
                             variant="overline"
                             fontSize="large"
                             fontWeight="bolder"

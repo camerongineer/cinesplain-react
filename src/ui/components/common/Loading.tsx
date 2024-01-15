@@ -52,7 +52,7 @@ const Loading = () => {
         
         const waggingIntervalId = setInterval(() => {
             setSplainingState((prevWagState) => !prevWagState);
-        }, 1250);
+        }, 750);
         
         return () => {
             clearInterval(degreesIntervalId);

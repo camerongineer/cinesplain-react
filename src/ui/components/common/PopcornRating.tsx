@@ -38,7 +38,7 @@ const PopcornRating: React.FC<CSRatingProps> = ({
         >
             <CSPopcorn
                 width={width}
-                ratingColor={ratingColor}
+                color={ratingColor}
             />
             <RatingCircle
                 className="center"

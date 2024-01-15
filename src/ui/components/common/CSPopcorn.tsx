@@ -7,26 +7,26 @@ import React from "react";
 
 interface StyledPopcornProps {
     width: string;
-    ratingColor?: string;
+    color?: string;
 }
 
 const StyledPopcorn = styled(Popcorn)<StyledPopcornProps>`
     width: ${({ width }) => width};
 
     .cls4 {
-        fill: ${({ ratingColor }) => ratingColor ? alpha(ratingColor, .75) : ""};
+        fill: ${({ color }) => color ? alpha(color, .75) : ""};
     }
 
     .cls5 {
-        fill: ${({ ratingColor }) => ratingColor ? alpha(ratingColor, .6) : ""};
+        fill: ${({ color }) => color ? alpha(color, .6) : ""};
     }
 
     .cls9 {
-        fill: ${({ ratingColor }) => ratingColor ? alpha(ratingColor, .75) : ""};
+        fill: ${({ color }) => color ? alpha(color, .75) : ""};
     }
 
     .cls10 {
-        fill: ${({ ratingColor }) => ratingColor ? alpha(ratingColor, .75) : ""};
+        fill: ${({ color }) => color ? alpha(color, .75) : ""};
     }
 `;
 

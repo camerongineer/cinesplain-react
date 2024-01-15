@@ -12,9 +12,6 @@ import {
     useLoaderData,
     useParams
 } from "react-router-dom";
-import Credits from "../../../../types/credits.ts";
-import Movie from "../../../../types/movie.ts";
-import Video from "../../../../types/video.ts";
 import {
     getMovieRecommendationsPath,
     getSimilarMoviesPath,
@@ -22,7 +19,10 @@ import {
     retrieveMovie,
     retrieveMovies,
     retrieveMovieTrailers
-} from "../../../../utils/retrievalUtils";
+} from "../../../../api/moviesApi.ts";
+import Credits from "../../../../types/credits.ts";
+import Movie from "../../../../types/movie.ts";
+import Video from "../../../../types/video.ts";
 import CastMemberRow from "../common/CastMemberRow";
 import { personPageLoader } from "../personPage/PersonPage.tsx";
 import MovieRecommendations from "./MovieRecommendations";

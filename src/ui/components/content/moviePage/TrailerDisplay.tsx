@@ -5,10 +5,10 @@ import {
     styled
 } from "@mui/material";
 import React from "react";
+
+import { getYouTubeTrailerPath } from "../../../../api/moviesApi.ts";
 import Movie from "../../../../types/movie.ts";
 import Video from "../../../../types/video.ts";
-
-import { getYouTubeTrailerPath } from "../../../../utils/retrievalUtils";
 
 const StyledPaper = styled(Paper)`
     background: linear-gradient(270deg, ${props => props.theme.palette.background.paper}, ${props => props.theme.palette.primary.main}60);
