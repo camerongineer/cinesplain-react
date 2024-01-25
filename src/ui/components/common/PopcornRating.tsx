@@ -4,6 +4,7 @@ import {
 } from "@mui/material";
 import { grey } from "@mui/material/colors";
 import React from "react";
+import { roundedToTenth } from "../../../utils/formatUtils.ts";
 import { getCSRatingColor } from "../../../utils/ratingUtils.ts";
 import CSPopcorn from "./CSPopcorn.tsx";
 
@@ -44,7 +45,7 @@ const PopcornRating: React.FC<CSRatingProps> = ({
                 className="center"
                 bgcolor={ratingColor}
             >
-                {voteAverage}
+                {roundedToTenth(voteAverage)}
             </RatingCircle>
         </Box>
     );
