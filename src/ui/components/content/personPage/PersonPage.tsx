@@ -18,6 +18,7 @@ import {
 import { retrievePerson } from "../../../../api/moviesApi.ts";
 import CastMember from "../../../../types/castMember.ts";
 import Person from "../../../../types/person.ts";
+import { getNumericId } from "../../../../utils/formatUtils.ts";
 import CreditsList from "./CreditsList.tsx";
 import PersonSideBar from "./PersonSideBar.tsx";
 import ProfileCard from "./ProfileCard.tsx";
@@ -29,7 +30,7 @@ const StyledStack = styled(Stack)`
 const personPageQuery = (personId: string | undefined) => ({
     queryKey: ["personPage", personId],
     queryFn: async (): Promise<LoaderData | null> => {
-        const person = await retrievePerson(personId ?? "");
+        const person = await retrievePerson(getNumericId(personId ?? ""));
         if (!person) return null;
         const movieCredits = person.movieCredits.cast?.filter(movie => movie.releaseDate) ?? [];
         const sortedMovieCredits: CastMember[] = movieCredits.sort((a, b) => {
