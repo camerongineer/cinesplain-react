@@ -1,6 +1,6 @@
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 
-export const retrieveData = async (url: string): Promise<AxiosResponse> => {
+export const retrieveData = async (url: string) => {
     const options = {
         method: "GET",
         headers: {
