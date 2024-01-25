@@ -51,13 +51,13 @@ const RatingListRow: React.FC<RatingListRowProps> = ({
                     </MuiLink>
                 </RouterLink>
             </TableCell>
-            {movie.voteAverage &&
+            {!!movie.voteAverage &&
                 <TableCell
                     width={30}
                     sx={{ borderBottom: "none" }}
                 >
                     <RouterLink to={link}>
-                        <PopcornRating voteAverage={movie.voteAverage}/>
+                        {movie?.voteCount > 5 && <PopcornRating voteAverage={movie.voteAverage}/>}
                     </RouterLink>
                 </TableCell>}
         </StyledTableRow>
