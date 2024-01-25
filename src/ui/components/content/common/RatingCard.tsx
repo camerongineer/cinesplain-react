@@ -4,6 +4,8 @@ import {
 } from "@mui/material";
 import React from "react";
 import Movie from "../../../../types/movie.ts";
+import omdbMovieDetails from "../../../../types/OmdbMovieDetails.ts";
+import { roundedToTenth } from "../../../../utils/formatUtils.ts";
 import CSRatingDisplay from "./CSRatingDisplay.tsx";
 import ImdbRatingDisplay from "./ImdbRatingDisplay.tsx";
 import MetascoreDisplay from "./MetascoreDisplay.tsx";
@@ -19,19 +21,22 @@ const StyledCard = styled(Card)`
 
 interface RatingCardProps {
     movie: Movie;
+    omdbDetails: omdbMovieDetails | null;
 }
 
 const RatingCard: React.FC<RatingCardProps> = ({
-    movie
+    movie,
+    omdbDetails
 }) => {
-    if (!movie.voteAverage && !movie.rottenTomatoesScore && !movie.imdbRating && !movie.metaScore) return null;
+    const ratings = omdbDetails?.ratingDetails ?? null;
+    if (!movie.voteAverage && !ratings?.rottenTomatoesScore && !ratings?.imdbRating && !ratings?.metascore) return null;
     return (
         <StyledCard elevation={3}>
-            {movie.voteAverage !== null && <CSRatingDisplay voteAverage={movie.voteAverage}/>}
-            {movie.rottenTomatoesScore !== null &&
-                <RottenTomatoesDisplay rottenTomatoesScore={movie.rottenTomatoesScore}/>}
-            {movie.imdbRating !== null && <ImdbRatingDisplay imdbRating={movie.imdbRating}/>}
-            {movie.metaScore !== null && <MetascoreDisplay metaScore={movie.metaScore}/>}
+            {!!movie.voteAverage && <CSRatingDisplay voteAverage={roundedToTenth(movie.voteAverage)}/>}
+            {!!ratings?.rottenTomatoesScore &&
+                <RottenTomatoesDisplay rottenTomatoesScore={ratings.rottenTomatoesScore}/>}
+            {!!ratings?.imdbRating && <ImdbRatingDisplay imdbRating={ratings.imdbRating}/>}
+            {!!ratings?.metascore && <MetascoreDisplay metaScore={ratings.metascore}/>}
         </StyledCard>
     );
 };

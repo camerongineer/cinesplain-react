@@ -13,6 +13,7 @@ import {
 } from "react-router-dom";
 import { getImdbMoviePath } from "../../../../api/moviesApi.ts";
 import Movie from "../../../../types/movie.ts";
+import omdbMovieDetails from "../../../../types/OmdbMovieDetails.ts";
 import AccoladesDisplay from "../common/AccoladesDisplay.tsx";
 import CurrencyDisplay from "../common/CurrencyDisplay";
 import DirectorDisplay from "../common/DirectorDisplay.tsx";
@@ -35,10 +36,12 @@ const StyledPaper = styled(Paper)`
 
 interface MovieSideBarProps {
     movie: Movie;
+    omdbDetails: omdbMovieDetails | null;
 }
 
 const MovieSideBar: React.FC<MovieSideBarProps> = ({
-    movie
+    movie,
+    omdbDetails
 }) => (
     <Stack
         flex={{
@@ -60,28 +63,35 @@ const MovieSideBar: React.FC<MovieSideBarProps> = ({
                     spacing={2}
                     pb={2}
                 >
-                    {movie.director && <DirectorDisplay director={movie.director}/>}
-                    {movie.writer && <WritersDisplay writers={movie.writer}/>}
-                    {movie.actors && <StarringDisplay stars={movie.actors}/>}
-                    <RatingCard movie={movie}/>
+                    {omdbDetails?.director && omdbDetails?.director !== "N/A" &&
+                        <DirectorDisplay director={omdbDetails.director}/>}
+                    {omdbDetails?.writer && omdbDetails?.writer !== "N/A" &&
+                        <WritersDisplay writers={omdbDetails.writer}/>}
+                    {omdbDetails?.actors && omdbDetails?.actors !== "N/A" &&
+                        <StarringDisplay stars={omdbDetails.actors}/>}
+                    <RatingCard
+                        movie={movie}
+                        omdbDetails={omdbDetails}
+                    />
                 </Stack>
-                {movie.runtime && <RuntimeDisplay
+                {!!movie.runtime && <RuntimeDisplay
                     runtime={movie.runtime}
                     includeLabel={true}
                 />}
-                {movie.releaseDate && <ReleaseDateDisplay
+                {!!movie.releaseDate && <ReleaseDateDisplay
                     releaseDate={movie.releaseDate}
                     includeLabel={true}
                 />}
-                {movie.budget !== null && <CurrencyDisplay
+                {!!movie.budget && <CurrencyDisplay
                     labelText="Budget"
                     currencyAmount={movie.budget}
                 />}
-                {movie.revenue && <CurrencyDisplay
+                {!!movie.revenue && <CurrencyDisplay
                     labelText="Revenue"
                     currencyAmount={movie.revenue}
                 />}
-                {movie.awards && <AccoladesDisplay awards={movie.awards}/>}
+                {omdbDetails?.awards && omdbDetails?.awards !== "N/A" &&
+                    <AccoladesDisplay awards={omdbDetails.awards}/>}
                 <Stack
                     flexDirection="row"
                     justifyContent="space-evenly"
