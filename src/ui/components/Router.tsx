@@ -9,12 +9,9 @@ import {
     Route,
     RouterProvider
 } from "react-router-dom";
-import joinAction from "../../actions/joinAction.ts";
 import Loading from "./common/Loading";
 import NotFound from "./common/NotFound.tsx";
 import HomePage, { homePageLoader } from "./content/homePage/HomePage";
-import JoinPage, { joinPageLoader } from "./content/joinPage/JoinPage.tsx";
-import LoginPage, { loginPageLoader } from "./content/loginPage/LoginPage.tsx";
 import MoviePage, { moviePageLoader } from "./content/moviePage/MoviePage";
 import PersonPage, { personPageLoader } from "./content/personPage/PersonPage.tsx";
 import { headerLoader } from "./header/Header";
@@ -51,17 +48,6 @@ const router = createBrowserRouter(
                 path="person/:personId"
                 element={<PersonPage/>}
                 loader={personPageLoader(queryClient)}
-            />
-            <Route
-                path="login"
-                element={<LoginPage/>}
-                loader={loginPageLoader}
-            />
-            <Route
-                path="join"
-                element={<JoinPage/>}
-                loader={joinPageLoader}
-                action={joinAction}
             />
         </Route>
     )
