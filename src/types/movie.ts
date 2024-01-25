@@ -7,26 +7,20 @@ import SpokenLanguage from "./spokenLanguage.ts";
 import Video from "./video.ts";
 
 type Movie = {
-    actors: string | null;
     adult: boolean;
-    awards: string | null;
     backdropPath: string;
     belongsToCollection: Collection | null;
-    boxOffice: string | null;
     budget: number | null;
-    director: string | null;
     genres: Genre[] | null;
     genreIds: number[] | null;
     homepage: string | null;
-    id: string;
+    id: number;
     images: {
         backdrops: Image[] | null,
         logos: Image[] | null,
         posters: Image[] | null
     }
-    imdbId: string | null;
-    imdbRating: number | null;
-    metaScore: number | null;
+    imdbId: string;
     mediaType: string;
     originalLanguage: string;
     originalTitle: string;
@@ -35,22 +29,20 @@ type Movie = {
     posterPath: string | null;
     productionCompanies: ProductionCompany[] | null;
     productionCountries: ProductionCountry[] | null;
-    rated: string | null;
     releaseDate: string | null;
     revenue: number | null;
-    rottenTomatoesScore: number | null;
     runtime: number | null;
     spokenLanguages: SpokenLanguage[] | null;
     status: string | null;
     tagline: string | null;
     title: string;
+    trailer: Video;
     video: boolean;
     videos: {
         results: Video[] | null
     };
     voteAverage: number | null;
     voteCount: number;
-    writer: string | null;
 };
 
 export default Movie;
