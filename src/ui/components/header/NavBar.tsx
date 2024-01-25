@@ -3,14 +3,8 @@ import {
     Grid,
     IconButton
 } from "@mui/material";
-import React, {
-    useEffect,
-    useState
-} from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import csUserLoader from "../../../loaders/csUserLoader.ts";
-import CineSplainUser from "../../../types/cineSplainUser.ts";
-import AccountButton from "./AccountButton.tsx";
 import SlidingLogoDisplay from "./SlidingLogoDisplay";
 
 interface NavBarProps {
@@ -22,11 +16,6 @@ const NavBar: React.FC<NavBarProps> = ({
     onSearchButtonClicked,
     animateLogo
 }) => {
-    const [user, setUser] = useState<CineSplainUser | null>(null);
-    
-    useEffect(() => {
-        (async () => setUser(await csUserLoader()))();
-    }, []);
     
     return (
         <Grid
@@ -54,7 +43,6 @@ const NavBar: React.FC<NavBarProps> = ({
                 sm={3}
                 lg={5}
             >
-                <AccountButton user={user}/>
             </Grid>
             <Grid
                 item
