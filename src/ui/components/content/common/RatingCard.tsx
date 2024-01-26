@@ -29,7 +29,8 @@ const RatingCard: React.FC<RatingCardProps> = ({
     omdbDetails
 }) => {
     const ratings = omdbDetails?.ratingDetails ?? null;
-    if (!movie.voteAverage && !ratings?.rottenTomatoesScore && !ratings?.imdbRating && !ratings?.metascore) return null;
+    if ((!movie.voteAverage || movie.voteCount <= 5) && !ratings?.rottenTomatoesScore && !ratings?.imdbRating &&
+        !ratings?.metascore) return null;
     return (
         <StyledCard elevation={3}>
             {!!movie.voteAverage && <CSRatingDisplay voteAverage={roundedToTenth(movie.voteAverage)}/>}
