@@ -85,7 +85,7 @@ const MoviePage: React.FC = () => {
                     rated={omdbDetails?.rated ?? "N/A"}
                     director={director}
                 />
-                {credits && !!credits.cast.length && <CastMemberRow castMembers={credits.cast}/>}
+                {credits && !!credits?.cast?.length && <CastMemberRow castMembers={credits.cast}/>}
                 <Stack
                     flexDirection={{
                         lg: "row"
@@ -106,7 +106,7 @@ const MoviePage: React.FC = () => {
                         omdbDetails={omdbDetails}
                     />
                 </Stack>
-                {!!recommendations.length && <MovieRecommendations recommendedMovies={recommendations}/>}
+                {!!recommendations?.length && <MovieRecommendations recommendedMovies={recommendations}/>}
             </StyledMoviePage>}
         </>
     );
