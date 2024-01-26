@@ -15,7 +15,11 @@ import {
 import React from "react";
 import { useLoaderData } from "react-router-dom";
 import {
-    getHomePageMoviesListsPath,
+    getClassicMoviesPath,
+    getMostHatedMoviesPath,
+    getMostLovedMoviesPath,
+    getNowPlayingMoviesPath,
+    getUpcomingMoviesPath,
     retrieveMovies
 } from "../../../../api/moviesApi.ts";
 import Movie from "../../../../types/movie.ts";
@@ -25,7 +29,14 @@ import RecentMoviesRow from "./RecentMoviesRow";
 
 const homePageQuery = () => ({
     queryKey: ["homePage"],
-    queryFn: async () => await retrieveMovies(getHomePageMoviesListsPath())
+    queryFn: async () => {
+        const recentMovies = await retrieveMovies(getNowPlayingMoviesPath());
+        const lovedMovies = await retrieveMovies(getMostLovedMoviesPath());
+        const hatedMovies = await retrieveMovies(getMostHatedMoviesPath());
+        const classicMovies = await retrieveMovies(getClassicMoviesPath());
+        const upcomingMovies = await retrieveMovies(getUpcomingMoviesPath());
+        return { recentMovies, lovedMovies, hatedMovies, classicMovies, upcomingMovies };
+    }
 });
 
 const homePageLoader = (queryClient: QueryClient) => async () => {

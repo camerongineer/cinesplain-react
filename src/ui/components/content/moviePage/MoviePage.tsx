@@ -13,16 +13,17 @@ import {
     useParams
 } from "react-router-dom";
 import {
-    getMovieRecommendationsPath,
-    getSimilarMoviesPath,
+    getRecommendedMoviesPath,
     retrieveCredits,
     retrieveMovie,
     retrieveMovies,
-    retrieveMovieTrailers
+    retrieveOmdbMovieDetails
 } from "../../../../api/moviesApi.ts";
 import Credits from "../../../../types/credits.ts";
 import Movie from "../../../../types/movie.ts";
+import OmdbMovieDetails from "../../../../types/OmdbMovieDetails.ts";
 import Video from "../../../../types/video.ts";
+import { getNumericId } from "../../../../utils/formatUtils.ts";
 import CastMemberRow from "../common/CastMemberRow";
 import { personPageLoader } from "../personPage/PersonPage.tsx";
 import MovieRecommendations from "./MovieRecommendations";
@@ -38,17 +39,16 @@ const StyledMoviePage = styled(Stack)`
 const moviePageQuery = (movieId: string | undefined) => ({
     queryKey: ["moviePage", movieId],
     queryFn: async (): Promise<LoaderData | null> => {
-        const movie = await retrieveMovie(movieId ?? "");
+        const movie = await retrieveMovie(getNumericId(movieId ?? ""));
         if (!movie) {
             throw new Error("This page doesn't not exist.");
         }
-        const credits = await retrieveCredits(movieId ?? "");
-        const movieTrailers = await retrieveMovieTrailers(movieId ?? "");
-        const similarMovies = await retrieveMovies(getSimilarMoviesPath(movieId ?? ""));
-        const trailer = movieTrailers && movieTrailers.length > 0 ? movieTrailers[0] : null;
-        let recommendations = await retrieveMovies(getMovieRecommendationsPath(movieId ?? ""));
+        const credits = await retrieveCredits(movie.id);
+        const trailer = movie.trailer;
+        let recommendations = await retrieveMovies(getRecommendedMoviesPath(movie.id));
         recommendations = recommendations?.filter((movie: { backdropPath: string; }) => movie.backdropPath) ?? null;
-        return { movie, credits, trailer, similarMovies, recommendations };
+        const omdbDetails = await retrieveOmdbMovieDetails(movie.imdbId);
+        return { movie, credits, trailer, recommendations, omdbDetails };
     }
 });
 
@@ -62,17 +62,17 @@ interface LoaderData {
     movie: Movie;
     credits: Credits | null;
     trailer: Video | null;
-    similarMovies: Movie[];
     recommendations: Movie[];
+    omdbDetails: OmdbMovieDetails | null;
 }
 
 const MoviePage: React.FC = () => {
     const initialData = useLoaderData() as Awaited<ReturnType<ReturnType<typeof personPageLoader>>>;
     const params = useParams();
     const { data } = useQuery({ ...moviePageQuery(params.movieId), initialData });
-    const { movie, credits, trailer, recommendations } = data as LoaderData;
+    const { movie, credits, trailer, recommendations, omdbDetails } = data as LoaderData;
     
-    const director = credits?.crew.find(crewMember => crewMember.name === movie.director);
+    const director = credits?.crew.find(crewMember => crewMember.name === omdbDetails?.director);
     return (
         <>
             {movie && <StyledMoviePage
@@ -82,9 +82,10 @@ const MoviePage: React.FC = () => {
                 <MovieTitleDisplay
                     key={movie.id}
                     movie={movie}
+                    rated={omdbDetails?.rated ?? "N/A"}
                     director={director}
                 />
-                {credits && !!credits.cast.length && <CastMemberRow castMembers={credits.cast}/>}
+                {credits && !!credits?.cast?.length && <CastMemberRow castMembers={credits.cast}/>}
                 <Stack
                     flexDirection={{
                         lg: "row"
@@ -100,9 +101,12 @@ const MoviePage: React.FC = () => {
                         movie={movie}
                         trailer={trailer}
                     />}
-                    <MovieSideBar movie={movie}/>
+                    <MovieSideBar
+                        movie={movie}
+                        omdbDetails={omdbDetails}
+                    />
                 </Stack>
-                {!!recommendations.length && <MovieRecommendations recommendedMovies={recommendations}/>}
+                {!!recommendations?.length && <MovieRecommendations recommendedMovies={recommendations}/>}
             </StyledMoviePage>}
         </>
     );

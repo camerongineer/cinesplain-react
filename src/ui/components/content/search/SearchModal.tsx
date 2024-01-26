@@ -54,7 +54,7 @@ const SearchModal: React.FC<SearchModalProps> = ({
         let timeoutId: NodeJS.Timeout | null = null;
         
         const loadQueriedMovies = async () => {
-            const queriedMovies = await retrieveMovies(getMoviesSearchPath(searchQuery, 1));
+            const queriedMovies = await retrieveMovies(getMoviesSearchPath(searchQuery));
             if (isMounted) {
                 setMovies(queriedMovies ?? []);
             }

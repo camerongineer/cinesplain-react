@@ -32,6 +32,14 @@ export const getFormattedPersonLinkId = (person: Person) => {
     return `${person.id}-${formattedPersonName}`;
 };
 
+export const getNumericId = (idString: string): number => {
+    return Number(idString.match(/\d+/)?.[0]);
+};
+
+export const roundedToTenth = (num: number): number => {
+    return Math.round(num * 10) / 10;
+};
+
 const formatLinkString = (input: string): string => {
     return input.replace(/[^a-zA-Z0-9 ]/g, "").replace(/ /g, "_").toLowerCase();
 };

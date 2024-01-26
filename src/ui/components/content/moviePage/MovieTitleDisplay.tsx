@@ -28,11 +28,13 @@ const StyledGrid = styled(Grid)`
 
 interface MovieTitleDisplayProps {
     movie: Movie;
+    rated: string;
     director: Credit | undefined;
 }
 
 const MovieTitleDisplay: React.FC<MovieTitleDisplayProps> = ({
     movie,
+    rated,
     director
 }) => {
     const theme = useTheme();
@@ -107,23 +109,23 @@ const MovieTitleDisplay: React.FC<MovieTitleDisplayProps> = ({
                 alignItems="center"
                 justifyContent="center"
             >
-                {movie.images.logos && movie.images.logos.length > 0 && <LogoDisplay logos={movie.images.logos}/>}
-                {!movie.images.logos || movie.images.logos.length === 0 && <TitleDisplay title={movie.title}/>}
+                {!!movie?.images?.logos?.length && <LogoDisplay logos={movie.images.logos}/>}
+                {!movie?.images?.logos?.length && <TitleDisplay title={movie.title}/>}
                 <Box
                     display="flex"
                     flexDirection="row"
                     padding={.75}
                 >
                     {movie.releaseDate && <ReleaseDateDisplay releaseDate={movie.releaseDate}/>}
-                    {movie.runtime && movie.runtime > 0 &&
+                    {!!movie.runtime &&
                         <>
                             {movie.releaseDate && <Typography>&nbsp;&nbsp;•&nbsp;&nbsp;</Typography>}
                             <RuntimeDisplay runtime={movie.runtime}/>
                         </>}
-                    {movie.rated &&
+                    {rated != "N/A" &&
                         <>
                             {movie.runtime && <Typography>&nbsp;&nbsp;•&nbsp;&nbsp;</Typography>}
-                            <Typography>{movie.rated}</Typography>
+                            <Typography>{rated}</Typography>
                         </>}
                 </Box>
                 {director && <Typography

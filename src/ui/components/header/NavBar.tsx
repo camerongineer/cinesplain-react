@@ -16,6 +16,7 @@ const NavBar: React.FC<NavBarProps> = ({
     onSearchButtonClicked,
     animateLogo
 }) => {
+    
     return (
         <Grid
             container
@@ -41,7 +42,8 @@ const NavBar: React.FC<NavBarProps> = ({
                 xs={3}
                 sm={3}
                 lg={5}
-            />
+            >
+            </Grid>
             <Grid
                 item
                 xs={1}
