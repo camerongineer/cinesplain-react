@@ -85,10 +85,7 @@ export const getYouTubeTrailerPath = (videoKey: string) => `https://www.youtube.
 export const getImdbMoviePath = (imdbId: string) => `https://www.imdb.com/title/${imdbId}`;
 export const getImdbPersonPath = (imdbId: string) => `https://www.imdb.com/name/${imdbId}`;
 
-export const getMoviesSearchPath = (
-    searchQuery: string,
-    page: number
-) => `${BASE_URL}/movies/search?query=${searchQuery}&page=${page}`;
+export const getMoviesSearchPath = (searchQuery: string) => `${BASE_URL}/movies/search?query=${searchQuery}`;
 export const getPopularMoviesPath = (page: number) => `${BASE_URL}/movies/discover?page=${page}`;
 export const getHomePageMoviesListsPath = () => `${BASE_URL}/movies/home_page_lists`;
 export const getTop200MovieTitlesPath = () => `${BASE_URL}/movies/top_200_titles`;
