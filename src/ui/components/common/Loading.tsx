@@ -42,29 +42,28 @@ const StyledLogo = styled(CsLogoText)`
 
 const Loading = () => {
     const [degrees, setDegrees] = useState(0);
-    const [splainingState, setSplainingState] = useState(true);
+    const [initialState, setInitialState] = useState(true);
+    const [splainingState, setSplainingState] = useState(false);
     const theme = useTheme();
+    
+    useEffect(() => {
+        setTimeout(() => {
+            setInitialState(false);
+        }, 150);
+    }, []);
     
     useEffect(() => {
         const degreesIntervalId = setInterval(() => {
             setDegrees((prevDegrees) => (prevDegrees - 1) % 360);
         }, 10);
         
-        const splainingTimeoutId = setTimeout(() => {
+        const splainingIntervalId = setInterval(() => {
             setSplainingState((prevWagState) => !prevWagState);
-            
-            const splainingIntervalId = setInterval(() => {
-                setSplainingState((prevWagState) => !prevWagState);
-            }, 750);
-            
-            setTimeout(() => {
-                clearInterval(splainingIntervalId);
-            }, 750);
-        }, 50);
+        }, 450);
         
         return () => {
             clearInterval(degreesIntervalId);
-            clearTimeout(splainingTimeoutId);
+            clearInterval(splainingIntervalId);
         };
     }, []);
     
@@ -88,7 +87,7 @@ const Loading = () => {
             style={getLoadingStyle()}
         >
             <WobblingStack>
-                {splainingState ? <UpIcon/> : <DownIcon/>}
+                {splainingState || initialState ? <UpIcon/> : <DownIcon/>}
             </WobblingStack>
             <StyledLogo/>
         </StyledStack>
