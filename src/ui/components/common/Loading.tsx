@@ -50,13 +50,21 @@ const Loading = () => {
             setDegrees((prevDegrees) => (prevDegrees - 1) % 360);
         }, 10);
         
-        const waggingIntervalId = setInterval(() => {
+        const splainingTimeoutId = setTimeout(() => {
             setSplainingState((prevWagState) => !prevWagState);
-        }, 750);
+            
+            const splainingIntervalId = setInterval(() => {
+                setSplainingState((prevWagState) => !prevWagState);
+            }, 750);
+            
+            setTimeout(() => {
+                clearInterval(splainingIntervalId);
+            }, 750);
+        }, 50);
         
         return () => {
             clearInterval(degreesIntervalId);
-            clearInterval(waggingIntervalId);
+            clearTimeout(splainingTimeoutId);
         };
     }, []);
     
