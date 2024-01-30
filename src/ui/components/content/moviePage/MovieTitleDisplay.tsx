@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import useMovieBackdrop from "../../../../hooks/UseMovieBackdrop";
 import Credit from "../../../../types/credit.ts";
 import Movie from "../../../../types/movie.ts";
+import omdbMovieDetails from "../../../../types/OmdbMovieDetails.ts";
 import Person from "../../../../types/person.ts";
 import { getFormattedPersonLinkId } from "../../../../utils/formatUtils.ts";
 import PopcornRating from "../../common/PopcornRating.tsx";
@@ -28,13 +29,13 @@ const StyledGrid = styled(Grid)`
 
 interface MovieTitleDisplayProps {
     movie: Movie;
-    rated: string;
+    omdbDetails: omdbMovieDetails | null;
     director: Credit | undefined;
 }
 
 const MovieTitleDisplay: React.FC<MovieTitleDisplayProps> = ({
     movie,
-    rated,
+    omdbDetails,
     director
 }) => {
     const theme = useTheme();
@@ -122,10 +123,10 @@ const MovieTitleDisplay: React.FC<MovieTitleDisplayProps> = ({
                             {movie.releaseDate && <Typography>&nbsp;&nbsp;•&nbsp;&nbsp;</Typography>}
                             <RuntimeDisplay runtime={movie.runtime}/>
                         </>}
-                    {rated != "N/A" &&
+                    {omdbDetails?.rated != "N/A" &&
                         <>
                             {movie.runtime && <Typography>&nbsp;&nbsp;•&nbsp;&nbsp;</Typography>}
-                            <Typography>{rated}</Typography>
+                            <Typography>{omdbDetails?.rated}</Typography>
                         </>}
                 </Box>
                 {director && <Typography
