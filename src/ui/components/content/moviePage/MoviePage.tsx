@@ -47,9 +47,13 @@ const moviePageQuery = (movieId: string | undefined) => ({
         const trailer = movie.trailer;
         let recommendations = await retrieveMovies(getRecommendedMoviesPath(movie.id));
         recommendations = recommendations?.filter((movie: { backdropPath: string; }) => movie.backdropPath) ?? null;
-        const omdbDetails = await retrieveOmdbMovieDetails(movie.imdbId);
-        return { movie, credits, trailer, recommendations, omdbDetails };
+        return { movie, credits, trailer, recommendations };
     }
+});
+
+const omdbQuery = (imdbId: string) => ({
+    queryKey: ["moviePageOmdb", imdbId],
+    queryFn: async () => retrieveOmdbMovieDetails(imdbId)
 });
 
 const moviePageLoader = (queryClient: QueryClient) => async ({ params }: { params: Params }) => {
@@ -63,16 +67,18 @@ interface LoaderData {
     credits: Credits | null;
     trailer: Video | null;
     recommendations: Movie[];
-    omdbDetails: OmdbMovieDetails | null;
 }
 
 const MoviePage: React.FC = () => {
     const initialData = useLoaderData() as Awaited<ReturnType<ReturnType<typeof personPageLoader>>>;
     const params = useParams();
-    const { data } = useQuery({ ...moviePageQuery(params.movieId), initialData });
-    const { movie, credits, trailer, recommendations, omdbDetails } = data as LoaderData;
+    const { data: imdbData } = useQuery({ ...moviePageQuery(params.movieId), initialData });
+    const { movie, credits, trailer, recommendations } = imdbData as LoaderData;
+    const { data: omdbData } = useQuery({ ...omdbQuery(movie.imdbId) });
+    const omdbDetails = omdbData as OmdbMovieDetails;
     
     const director = credits?.crew.find(crewMember => crewMember.name === omdbDetails?.director);
+    
     return (
         <>
             {movie && <StyledMoviePage
@@ -82,7 +88,7 @@ const MoviePage: React.FC = () => {
                 <MovieTitleDisplay
                     key={movie.id}
                     movie={movie}
-                    rated={omdbDetails?.rated ?? "N/A"}
+                    omdbDetails={omdbDetails}
                     director={director}
                 />
                 {credits && !!credits?.cast?.length && <CastMemberRow castMembers={credits.cast}/>}
