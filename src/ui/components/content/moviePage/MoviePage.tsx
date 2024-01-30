@@ -22,7 +22,6 @@ import {
 import Credits from "../../../../types/credits.ts";
 import Movie from "../../../../types/movie.ts";
 import OmdbMovieDetails from "../../../../types/OmdbMovieDetails.ts";
-import Video from "../../../../types/video.ts";
 import { getNumericId } from "../../../../utils/formatUtils.ts";
 import CastMemberRow from "../common/CastMemberRow";
 import { personPageLoader } from "../personPage/PersonPage.tsx";
@@ -44,10 +43,16 @@ const moviePageQuery = (movieId: string | undefined) => ({
             throw new Error("This page doesn't not exist.");
         }
         const credits = await retrieveCredits(movie.id);
-        const trailer = movie.trailer;
-        let recommendations = await retrieveMovies(getRecommendedMoviesPath(movie.id));
-        recommendations = recommendations?.filter((movie: { backdropPath: string; }) => movie.backdropPath) ?? null;
-        return { movie, credits, trailer, recommendations };
+        
+        return { movie, credits };
+    }
+});
+
+const movieRecommendationsQuery = (movieId: number) => ({
+    queryKey: ["movieRecommendations", movieId],
+    queryFn: async () => {
+        let recommendations = await retrieveMovies(getRecommendedMoviesPath(movieId));
+        return recommendations?.filter((movie: { backdropPath: string; }) => movie.backdropPath) ?? null;
     }
 });
 
@@ -65,17 +70,17 @@ const moviePageLoader = (queryClient: QueryClient) => async ({ params }: { param
 interface LoaderData {
     movie: Movie;
     credits: Credits | null;
-    trailer: Video | null;
-    recommendations: Movie[];
 }
 
 const MoviePage: React.FC = () => {
     const initialData = useLoaderData() as Awaited<ReturnType<ReturnType<typeof personPageLoader>>>;
     const params = useParams();
     const { data: imdbData } = useQuery({ ...moviePageQuery(params.movieId), initialData });
-    const { movie, credits, trailer, recommendations } = imdbData as LoaderData;
+    const { movie, credits } = imdbData as LoaderData;
     const { data: omdbData } = useQuery({ ...omdbQuery(movie.imdbId) });
     const omdbDetails = omdbData as OmdbMovieDetails;
+    const { data: recommendationsData } = useQuery({ ...movieRecommendationsQuery(movie.id) });
+    const recommendations = recommendationsData as Movie[];
     
     const director = credits?.crew.find(crewMember => crewMember.name === omdbDetails?.director);
     
@@ -103,9 +108,9 @@ const MoviePage: React.FC = () => {
                     justifyContent="space-evenly"
                     padding={1}
                 >
-                    {trailer && <TrailerDisplay
+                    {movie.trailer && <TrailerDisplay
                         movie={movie}
-                        trailer={trailer}
+                        trailer={movie.trailer}
                     />}
                     <MovieSideBar
                         movie={movie}
