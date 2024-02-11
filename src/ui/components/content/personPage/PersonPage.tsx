@@ -9,7 +9,7 @@ import {
     QueryClient,
     useQuery
 } from "@tanstack/react-query";
-import React from "react";
+import React, { useEffect } from "react";
 import {
     Params,
     useLoaderData,
@@ -61,6 +61,14 @@ const PersonPage: React.FC = () => {
     const { person, sortedMovieCredits } = data as LoaderData;
     const theme = useTheme();
     const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+    
+    useEffect(() => {
+        document.title = `${person.name} - CineSplain - The Movie Info App`;
+        
+        return () => {
+            document.title = "CineSplain - The Movie Info App";
+        };
+    }, []);
     
     return (
         <StyledStack className="full center">
