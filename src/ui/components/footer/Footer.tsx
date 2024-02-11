@@ -23,7 +23,7 @@ const StyledContentWrapper = styled(Stack)`
     justify-content: space-between;
     align-content: center;
     max-width: ${props => props.theme.breakpoints.values.xl}px;
-    padding: 0 1em;
+    padding: 3em 1em 0;
     width: 100%;
     gap: 1em;
 `;
