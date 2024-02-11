@@ -39,7 +39,11 @@ const TrailerDisplay: React.FC<TrailerCardProps> = ({
                         className="center"
                         component="iframe"
                         width="100%"
-                        padding={2}
+                        padding={{
+                            xs: 0,
+                            sm: 1,
+                            md: 2
+                        }}
                         border={0}
                         style={{ aspectRatio: "16/9" }}
                         allow=""
