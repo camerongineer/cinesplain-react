@@ -31,7 +31,7 @@ const StyledPaper = styled(Paper)`
     align-items: center;
     transition: ${props => `opacity ${props.theme.transitions.duration.short}ms ease-in-out`};
     background: linear-gradient(270deg, ${props => props.theme.palette.primary.main}60, ${props => props.theme.palette.background.paper});
-    padding: 20px;
+    padding: 1em;
 `;
 
 interface MovieSideBarProps {
