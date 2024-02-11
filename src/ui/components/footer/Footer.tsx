@@ -20,14 +20,16 @@ const StyledContainer = styled(Stack)`
 `;
 
 const StyledContentWrapper = styled(Stack)`
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-content: center;
+    max-width: ${props => props.theme.breakpoints.values.xl}px;
+    padding: 0 1em;
     width: 100%;
     gap: 1em;
 `;
 
 const Footer: React.FC = () => (
-    <StyledContainer direction="column">
+    <StyledContainer className="center">
         <StyledContentWrapper direction={{ md: "row" }}>
             <SourceCodeDisplay/>
             <Stack
