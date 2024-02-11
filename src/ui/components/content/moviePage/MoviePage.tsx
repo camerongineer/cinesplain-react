@@ -86,7 +86,7 @@ const MoviePage: React.FC = () => {
     
     useEffect(() => {
         const releaseYear = new Date(movie.releaseDate ?? "").getFullYear();
-        document.title = `${movie.title} ${releaseYear ? ` (${releaseYear}) ` : ""} - CineSplain - The Movie Info App`;
+        document.title = `${movie.title} ${releaseYear ? `(${releaseYear}) ` : ""} - CineSplain - The Movie Info App`;
         
         return () => {
             document.title = "CineSplain - The Movie Info App";
