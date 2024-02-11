@@ -6,7 +6,7 @@ import {
     QueryClient,
     useQuery
 } from "@tanstack/react-query";
-import React from "react";
+import React, { useEffect } from "react";
 import {
     Params,
     useLoaderData,
@@ -83,6 +83,15 @@ const MoviePage: React.FC = () => {
     const recommendations = recommendationsData as Movie[];
     
     const director = credits?.crew.find(crewMember => crewMember.name === omdbDetails?.director);
+    
+    useEffect(() => {
+        const releaseYear = new Date(movie.releaseDate ?? "").getFullYear();
+        document.title = `${movie.title} ${releaseYear ? ` (${releaseYear}) ` : ""} - CineSplain - The Movie Info App`;
+        
+        return () => {
+            document.title = "CineSplain - The Movie Info App";
+        };
+    }, []);
     
     return (
         <>
