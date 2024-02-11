@@ -12,7 +12,13 @@ import {
     ScrollRestoration,
     useNavigation
 } from "react-router-dom";
+import Footer from "./footer/Footer.tsx";
 import Header from "./header/Header";
+
+const StyledContainer = styled(Stack)`
+    min-height: 100vh;
+    align-items: center;
+`;
 
 const StyledStack = styled(Stack)`
     max-width: ${props => props.theme.breakpoints.values.xl}px;
@@ -36,8 +42,6 @@ const Layout: React.FC = () => {
     
     const getLoadingStyle = () => {
         return {
-            minHeight: "100vh",
-            alignItems: "center",
             background:
                 navigation.state === "loading"
                     ? `linear-gradient(${degrees}deg,
@@ -49,7 +53,7 @@ const Layout: React.FC = () => {
         };
     };
     return (
-        <Stack
+        <StyledContainer
             className="full"
             style={getLoadingStyle()}
         >
@@ -58,7 +62,8 @@ const Layout: React.FC = () => {
             <StyledStack>
                 <Outlet/>
             </StyledStack>
-        </Stack>
+            <Footer/>
+        </StyledContainer>
     );
 };
 
