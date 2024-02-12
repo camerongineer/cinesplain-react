@@ -1,10 +1,10 @@
-import CSText from "@assets/cinesplain_text_logo.svg?react";
 import {
     Stack,
     Typography
 } from "@mui/material";
 import React from "react";
 import { getCSRatingColor } from "../../../../utils/ratingUtils.ts";
+import CSLogoText from "../../common/CSLogoText.tsx";
 import CSPopcorn from "../../common/CSPopcorn.tsx";
 
 interface CSRatingDisplayProps {
@@ -19,7 +19,7 @@ const CSRatingDisplay: React.FC<CSRatingDisplayProps> = ({
         alignItems="center"
         spacing={.5}
     >
-        <CSText height={15}/>
+        <CSLogoText height={15}/>
         <CSPopcorn
             width={"20px"}
             color={getCSRatingColor(voteAverage)}
