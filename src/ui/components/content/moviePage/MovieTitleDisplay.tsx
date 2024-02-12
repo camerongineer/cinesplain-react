@@ -123,9 +123,10 @@ const MovieTitleDisplay: React.FC<MovieTitleDisplayProps> = ({
                             {movie.releaseDate && <Typography>&nbsp;&nbsp;•&nbsp;&nbsp;</Typography>}
                             <RuntimeDisplay runtime={movie.runtime}/>
                         </>}
-                    {omdbDetails?.rated != "N/A" &&
+                    {omdbDetails?.rated && omdbDetails.rated != "N/A" &&
                         <>
-                            {movie.runtime && <Typography>&nbsp;&nbsp;•&nbsp;&nbsp;</Typography>}
+                            {(!!movie.runtime || movie.releaseDate) &&
+                                <Typography>&nbsp;&nbsp;•&nbsp;&nbsp;</Typography>}
                             <Typography>{omdbDetails?.rated}</Typography>
                         </>}
                 </Box>
