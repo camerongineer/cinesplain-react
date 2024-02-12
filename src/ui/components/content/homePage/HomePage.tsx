@@ -86,7 +86,7 @@ const HomePage: React.FC = () => {
                     padding={1}
                 >
                     <RatingList
-                        movies={upcomingMovies.slice(0, 10)}
+                        movies={upcomingMovies}
                         backgroundOverlayColor={blue["900"]}
                         backdropInterval={25000}
                         labelText="Upcoming"
@@ -99,7 +99,7 @@ const HomePage: React.FC = () => {
                     padding={1}
                 >
                     <RatingList
-                        movies={lovedMovies.slice(0, 8)}
+                        movies={lovedMovies}
                         backgroundOverlayColor={pink["900"]}
                         backdropInterval={27500}
                         labelText="Most Loved"
@@ -112,7 +112,7 @@ const HomePage: React.FC = () => {
                     padding={1}
                 >
                     <RatingList
-                        movies={hatedMovies.slice(0, 8)}
+                        movies={hatedMovies}
                         backgroundOverlayColor={red["900"]}
                         backdropInterval={40000}
                         labelText="Most Hated"
@@ -125,7 +125,7 @@ const HomePage: React.FC = () => {
                     padding={1}
                 >
                     <RatingList
-                        movies={classicMovies.slice(0, 12)}
+                        movies={classicMovies}
                         backgroundOverlayColor={purple["900"]}
                         backdropInterval={22000}
                         labelText="Classics"
