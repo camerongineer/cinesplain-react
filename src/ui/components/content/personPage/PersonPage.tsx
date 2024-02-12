@@ -64,11 +64,7 @@ const PersonPage: React.FC = () => {
     
     useEffect(() => {
         document.title = `${person.name} - CineSplain - The Movie Info App`;
-        
-        return () => {
-            document.title = "CineSplain - The Movie Info App";
-        };
-    }, []);
+    }, [person.name]);
     
     return (
         <StyledStack className="full center">

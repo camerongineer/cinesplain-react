@@ -12,7 +12,7 @@ import {
     QueryClient,
     useQuery
 } from "@tanstack/react-query";
-import React from "react";
+import React, { useEffect } from "react";
 import { useLoaderData } from "react-router-dom";
 import {
     getClassicMoviesPath,
@@ -55,6 +55,10 @@ const HomePage: React.FC = () => {
     const initialData = useLoaderData() as Awaited<ReturnType<ReturnType<typeof homePageLoader>>>;
     const { data } = useQuery({ ...homePageQuery(), initialData });
     const { recentMovies, lovedMovies, hatedMovies, classicMovies, upcomingMovies } = data as LoaderData;
+    
+    useEffect(() => {
+        document.title = "CineSplain - The Movie Info App";
+    }, []);
     
     return (
         <Stack className="full">
