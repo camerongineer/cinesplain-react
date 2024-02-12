@@ -1,4 +1,3 @@
-import CSLogoText from "@assets/cinesplain_text_logo.svg?react";
 import {
     Stack,
     styled
@@ -6,6 +5,7 @@ import {
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import CSLoadingIcon from "../common/CSLoadingIcon.tsx";
+import CSLogoText from "../common/CSLogoText.tsx";
 
 const StyledStack = styled(Stack)`
     flex-direction: row;

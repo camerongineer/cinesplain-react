@@ -1,13 +1,14 @@
-import csLogoText from "@assets/cinesplain_text_logo.svg";
 import {
     Box,
     styled
 } from "@mui/material";
 import React from "react";
 import CSLoadingIcon from "../common/CSLoadingIcon";
+import CSLogoText from "../common/CSLogoText.tsx";
 
 const SlidingLogo = styled(Box)`
     position: relative;
+    width: 225px;
 
     @keyframes slideIn {
         0% {
@@ -38,12 +39,7 @@ const SlidingLogoDisplay: React.FC<SlidingLogoDisplayProps> = ({
             animation: `${animateLogo ? "slideIn 2s forwards" : "none"}`
         }}
     >
-        <Box
-            component="img"
-            alt="CineSplain logo"
-            height={30}
-            src={csLogoText}
-        />
+        <CSLogoText/>
         <CSLoadingIcon
             height={40}
             loadRotationMilliseconds={900}
