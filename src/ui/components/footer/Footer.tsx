@@ -16,14 +16,14 @@ const StyledContainer = styled(Stack)`
     width: 100%;
     margin-top: auto;
     padding: 2em 2em .5em;
-    background: linear-gradient(180deg, #FFFFFF00, ${props => props.theme.palette.background.paper}, ${props => props.theme.palette.background.paper});
+    background: linear-gradient(180deg, #FFFFFF00, ${props => props.theme.palette.background.paper}, ${props => props.theme.palette.background.paper}, ${props => props.theme.palette.background.paper});
 `;
 
 const StyledContentWrapper = styled(Stack)`
     justify-content: space-between;
     align-content: center;
     max-width: ${props => props.theme.breakpoints.values.xl}px;
-    padding: 3em 1em 0;
+    padding: 2em 1em 0;
     width: 100%;
     gap: 1em;
 `;
