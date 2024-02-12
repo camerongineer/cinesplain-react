@@ -7,7 +7,7 @@ import React, { SVGProps } from "react";
 
 const StyledCSText = styled(CSText)<CSTextProps>`
     .cls-cine {
-        fill: ${({ theme, color }) => color ? color : alpha(theme.palette.text.primary, .9)};
+        fill: ${({ theme, color }) => color ? color : alpha(theme.palette.text.primary, .85)};
     }
 `;
 
