@@ -11,6 +11,7 @@ const StyledStack = styled(Stack)`
     flex-direction: row;
     justify-content: center;
     margin-bottom: .25em;
+    gap: .25em;
     cursor: pointer;
     height: 23px;
     min-width: 150px;
