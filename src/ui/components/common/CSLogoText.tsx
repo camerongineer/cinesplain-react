@@ -5,17 +5,17 @@ import {
 } from "@mui/material";
 import React, { SVGProps } from "react";
 
-const StyledCSText = styled(CSText)<CSTextProps>`
+const StyledCSText = styled(CSText)<CSLogoTextProps>`
     .cls-cine {
         fill: ${({ theme, color }) => color ? color : alpha(theme.palette.text.primary, .85)};
     }
 `;
 
-interface CSTextProps extends SVGProps<any> {
+interface CSLogoTextProps extends SVGProps<any> {
     color?: string;
 }
 
-const CSLogoText: React.FC<CSTextProps> = (props) => {
+const CSLogoText: React.FC<CSLogoTextProps> = (props) => {
     return (
         <StyledCSText {...props} />
     );
