@@ -23,6 +23,10 @@ const CopyrightDisplay: React.FC = () => (
             fontSize="large"
             style={{ userSelect: "none" }}
             lineHeight={0}
+            mt={{
+                xs: 1,
+                sm: 0
+            }}
         >
             © 2023-2024 by
         </Typography>
