@@ -3,16 +3,9 @@ import {
     alpha,
     styled
 } from "@mui/material";
-import React from "react";
+import React, { SVGProps } from "react";
 
-interface StyledPopcornProps {
-    width: string;
-    color?: string;
-}
-
-const StyledPopcorn = styled(Popcorn)<StyledPopcornProps>`
-    width: ${({ width }) => width};
-
+const StyledPopcorn = styled(Popcorn)<CSPopcornProps>`
     .cls4 {
         fill: ${({ color }) => color ? alpha(color, .75) : ""};
     }
@@ -30,7 +23,9 @@ const StyledPopcorn = styled(Popcorn)<StyledPopcornProps>`
     }
 `;
 
-interface CSPopcornProps extends StyledPopcornProps {}
+interface CSPopcornProps extends SVGProps<any> {
+    color?: string;
+}
 
 const CSPopcorn: React.FC<CSPopcornProps> = (props) => {
     return (
