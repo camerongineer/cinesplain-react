@@ -57,6 +57,7 @@ const RecentMoviesRow: React.FC<RecentMoviesRowProps> = ({
                 alignSelf="end"
                 zIndex={1}
                 mr={3}
+                style={{ userSelect: "none" }}
             >
                 Now In Theaters
             </Typography>
