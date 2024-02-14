@@ -67,6 +67,7 @@ const OverlaidImageBox: React.FC<OverlaidImageBoxProps> = ({
                 width="100%"
                 textAlign="right"
                 bottom={0}
+                style={{ userSelect: "none" }}
             >
                 <Typography
                     variant="overline"
