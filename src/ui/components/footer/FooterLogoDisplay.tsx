@@ -24,8 +24,8 @@ const FooterLogoDisplay: React.FC = () => {
     
     return (
         <StyledStack onClick={handleClick}>
-            <CSLoadingIcon/>
             <CSLogoText/>
+            <CSLoadingIcon/>
         </StyledStack>
     );
 };
