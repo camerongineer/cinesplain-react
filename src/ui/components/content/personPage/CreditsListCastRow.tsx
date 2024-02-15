@@ -15,10 +15,12 @@ import { getFormattedMovieLinkId } from "../../../../utils/formatUtils.ts";
 
 interface CreditsListCastRowProps {
     castMemberCredit: CastMember;
+    hideLastBottomBorder: boolean;
 }
 
 const CreditsListCastRow: React.FC<CreditsListCastRowProps> = ({
-    castMemberCredit
+    castMemberCredit,
+    hideLastBottomBorder: hideLastBottomBorder = true
 }) => {
     const navigate = useNavigate();
     const onRowClick = () => navigate(`/movies/${getFormattedMovieLinkId({
@@ -32,7 +34,7 @@ const CreditsListCastRow: React.FC<CreditsListCastRowProps> = ({
                 "&:hover": {
                     backgroundColor: "#00000060"
                 },
-                "&:last-child td, &:last-child th": { border: 0 }
+                "&:last-child td, &:last-child th": { border: hideLastBottomBorder ? 0 : "auto" }
             }}
             onClick={onRowClick}
         >
