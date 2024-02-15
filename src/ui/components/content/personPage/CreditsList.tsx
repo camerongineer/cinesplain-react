@@ -1,4 +1,10 @@
 import {
+    ArrowDropDown,
+    ArrowDropUp
+} from "@mui/icons-material";
+import {
+    Button,
+    Collapse,
     Paper,
     Table,
     TableBody,
@@ -8,7 +14,8 @@ import {
     TableRow,
     Typography
 } from "@mui/material";
-import React from "react";
+import TableFooter from "@mui/material/TableFooter";
+import React, { useState } from "react";
 import CastMember from "../../../../types/castMember.ts";
 import CreditsListCastRow from "./CreditsListCastRow.tsx";
 
@@ -19,14 +26,18 @@ interface CreditsListProps {
 const CreditsList: React.FC<CreditsListProps> = ({
     sortedMovieCredits
 }) => {
+    const [isExpanded, setIsExpanded] = useState(false);
+    
+    const handleShowMore = () => setIsExpanded(prevState => !prevState);
+    
+    const truncatedMovieCredits = sortedMovieCredits.slice(0, 10);
+    const remainingMovieCredits = sortedMovieCredits.slice(10);
     
     return (
         <TableContainer
             component={Paper}
         >
-            <Table
-                size="small"
-            >
+            <Table size="small">
                 <TableHead>
                     <TableRow>
                         <TableCell>
@@ -42,14 +53,39 @@ const CreditsList: React.FC<CreditsListProps> = ({
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {sortedMovieCredits.map(castMemberCredit => (
+                    {truncatedMovieCredits.map(castMemberCredit => (
                         <CreditsListCastRow
                             key={castMemberCredit.creditId}
                             castMemberCredit={castMemberCredit}
+                            hideLastBottomBorder={!isExpanded}
                         />
                     ))}
                 </TableBody>
             </Table>
+            {!!remainingMovieCredits.length && <>
+                <Collapse in={isExpanded}>
+                    <Table size="small">
+                        <TableBody>
+                            {remainingMovieCredits.map(castMemberCredit => (
+                                <CreditsListCastRow
+                                    key={castMemberCredit.creditId}
+                                    castMemberCredit={castMemberCredit}
+                                    hideLastBottomBorder={isExpanded}
+                                />
+                            ))}
+                        </TableBody>
+                    </Table>
+                </Collapse>
+                <TableFooter>
+                    <Button
+                        onClick={handleShowMore}
+                        startIcon={isExpanded ? <ArrowDropUp/> : <ArrowDropDown/>}
+                        color="inherit"
+                    >
+                        Show&nbsp;{isExpanded ? "Less" : "All"}
+                    </Button>
+                </TableFooter>
+            </>}
         </TableContainer>
     );
 };
