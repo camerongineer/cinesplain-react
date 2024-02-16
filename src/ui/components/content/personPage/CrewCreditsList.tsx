@@ -33,7 +33,7 @@ const CrewCreditsList: React.FC<CrewCreditsListProps> = ({
                 <TableRow>
                     <TableCell>
                         <Typography variant="overline">
-                            Job
+                            Title/Job
                         </Typography>
                     </TableCell>
                     <TableCell align="right">
