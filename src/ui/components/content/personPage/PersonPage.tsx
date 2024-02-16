@@ -17,9 +17,11 @@ import {
 } from "react-router-dom";
 import { retrievePerson } from "../../../../api/moviesApi.ts";
 import CastMember from "../../../../types/castMember.ts";
+import CrewMember from "../../../../types/crewMember.ts";
 import Person from "../../../../types/person.ts";
 import { getNumericId } from "../../../../utils/formatUtils.ts";
 import CastCreditsList from "./CastCreditsList.tsx";
+import CrewCreditsList from "./CrewCreditsList.tsx";
 import PersonSideBar from "./PersonSideBar.tsx";
 import ProfileCard from "./ProfileCard.tsx";
 
@@ -32,14 +34,21 @@ const personPageQuery = (personId: string | undefined) => ({
     queryFn: async (): Promise<LoaderData | null> => {
         const person = await retrievePerson(getNumericId(personId ?? ""));
         if (!person) return null;
-        const movieCredits = person.movieCredits.cast?.filter(movie => movie.releaseDate) ?? [];
-        const sortedMovieCredits: CastMember[] = movieCredits.sort((a, b) => {
+        const movieCastCredits = person.movieCredits.cast?.filter(movie => movie.releaseDate) ?? [];
+        const sortedMovieCastCredits: CastMember[] = movieCastCredits.sort((a, b) => {
             if (a.releaseDate && b.releaseDate) {
                 return a.releaseDate < b.releaseDate ? 1 : -1;
             }
             return 0;
         });
-        return { person, sortedMovieCredits };
+        const movieCrewCredits = person.movieCredits.crew?.filter(movie => movie.releaseDate) ?? [];
+        const sortedMovieCrewCredits: CrewMember[] = movieCrewCredits.sort((a, b) => {
+            if (a.releaseDate && b.releaseDate) {
+                return a.releaseDate < b.releaseDate ? 1 : -1;
+            }
+            return 0;
+        });
+        return { person, movieCastCredits: sortedMovieCastCredits, movieCrewCredits: sortedMovieCrewCredits };
     }
 });
 
@@ -51,14 +60,15 @@ const personPageLoader = (queryClient: QueryClient) => async ({ params }: { para
 
 interface LoaderData {
     person: Person,
-    sortedMovieCredits: CastMember[]
+    movieCastCredits: CastMember[]
+    movieCrewCredits: CrewMember[]
 }
 
 const PersonPage: React.FC = () => {
     const initialData = useLoaderData() as Awaited<ReturnType<ReturnType<typeof personPageLoader>>>;
     const params = useParams();
     const { data } = useQuery({ ...personPageQuery(params.personId), initialData });
-    const { person, sortedMovieCredits } = data as LoaderData;
+    const { person, movieCastCredits, movieCrewCredits } = data as LoaderData;
     const theme = useTheme();
     const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
     
@@ -119,7 +129,8 @@ const PersonPage: React.FC = () => {
                     >
                         {person.biography}
                     </Typography>
-                    <CastCreditsList sortedMovieCredits={sortedMovieCredits}/>
+                    {!!movieCastCredits.length && <CastCreditsList castCredits={movieCastCredits}/>}
+                    {!!movieCrewCredits.length && <CrewCreditsList crewCredits={movieCrewCredits}/>}
                 </Stack>
                 <Stack
                     alignItems={{
