@@ -19,11 +19,11 @@ import React, { useState } from "react";
 import CastMember from "../../../../types/castMember.ts";
 import CastCreditsListRow from "./CastCreditsListRow.tsx";
 
-interface CreditsListProps {
+interface CastCreditsListProps {
     sortedMovieCredits: CastMember[];
 }
 
-const CastCreditsList: React.FC<CreditsListProps> = ({
+const CastCreditsList: React.FC<CastCreditsListProps> = ({
     sortedMovieCredits
 }) => {
     const [isExpanded, setIsExpanded] = useState(false);

@@ -13,12 +13,12 @@ import CastMember from "../../../../types/castMember.ts";
 import Movie from "../../../../types/movie.ts";
 import { getFormattedMovieLinkId } from "../../../../utils/formatUtils.ts";
 
-interface CreditsListCastRowProps {
+interface CastCreditsListRowProps {
     castMemberCredit: CastMember;
     hideLastBottomBorder: boolean;
 }
 
-const CastCreditsListRow: React.FC<CreditsListCastRowProps> = ({
+const CastCreditsListRow: React.FC<CastCreditsListRowProps> = ({
     castMemberCredit,
     hideLastBottomBorder: hideLastBottomBorder = true
 }) => {
