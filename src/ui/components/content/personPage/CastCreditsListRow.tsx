@@ -18,7 +18,7 @@ interface CreditsListCastRowProps {
     hideLastBottomBorder: boolean;
 }
 
-const CreditsListCastRow: React.FC<CreditsListCastRowProps> = ({
+const CastCreditsListRow: React.FC<CreditsListCastRowProps> = ({
     castMemberCredit,
     hideLastBottomBorder: hideLastBottomBorder = true
 }) => {
@@ -84,4 +84,4 @@ const CreditsListCastRow: React.FC<CreditsListCastRowProps> = ({
     );
 };
 
-export default CreditsListCastRow;
+export default CastCreditsListRow;

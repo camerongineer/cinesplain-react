@@ -19,7 +19,7 @@ import { retrievePerson } from "../../../../api/moviesApi.ts";
 import CastMember from "../../../../types/castMember.ts";
 import Person from "../../../../types/person.ts";
 import { getNumericId } from "../../../../utils/formatUtils.ts";
-import CreditsList from "./CreditsList.tsx";
+import CastCreditsList from "./CastCreditsList.tsx";
 import PersonSideBar from "./PersonSideBar.tsx";
 import ProfileCard from "./ProfileCard.tsx";
 
@@ -119,7 +119,7 @@ const PersonPage: React.FC = () => {
                     >
                         {person.biography}
                     </Typography>
-                    <CreditsList sortedMovieCredits={sortedMovieCredits}/>
+                    <CastCreditsList sortedMovieCredits={sortedMovieCredits}/>
                 </Stack>
                 <Stack
                     alignItems={{

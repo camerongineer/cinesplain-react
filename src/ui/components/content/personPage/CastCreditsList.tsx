@@ -17,13 +17,13 @@ import {
 import TableFooter from "@mui/material/TableFooter";
 import React, { useState } from "react";
 import CastMember from "../../../../types/castMember.ts";
-import CreditsListCastRow from "./CreditsListCastRow.tsx";
+import CastCreditsListRow from "./CastCreditsListRow.tsx";
 
 interface CreditsListProps {
     sortedMovieCredits: CastMember[];
 }
 
-const CreditsList: React.FC<CreditsListProps> = ({
+const CastCreditsList: React.FC<CreditsListProps> = ({
     sortedMovieCredits
 }) => {
     const [isExpanded, setIsExpanded] = useState(false);
@@ -54,7 +54,7 @@ const CreditsList: React.FC<CreditsListProps> = ({
                 </TableHead>
                 <TableBody>
                     {truncatedMovieCredits.map(castMemberCredit => (
-                        <CreditsListCastRow
+                        <CastCreditsListRow
                             key={castMemberCredit.creditId}
                             castMemberCredit={castMemberCredit}
                             hideLastBottomBorder={!isExpanded}
@@ -67,7 +67,7 @@ const CreditsList: React.FC<CreditsListProps> = ({
                     <Table size="small">
                         <TableBody>
                             {remainingMovieCredits.map(castMemberCredit => (
-                                <CreditsListCastRow
+                                <CastCreditsListRow
                                     key={castMemberCredit.creditId}
                                     castMemberCredit={castMemberCredit}
                                     hideLastBottomBorder={isExpanded}
@@ -90,4 +90,4 @@ const CreditsList: React.FC<CreditsListProps> = ({
     );
 };
 
-export default CreditsList;
+export default CastCreditsList;
