@@ -38,26 +38,19 @@ const CastCreditsListRow: React.FC<CastCreditsListRowProps> = ({
             }}
             onClick={onRowClick}
         >
-            <TableCell
-                component="th"
-                scope="row"
-            >
-                <Typography
-                    variant="subtitle2"
-                    fontWeight="bold"
-                >
-                    {castMemberCredit.releaseDate
-                        ? new Date(castMemberCredit.releaseDate).getFullYear()
-                        : "Upcoming"}
-                </Typography>
-            </TableCell>
-            <TableCell align="right">
+            <TableCell>
                 <Stack
                     direction="row"
-                    justifyContent="end"
+                    justifyContent="start"
                     alignItems="center"
                     spacing={2}
                 >
+                    {castMemberCredit.posterPath && <Box
+                        component="img"
+                        src={getImagePath(castMemberCredit.posterPath, POSTER_SIZE.XXXS_W92)}
+                        width={45}
+                        minHeight={castMemberCredit.posterPath ? 67.5 : "auto"}
+                    />}
                     <Stack>
                         <Typography
                             variant="subtitle2"
@@ -72,13 +65,21 @@ const CastCreditsListRow: React.FC<CastCreditsListRowProps> = ({
                             as {castMemberCredit.character}
                         </Typography>}
                     </Stack>
-                    {castMemberCredit.posterPath && <Box
-                        component="img"
-                        src={getImagePath(castMemberCredit.posterPath, POSTER_SIZE.XXXS_W92)}
-                        width={45}
-                        minHeight={castMemberCredit.posterPath ? 67.5 : "auto"}
-                    />}
                 </Stack>
+            </TableCell>
+            <TableCell
+                component="th"
+                scope="row"
+                align="right"
+            >
+                <Typography
+                    variant="subtitle2"
+                    fontWeight="bold"
+                >
+                    {castMemberCredit.releaseDate
+                        ? new Date(castMemberCredit.releaseDate).getFullYear()
+                        : "Upcoming"}
+                </Typography>
             </TableCell>
         </TableRow>
     );
