@@ -1,92 +1,62 @@
 import {
-    ArrowDropDown,
-    ArrowDropUp
-} from "@mui/icons-material";
-import {
-    Button,
-    Collapse,
-    Paper,
-    Table,
-    TableBody,
     TableCell,
-    TableContainer,
-    TableHead,
     TableRow,
     Typography
 } from "@mui/material";
-import TableFooter from "@mui/material/TableFooter";
 import React, { useState } from "react";
 import CastMember from "../../../../types/castMember.ts";
+import CollapsibleTable from "../common/CollapsibleTable.tsx";
 import CastCreditsListRow from "./CastCreditsListRow.tsx";
 
-interface CastCreditsListProps {
-    sortedMovieCredits: CastMember[];
+interface CrewCreditsListProps {
+    castCredits: CastMember[];
+    truncatedCreditsSize?: number;
 }
 
-const CastCreditsList: React.FC<CastCreditsListProps> = ({
-    sortedMovieCredits
+const CastCreditsList: React.FC<CrewCreditsListProps> = ({
+    castCredits,
+    truncatedCreditsSize = 8
 }) => {
-    const [isExpanded, setIsExpanded] = useState(false);
+    const [isCollapsed, setIsCollapsed] = useState(false);
     
-    const handleShowMore = () => setIsExpanded(prevState => !prevState);
+    const handleShowMore = () => setIsCollapsed(prevState => !prevState);
     
-    const truncatedMovieCredits = sortedMovieCredits.slice(0, 10);
-    const remainingMovieCredits = sortedMovieCredits.slice(10);
+    const truncatedCastCredits = castCredits.slice(0, truncatedCreditsSize);
+    const remainingCastCredits = castCredits.slice(truncatedCreditsSize);
     
     return (
-        <TableContainer
-            component={Paper}
-        >
-            <Table size="small">
-                <TableHead>
-                    <TableRow>
-                        <TableCell>
-                            <Typography variant="overline">
-                                Release Date
-                            </Typography>
-                        </TableCell>
-                        <TableCell align="right">
-                            <Typography variant="overline">
-                                Title/Role
-                            </Typography>
-                        </TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {truncatedMovieCredits.map(castMemberCredit => (
-                        <CastCreditsListRow
-                            key={castMemberCredit.creditId}
-                            castMemberCredit={castMemberCredit}
-                            hideLastBottomBorder={!isExpanded}
-                        />
-                    ))}
-                </TableBody>
-            </Table>
-            {!!remainingMovieCredits.length && <>
-                <Collapse in={isExpanded}>
-                    <Table size="small">
-                        <TableBody>
-                            {remainingMovieCredits.map(castMemberCredit => (
-                                <CastCreditsListRow
-                                    key={castMemberCredit.creditId}
-                                    castMemberCredit={castMemberCredit}
-                                    hideLastBottomBorder={isExpanded}
-                                />
-                            ))}
-                        </TableBody>
-                    </Table>
-                </Collapse>
-                <TableFooter>
-                    <Button
-                        onClick={handleShowMore}
-                        startIcon={isExpanded ? <ArrowDropUp/> : <ArrowDropDown/>}
-                        color="inherit"
-                    >
-                        Show&nbsp;{isExpanded ? "Less" : "All"}
-                    </Button>
-                </TableFooter>
-            </>}
-        </TableContainer>
+        <CollapsibleTable
+            label="Cast"
+            isCollapsed={isCollapsed}
+            onShowMore={handleShowMore}
+            tableHeaderRow={
+                <TableRow>
+                    <TableCell>
+                        <Typography variant="overline">
+                            Job
+                        </Typography>
+                    </TableCell>
+                    <TableCell align="right">
+                        <Typography variant="overline">
+                            Release Date
+                        </Typography>
+                    </TableCell>
+                </TableRow>}
+            persistentElements={!!truncatedCastCredits.length ? truncatedCastCredits.map(castMemberCredit => (
+                <CastCreditsListRow
+                    key={castMemberCredit.creditId}
+                    castMemberCredit={castMemberCredit}
+                    hideLastBottomBorder={!isCollapsed}
+                />
+            )) : null}
+            collapsedElements={!!remainingCastCredits.length ? remainingCastCredits.map(castMemberCredit => (
+                <CastCreditsListRow
+                    key={castMemberCredit.creditId}
+                    castMemberCredit={castMemberCredit}
+                    hideLastBottomBorder={!isCollapsed}
+                />
+            )) : null}
+        />
     );
 };
 
