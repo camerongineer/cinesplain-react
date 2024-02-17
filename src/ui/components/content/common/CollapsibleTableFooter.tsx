@@ -11,8 +11,8 @@ import {
 import React from "react";
 
 const StyledTableRow = styled(TableRow)`
-    &td, &th {
-        border-top: 10px;
+    & td, & th {
+        border: 0;
     }
 `;
 
@@ -32,6 +32,7 @@ const CollapsibleTableFooter: React.FC<TableCollapseFooterProps> = ({
                 startIcon={expanded ? <ArrowDropUp/> : <ArrowDropDown/>}
                 color="inherit"
                 fullWidth
+                size="small"
             >
                 Show&nbsp;{expanded ? "Less" : "All"}
             </Button>
