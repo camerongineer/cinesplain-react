@@ -20,8 +20,7 @@ import CastMember from "../../../../types/castMember.ts";
 import CrewMember from "../../../../types/crewMember.ts";
 import Person from "../../../../types/person.ts";
 import { getNumericId } from "../../../../utils/formatUtils.ts";
-import CastCreditsList from "./CastCreditsList.tsx";
-import CrewCreditsList from "./CrewCreditsList.tsx";
+import CreditsListsDisplay from "./CreditsListsDisplay.tsx";
 import PersonSideBar from "./PersonSideBar.tsx";
 import ProfileCard from "./ProfileCard.tsx";
 
@@ -70,7 +69,8 @@ const PersonPage: React.FC = () => {
     const { data } = useQuery({ ...personPageQuery(params.personId), initialData });
     const { person, movieCastCredits, movieCrewCredits } = data as LoaderData;
     const theme = useTheme();
-    const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+    const isXSScreen = useMediaQuery(theme.breakpoints.down("sm"));
+    const isSMScreen = useMediaQuery(theme.breakpoints.down("md"));
     
     useEffect(() => {
         document.title = `${person.name} - CineSplain - The Movie Info App`;
@@ -121,7 +121,7 @@ const PersonPage: React.FC = () => {
                                 </Typography>;
                             })}
                         </Stack>}
-                    {isSmallScreen && <PersonSideBar person={person}/>}
+                    {isXSScreen && <PersonSideBar person={person}/>}
                     <Typography
                         component="p"
                         variant="body1"
@@ -129,8 +129,11 @@ const PersonPage: React.FC = () => {
                     >
                         {person.biography}
                     </Typography>
-                    {!!movieCastCredits.length && <CastCreditsList castCredits={movieCastCredits}/>}
-                    {!!movieCrewCredits.length && <CrewCreditsList crewCredits={movieCrewCredits}/>}
+                    {!isSMScreen && <CreditsListsDisplay
+                        movieCastCredits={movieCastCredits}
+                        movieCrewCredits={movieCrewCredits}
+                        showCrewFirst={person.knownForDepartment !== "Acting"}
+                    />}
                 </Stack>
                 <Stack
                     alignItems={{
@@ -144,9 +147,14 @@ const PersonPage: React.FC = () => {
                     }}
                 >
                     <ProfileCard person={person}/>
-                    {!isSmallScreen && <PersonSideBar person={person}/>}
+                    {!isXSScreen && <PersonSideBar person={person}/>}
                 </Stack>
             </Stack>}
+            {isSMScreen && <CreditsListsDisplay
+                movieCastCredits={movieCastCredits}
+                movieCrewCredits={movieCrewCredits}
+                showCrewFirst={person.knownForDepartment !== "Acting"}
+            />}
         </StyledStack>);
 };
 
