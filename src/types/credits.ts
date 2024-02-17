@@ -1,8 +1,9 @@
-import Credit from "./credit.ts";
+import listDisplayMovieCastCredit from "./listDisplayMovieCastCredit.ts";
+import listDisplayMovieCrewCredit from "./listDisplayMovieCrewCredit.ts";
 
 type Credits = {
-    cast: Credit[]
-    crew: Credit[]
+    cast: listDisplayMovieCastCredit[]
+    crew: listDisplayMovieCrewCredit[]
 }
 
 export default Credits;
