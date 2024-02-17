@@ -55,7 +55,8 @@ const CastCreditsList: React.FC<CrewCreditsListProps> = ({
                 />
             )) : null}
             sx={{
-                maxWidth: "clamp(280px, 100%, 800px)",
+                minWidth: 280,
+                width: "100%",
                 height: "fit-content"
             }}
         />
