@@ -30,7 +30,7 @@ const CrewCreditsList: React.FC<CrewCreditsListProps> = ({
             isCollapsed={isCollapsed}
             onShowMore={handleShowMore}
             tableHeaderRow={
-                <TableRow>
+                <TableRow sx={{ "& td, & th": { border: 0 } }}>
                     <TableCell>
                         <Typography variant="overline">
                             Title/Job
@@ -46,14 +46,12 @@ const CrewCreditsList: React.FC<CrewCreditsListProps> = ({
                 <CrewCreditsListRow
                     key={crewMemberCredit.creditId}
                     crewMemberCredit={crewMemberCredit}
-                    hideLastBottomBorder={!isCollapsed}
                 />
             )) : null}
             collapsedElements={remainingCrewCredits.length ? remainingCrewCredits.map(crewMemberCredit => (
                 <CrewCreditsListRow
                     key={crewMemberCredit.creditId}
                     crewMemberCredit={crewMemberCredit}
-                    hideLastBottomBorder={!isCollapsed}
                 />
             )) : null}
             sx={{
