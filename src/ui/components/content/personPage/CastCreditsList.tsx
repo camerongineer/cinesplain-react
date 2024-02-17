@@ -56,6 +56,10 @@ const CastCreditsList: React.FC<CrewCreditsListProps> = ({
                     hideLastBottomBorder={!isCollapsed}
                 />
             )) : null}
+            sx={{
+                maxWidth: "clamp(280px, 100%, 800px)",
+                height: "fit-content"
+            }}
         />
     );
 };
