@@ -2,7 +2,6 @@ import imdb from "@assets/imdb_logo.svg";
 import {
     Box,
     Link as MuiLink,
-    Paper,
     Stack,
     styled
 } from "@mui/material";
@@ -25,13 +24,12 @@ import StarringDisplay from "../common/StarringDisplay.tsx";
 import TaglineDisplay from "../common/TaglineDisplay";
 import WritersDisplay from "../common/WritersDisplay.tsx";
 
-const StyledPaper = styled(Paper)`
-    flex-direction: column;
+const StyledStack = styled(Stack)`
     justify-content: center;
     align-items: center;
     transition: ${props => `opacity ${props.theme.transitions.duration.short}ms ease-in-out`};
-    background: linear-gradient(270deg, ${props => props.theme.palette.primary.main}60, ${props => props.theme.palette.background.paper});
     padding: 1em;
+    margin: 2em 0;
 `;
 
 interface MovieSideBarProps {
@@ -43,7 +41,7 @@ const MovieSideBar: React.FC<MovieSideBarProps> = ({
     movie,
     omdbDetails
 }) => (
-    <Stack
+    <StyledStack
         flex={{
             md: 1,
             lg: 1
@@ -51,8 +49,11 @@ const MovieSideBar: React.FC<MovieSideBarProps> = ({
         justifyContent="center"
         padding={1}
         marginX={1}
+        order={{
+            xs: -1,
+            md: 0
+        }}
     >
-        <StyledPaper elevation={5}>
             {movie.tagline && <TaglineDisplay tagline={movie.tagline}/>}
             {movie.overview && <SplainationDisplay overview={movie.overview}/>}
             <Stack
@@ -128,8 +129,7 @@ const MovieSideBar: React.FC<MovieSideBarProps> = ({
                         </Link>}
                 </Stack>
             </Stack>
-        </StyledPaper>
-    </Stack>
+    </StyledStack>
 );
 
 export default MovieSideBar;
