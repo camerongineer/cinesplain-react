@@ -35,7 +35,7 @@ const CollapsibleTable: React.FC<CollapsibleTableProps> = (props) => {
         <TableContainer {...rest}>
             <Table size="small">
                 <TableHead>
-                    {label && <TableRow>
+                    {label && <TableRow sx={{ "& td, & th": { border: 0 } }}>
                         <TableCell
                             colSpan={2}
                             align="right"
