@@ -4,7 +4,7 @@ import {
 } from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
-import Credit from "../../../../types/credit.ts";
+import listDisplayMovieCastCredit from "../../../../types/listDisplayMovieCastCredit.ts";
 import Person from "../../../../types/person.ts";
 import { getFormattedPersonLinkId } from "../../../../utils/formatUtils.ts";
 
@@ -23,7 +23,7 @@ const StyledStack = styled(Stack)`
 `;
 
 interface CastMemberRowProps {
-    castMembers: Credit[];
+    castMembers: listDisplayMovieCastCredit[];
 }
 
 const CastMemberRow: React.FC<CastMemberRowProps> = ({
@@ -41,13 +41,13 @@ const CastMemberRow: React.FC<CastMemberRowProps> = ({
                             castMember =>
                                 <Link
                                     to={`/person/${getFormattedPersonLinkId(castMember as unknown as Person)}`}
-                                    key={castMember.castId}
+                                    key={castMember.creditId}
                                 >
                                     <CastMemberCard
                                         sx={{
                                             minWidth: {
-                                                xs: "40vw",
-                                                sm: "28vw",
+                                                xs: "34vw",
+                                                sm: "26vw",
                                                 md: "156px"
                                             }
                                         }}
