@@ -1,6 +1,5 @@
 import {
     Box,
-    Paper,
     Stack,
     styled
 } from "@mui/material";
@@ -10,10 +9,8 @@ import { getYouTubeTrailerPath } from "../../../../api/moviesApi.ts";
 import Movie from "../../../../types/movie.ts";
 import Video from "../../../../types/video.ts";
 
-const StyledPaper = styled(Paper)`
-    background: linear-gradient(270deg, ${props => props.theme.palette.background.paper}, ${props => props.theme.palette.primary.main}60);
-    display: flex;
-    width: 95%;
+const StyledStack = styled(Stack)`
+    width: 100%;
 `;
 
 interface TrailerCardProps {
@@ -27,14 +24,8 @@ const TrailerDisplay: React.FC<TrailerCardProps> = ({
 }) => {
     return (
         <>
-            {trailer && <Stack
-                className="full center"
-                pt={1}
-                flex={{
-                    md: 1,
-                    lg: 2
-                }}>
-                <StyledPaper>
+            {trailer &&
+                <StyledStack>
                     <Box
                         className="center"
                         component="iframe"
@@ -51,8 +42,7 @@ const TrailerDisplay: React.FC<TrailerCardProps> = ({
                         title={`${movie.title} trailer`}
                         allowFullScreen
                     />
-                </StyledPaper>
-            </Stack>}
+                </StyledStack>}
         </>
     );
 };
