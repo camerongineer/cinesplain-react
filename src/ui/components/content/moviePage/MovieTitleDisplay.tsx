@@ -8,7 +8,7 @@ import {
 import React from "react";
 import { Link } from "react-router-dom";
 import useMovieBackdrop from "../../../../hooks/UseMovieBackdrop";
-import Credit from "../../../../types/credit.ts";
+import listDisplayMovieCrewCredit from "../../../../types/listDisplayMovieCrewCredit.ts";
 import Movie from "../../../../types/movie.ts";
 import omdbMovieDetails from "../../../../types/OmdbMovieDetails.ts";
 import Person from "../../../../types/person.ts";
@@ -30,7 +30,7 @@ const StyledGrid = styled(Grid)`
 interface MovieTitleDisplayProps {
     movie: Movie;
     omdbDetails: omdbMovieDetails | null;
-    director: Credit | undefined;
+    director: listDisplayMovieCrewCredit | undefined;
 }
 
 const MovieTitleDisplay: React.FC<MovieTitleDisplayProps> = ({
