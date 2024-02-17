@@ -25,6 +25,7 @@ import OmdbMovieDetails from "../../../../types/OmdbMovieDetails.ts";
 import { getNumericId } from "../../../../utils/formatUtils.ts";
 import CastMemberRow from "../common/CastMemberRow";
 import { personPageLoader } from "../personPage/PersonPage.tsx";
+import MovieCreditsListsDisplay from "./MovieCreditsListsDisplay.tsx";
 import MovieRecommendations from "./MovieRecommendations";
 import MovieSideBar from "./MovieSideBar";
 import MovieTitleDisplay from "./MovieTitleDisplay";
@@ -82,6 +83,7 @@ const MoviePage: React.FC = () => {
     const { data: recommendationsData } = useQuery({ ...movieRecommendationsQuery(movie.id) });
     const recommendations = recommendationsData as Movie[];
     
+    const displayedCast = credits?.cast.filter(castMember => castMember.profilePath) ?? null;
     const director = credits?.crew.find(crewMember => crewMember.name === omdbDetails?.director);
     
     useEffect(() => {
@@ -101,7 +103,7 @@ const MoviePage: React.FC = () => {
                     omdbDetails={omdbDetails}
                     director={director}
                 />
-                {credits && !!credits?.cast?.length && <CastMemberRow castMembers={credits.cast}/>}
+                {displayedCast && <CastMemberRow castMembers={displayedCast}/>}
                 <Stack
                     flexDirection={{
                         lg: "row"
@@ -113,15 +115,27 @@ const MoviePage: React.FC = () => {
                     justifyContent="space-evenly"
                     padding={1}
                 >
-                    {movie.trailer && <TrailerDisplay
-                        movie={movie}
-                        trailer={movie.trailer}
-                    />}
+                    <Stack
+                        className="full center"
+                        pt={1}
+                        spacing={2}
+                        flex={{
+                            md: 1,
+                            lg: 2
+                        }}
+                    >
+                        {movie.trailer && <TrailerDisplay
+                            movie={movie}
+                            trailer={movie.trailer}
+                        />}
+                        <MovieCreditsListsDisplay credits={credits}/>
+                    </Stack>
                     <MovieSideBar
                         movie={movie}
                         omdbDetails={omdbDetails}
                     />
                 </Stack>
+                
                 {!!recommendations?.length && <MovieRecommendations recommendedMovies={recommendations}/>}
             </StyledMoviePage>}
         </>
