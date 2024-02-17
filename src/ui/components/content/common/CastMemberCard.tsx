@@ -13,7 +13,7 @@ import { SxProps } from "@mui/system";
 import React, { useState } from "react";
 import { getImagePath } from "../../../../api/moviesApi.ts";
 import { PROFILE_SIZE } from "../../../../constants/ImageSizes";
-import Credit from "../../../../types/credit.ts";
+import listDisplayMovieCastCredit from "../../../../types/listDisplayMovieCastCredit.ts";
 
 const StyledCard = styled(Card)`
     height: fit-content;
@@ -25,7 +25,7 @@ const StyledCard = styled(Card)`
 `;
 
 interface CastMemberCardProps {
-    castMember: Credit;
+    castMember: listDisplayMovieCastCredit;
     sx?: SxProps;
 }
 
