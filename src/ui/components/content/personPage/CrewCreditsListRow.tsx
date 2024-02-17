@@ -1,6 +1,7 @@
 import {
     Box,
     Stack,
+    styled,
     TableCell,
     TableRow,
     Typography
@@ -13,14 +14,24 @@ import CrewMember from "../../../../types/crewMember.ts";
 import Movie from "../../../../types/movie.ts";
 import { getFormattedMovieLinkId } from "../../../../utils/formatUtils.ts";
 
+const StyledTableRow = styled(TableRow)`
+    cursor: pointer;
+
+    &:hover {
+        background-color: #00000060;
+    }
+
+    & td, & th {
+        border: 0;
+    }
+`;
+
 interface CrewCreditsListRowProps {
     crewMemberCredit: CrewMember;
-    hideLastBottomBorder: boolean;
 }
 
 const CrewCreditsListRow: React.FC<CrewCreditsListRowProps> = ({
-    crewMemberCredit,
-    hideLastBottomBorder: hideLastBottomBorder = true
+    crewMemberCredit
 }) => {
     const navigate = useNavigate();
     const onRowClick = () => navigate(`/movies/${getFormattedMovieLinkId({
@@ -28,16 +39,7 @@ const CrewCreditsListRow: React.FC<CrewCreditsListRowProps> = ({
                                                                              id: crewMemberCredit.id
                                                                          } as unknown as Movie)}`);
     return (
-        <TableRow
-            sx={{
-                cursor: "pointer",
-                "&:hover": {
-                    backgroundColor: "#00000060"
-                },
-                "&:last-child td, &:last-child th": { border: hideLastBottomBorder ? 0 : "auto" }
-            }}
-            onClick={onRowClick}
-        >
+        <StyledTableRow onClick={onRowClick}>
             <TableCell>
                 <Stack
                     direction="row"
@@ -81,7 +83,7 @@ const CrewCreditsListRow: React.FC<CrewCreditsListRowProps> = ({
                         : "Upcoming"}
                 </Typography>
             </TableCell>
-        </TableRow>
+        </StyledTableRow>
     );
 };
 
