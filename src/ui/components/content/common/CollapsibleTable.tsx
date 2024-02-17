@@ -1,10 +1,10 @@
 import {
     Collapse,
-    Paper,
     Table,
     TableBody,
     TableCell,
     TableContainer,
+    TableContainerProps,
     TableHead,
     TableRow,
     Typography
@@ -12,8 +12,8 @@ import {
 import React, { ReactNode } from "react";
 import CollapsibleTableFooter from "./CollapsibleTableFooter.tsx";
 
-interface CollapsibleTableProps {
-    label: String;
+interface CollapsibleTableProps extends TableContainerProps {
+    label?: String;
     tableHeaderRow: ReactNode;
     isCollapsed: boolean;
     onShowMore: () => void;
@@ -21,23 +21,24 @@ interface CollapsibleTableProps {
     collapsedElements: Iterable<ReactNode> | null;
 }
 
-const CollapsibleTable: React.FC<CollapsibleTableProps> = ({
-    label,
-    isCollapsed,
-    onShowMore,
-    tableHeaderRow,
-    persistentElements,
-    collapsedElements
-}) => {
+const CollapsibleTable: React.FC<CollapsibleTableProps> = (props) => {
+    const {
+        label,
+        isCollapsed,
+        onShowMore,
+        tableHeaderRow,
+        persistentElements,
+        collapsedElements,
+        ...rest
+    } = props;
     return (
-        <TableContainer component={Paper}>
+        <TableContainer {...rest}>
             <Table size="small">
                 <TableHead>
-                    <TableRow>
+                    {label && <TableRow>
                         <TableCell
                             colSpan={2}
                             align="right"
-                            style={{ border: 0 }}
                         >
                             <Typography
                                 variant="overline"
@@ -48,7 +49,7 @@ const CollapsibleTable: React.FC<CollapsibleTableProps> = ({
                                 {label}
                             </Typography>
                         </TableCell>
-                    </TableRow>
+                    </TableRow>}
                     {tableHeaderRow}
                 </TableHead>
                 <TableBody>
