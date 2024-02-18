@@ -10,27 +10,39 @@ import {
     Typography
 } from "@mui/material";
 import React, { ReactNode } from "react";
+import { useSearchParams } from "react-router-dom";
+import { toggleParams } from "../../../../utils/urlUtils.ts";
 import CollapsibleTableFooter from "./CollapsibleTableFooter.tsx";
 
 interface CollapsibleTableProps extends TableContainerProps {
     label?: String;
     tableHeaderRow: ReactNode;
-    isCollapsed: boolean;
-    onShowMore: () => void;
-    persistentElements: Iterable<ReactNode> | null;
-    collapsedElements: Iterable<ReactNode> | null;
+    truncatedAmount: number;
+    paramKey: string;
+    elements: Iterable<ReactNode> | null;
 }
 
 const CollapsibleTable: React.FC<CollapsibleTableProps> = (props) => {
     const {
         label,
-        isCollapsed,
-        onShowMore,
         tableHeaderRow,
-        persistentElements,
-        collapsedElements,
+        elements,
+        truncatedAmount,
+        paramKey,
         ...rest
     } = props;
+    let [searchParams, setSearchParams] = useSearchParams();
+    
+    const handleExpand = () => setSearchParams(
+        toggleParams(searchParams, paramKey), { replace: true, preventScrollReset: true }
+    );
+    
+    const isExpanded = !!searchParams.get(paramKey);
+    
+    const allElements = elements ? [...elements] : [];
+    const persistentElements = allElements.slice(0, truncatedAmount);
+    const collapsedElements = allElements.slice(truncatedAmount);
+    
     return (
         <TableContainer {...rest}>
             <Table size="small">
@@ -53,20 +65,20 @@ const CollapsibleTable: React.FC<CollapsibleTableProps> = (props) => {
                     {tableHeaderRow}
                 </TableHead>
                 <TableBody>
-                    {persistentElements}
-                    {collapsedElements && !isCollapsed && <CollapsibleTableFooter
-                        onClick={onShowMore}
-                        expanded={isCollapsed}
+                    {persistentElements.map(persistentElement => <>{persistentElement}</>)}
+                    {!!collapsedElements.length && !isExpanded && <CollapsibleTableFooter
+                        onClick={handleExpand}
+                        expanded={isExpanded}
                     />}
                 </TableBody>
             </Table>
-            {collapsedElements && <Collapse in={isCollapsed}>
+            {!!collapsedElements.length && <Collapse in={isExpanded}>
                 <Table size="small">
                     <TableBody>
-                        {collapsedElements}
-                        {isCollapsed && <CollapsibleTableFooter
-                            onClick={onShowMore}
-                            expanded={isCollapsed}
+                        {collapsedElements.map(collapsedElement => <>{collapsedElement}</>)}
+                        {collapsedElements && <CollapsibleTableFooter
+                            onClick={handleExpand}
+                            expanded={isExpanded}
                         />}
                     </TableBody>
                 </Table>
