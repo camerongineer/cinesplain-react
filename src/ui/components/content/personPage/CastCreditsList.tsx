@@ -3,7 +3,7 @@ import {
     TableRow,
     Typography
 } from "@mui/material";
-import React, { useState } from "react";
+import React from "react";
 import CastMember from "../../../../types/castMember.ts";
 import CollapsibleTable from "../common/CollapsibleTable.tsx";
 import CastCreditsListRow from "./CastCreditsListRow.tsx";
@@ -17,18 +17,11 @@ const CastCreditsList: React.FC<CrewCreditsListProps> = ({
     castCredits,
     truncatedCreditsSize = 8
 }) => {
-    const [isCollapsed, setIsCollapsed] = useState(false);
-    
-    const handleShowMore = () => setIsCollapsed(prevState => !prevState);
-    
-    const truncatedCastCredits = castCredits.slice(0, truncatedCreditsSize);
-    const remainingCastCredits = castCredits.slice(truncatedCreditsSize);
-    
     return (
         <CollapsibleTable
             label="Cast"
-            isCollapsed={isCollapsed}
-            onShowMore={handleShowMore}
+            truncatedAmount={truncatedCreditsSize}
+            paramKey="cst-exp"
             tableHeaderRow={
                 <TableRow sx={{ "& td, & th": { border: 0 } }}>
                     <TableCell>
@@ -42,13 +35,7 @@ const CastCreditsList: React.FC<CrewCreditsListProps> = ({
                         </Typography>
                     </TableCell>
                 </TableRow>}
-            persistentElements={!!truncatedCastCredits.length ? truncatedCastCredits.map(castMemberCredit => (
-                <CastCreditsListRow
-                    key={castMemberCredit.creditId}
-                    castMemberCredit={castMemberCredit}
-                />
-            )) : null}
-            collapsedElements={!!remainingCastCredits.length ? remainingCastCredits.map(castMemberCredit => (
+            elements={castCredits ? castCredits.map(castMemberCredit => (
                 <CastCreditsListRow
                     key={castMemberCredit.creditId}
                     castMemberCredit={castMemberCredit}

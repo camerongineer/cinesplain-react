@@ -3,7 +3,7 @@ import {
     TableRow,
     Typography
 } from "@mui/material";
-import React, { useState } from "react";
+import React from "react";
 import listDisplayMovieCrewCredit from "../../../../types/listDisplayMovieCrewCredit.ts";
 import CollapsibleTable from "../common/CollapsibleTable.tsx";
 import MovieCrewCreditsListRow from "./MovieCrewCreditsListRow.tsx";
@@ -17,17 +17,10 @@ const MovieCrewCreditsList: React.FC<MovieCrewCreditsListProps> = ({
     crewCredits,
     truncatedCreditsSize = 5
 }) => {
-    const [isCollapsed, setIsCollapsed] = useState(false);
-    
-    const handleShowMore = () => setIsCollapsed(prevState => !prevState);
-    
-    const truncatedCrewCredits = crewCredits.slice(0, truncatedCreditsSize);
-    const remainingCrewCredits = crewCredits.slice(truncatedCreditsSize);
-    
     return (
         <CollapsibleTable
-            isCollapsed={isCollapsed}
-            onShowMore={handleShowMore}
+            truncatedAmount={truncatedCreditsSize}
+            paramKey="crw-exp"
             tableHeaderRow={
                 <TableRow sx={{ "& td, & th": { border: 0 } }}>
                     <TableCell align="center">
@@ -39,13 +32,7 @@ const MovieCrewCreditsList: React.FC<MovieCrewCreditsListProps> = ({
                         </Typography>
                     </TableCell>
                 </TableRow>}
-            persistentElements={!!truncatedCrewCredits.length ? truncatedCrewCredits.map(crewCredit => (
-                <MovieCrewCreditsListRow
-                    key={crewCredit.creditId}
-                    crewCredit={crewCredit}
-                />
-            )) : null}
-            collapsedElements={!!remainingCrewCredits.length ? remainingCrewCredits.map(crewCredit => (
+            elements={!!crewCredits.length ? crewCredits.map(crewCredit => (
                 <MovieCrewCreditsListRow
                     key={crewCredit.creditId}
                     crewCredit={crewCredit}
