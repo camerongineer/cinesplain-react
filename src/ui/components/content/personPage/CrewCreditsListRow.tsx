@@ -52,6 +52,7 @@ const CrewCreditsListRow: React.FC<CrewCreditsListRowProps> = ({
                         src={getImagePath(crewMemberCredit.posterPath, POSTER_SIZE.XXXS_W92)}
                         width={45}
                         minHeight={crewMemberCredit.posterPath ? 67.5 : "auto"}
+                        loading="lazy"
                     />}
                     <Stack>
                         <Typography
