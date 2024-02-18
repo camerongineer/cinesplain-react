@@ -65,7 +65,7 @@ const CollapsibleTable: React.FC<CollapsibleTableProps> = (props) => {
                     {tableHeaderRow}
                 </TableHead>
                 <TableBody>
-                    {persistentElements.map(persistentElement => <>{persistentElement}</>)}
+                    {persistentElements}
                     {!!collapsedElements.length && !isExpanded && <CollapsibleTableFooter
                         onClick={handleExpand}
                         expanded={isExpanded}
@@ -75,7 +75,7 @@ const CollapsibleTable: React.FC<CollapsibleTableProps> = (props) => {
             {!!collapsedElements.length && <Collapse in={isExpanded}>
                 <Table size="small">
                     <TableBody>
-                        {collapsedElements.map(collapsedElement => <>{collapsedElement}</>)}
+                        {collapsedElements}
                         {collapsedElements && <CollapsibleTableFooter
                             onClick={handleExpand}
                             expanded={isExpanded}
